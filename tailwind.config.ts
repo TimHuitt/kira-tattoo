@@ -17,6 +17,9 @@ const config: Config = {
         sans: ['var(--font-jockey)'],
         mono: ['var(--font-roboto-mono)'],
       },
+      boxShadow: {
+        'purple': '0 4px 6px -1px rgba(129, 90, 245, 0.1), 0 2px 4px -2px rgba(129, 90, 245, 0.1)', // Example for purple shadow
+      },
     },
   },
   plugins: [],
