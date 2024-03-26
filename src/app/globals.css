@@ -6,6 +6,7 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 31, 29, 34;
   --background-end-rgb: 56, 52, 63;
+  box-sizing: border-box;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -25,5 +26,20 @@ body {
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-2 rounded;
+  }
+  .btn-hover {
+    @apply hover:border-b-4 hover:border-violet-500
+  }
+  .tab {
+    @apply px-6 border-4 h-1/2 border-b-0 border-pink-900 rounded-xl rounded-b-none bg-zinc-900 bg-opacity-75
+  }
+  .tab-hover {
+    @apply hover:border-pink-500 hover:h-4/6
   }
 }
