@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Jockey_One } from "next/font/google";
+import { headers } from 'next/headers'
+import { useState, useEffect } from 'react'
+import Image from "next/image";
+
 import Header from '../components/Header'
 import "./globals.css";
-import Image from "next/image";
-import Footer from '../components/Footer'
 
 const jockey = Jockey_One({
   subsets: ["latin"],
@@ -24,17 +26,15 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <main className="fixed w-full h-full flex items-center mx-auto mt-10 overflow-hidden z-10">
           <div className="relative pt-12 w-5/6 max-w-3xl h-full text-white mx-auto pb-40 p-6 bg-zinc-800 shadow-lg overflow-auto">
             {children}
-            <div className="absolute w-60 h-60 top-4 right-4 z-10 rotate-180">
+            <div className="absolute w-[50vmin] max-w-60 h-[50vmin] max-h-60 top-5 right-2 flex justify-end z-10 rotate-180 border-none">
               <Image
                 src="corner.svg"
                 alt=""
                 fill
-                className="max-w-60 max-h-60"
+                sizes="(max-width: 768px) 100vw, 33vw"
               />
             </div>
           </div>
-
-          <Footer />
         </main>
       </body>
     </html>
