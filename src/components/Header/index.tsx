@@ -9,26 +9,24 @@ const Header: React.FC = () => {
   let [ selected, setSelected ] = useState<string>('')
 
   useEffect(() => {
-    console.log(path)
     switch(path) {
       case '/':
         setSelected('home')
-        break;
+        break
       case '/portfolio':
         setSelected('portfolio')
-        break;
-        break;
+        break
       case '/booking':
         setSelected('booking')
-        break;
-        break;
+        break
       case '/contact':
         setSelected('contact')
-        break;
+        break
       default:
         setSelected('')
-        break;
+        break
     }
+    
   },[path])
   
   return (
