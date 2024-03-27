@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 
-export default function Home() {
+export default function Booking() {
   return (
     <main className="fixed w-full h-full flex items-center mx-auto mt-10 overflow-hidden z-10">
       <div className="relative pt-12 w-5/6 max-w-3xl h-full text-white mx-auto pb-40 p-6 bg-zinc-800 shadow-lg overflow-auto">

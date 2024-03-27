@@ -6,7 +6,7 @@ export default function Home() {
     <main className="fixed w-full h-full flex items-center mx-auto mt-10 overflow-hidden z-10">
       <div className="relative pt-12 w-5/6 max-w-3xl h-full text-white mx-auto pb-40 p-6 bg-zinc-800 shadow-lg overflow-auto">
         <div className="relative z-30">
-          <h1 className="text-4xl text-center pb-10">Welcome!</h1>
+          <h1 className="text-4xl text-center pt-20 pb-32">Welcome!</h1>
           <p>
           Sapien, pulvinar nostra integer sociosqu dignissim ultrices tincidunt ad penatibus sed! Mus porttitor felis et; pellentesque diam. Blandit quisque, posuere pretium vivamus. Metus urna mattis taciti pharetra nascetur maecenas. Justo placerat lacus ipsum. Ad sed ante eu eleifend massa aenean aptent curae; justo placerat. Proin sollicitudin dui dictum parturient fusce felis ad felis montes. Ante arcu porta laoreet; mus porttitor eros cras arcu vestibulum imperdiet. Tempor primis molestie nisl litora rhoncus. Mus commodo taciti fames. Tortor tincidunt nascetur ac netus curabitur nisl volutpat varius.
           </p><p>

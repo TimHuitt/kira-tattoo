@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Jockey_One } from "next/font/google";
 import Header from '../components/Header'
-import Footer from '../components/Footer'
 import "./globals.css";
 
 const jockey = Jockey_One({
@@ -21,7 +20,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={jockey.className}>
         <Header />
         {children}
-        <Footer />
       </body>
     </html>
   );

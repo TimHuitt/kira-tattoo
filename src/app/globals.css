@@ -21,10 +21,10 @@ body {
   width: 100vw;
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-start-rgb));
-  background-image: url("/stars.png");
+  /* background-image: url("/stars.png");
   background-size: 20%;
   background-position: top;
-  background-repeat: repeat;
+  background-repeat: repeat; */
 }
 
 p {
@@ -39,7 +39,7 @@ p {
 
 @layer components {
   .btn {
-    @apply px-2 rounded;
+    @apply h-full px-2 rounded;
   }
   .btn-hover {
     @apply hover:border-b-4 hover:border-violet-500
