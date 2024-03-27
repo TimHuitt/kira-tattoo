@@ -6,11 +6,9 @@ export default function Home() {
     <main className="fixed w-full h-full flex items-center mx-auto mt-10 overflow-hidden z-10">
       <div className="relative pt-12 w-5/6 max-w-3xl h-full text-white mx-auto pb-40 p-6 bg-zinc-800 shadow-lg overflow-auto">
         <div className="relative z-30">
-          <h1 className="text-4xl text-center pb-10">Welcome!</h1>
+          <h1 className="text-4xl text-center pb-10">Contact</h1>
           <p>
           Sapien, pulvinar nostra integer sociosqu dignissim ultrices tincidunt ad penatibus sed! Mus porttitor felis et; pellentesque diam. Blandit quisque, posuere pretium vivamus. Metus urna mattis taciti pharetra nascetur maecenas. Justo placerat lacus ipsum. Ad sed ante eu eleifend massa aenean aptent curae; justo placerat. Proin sollicitudin dui dictum parturient fusce felis ad felis montes. Ante arcu porta laoreet; mus porttitor eros cras arcu vestibulum imperdiet. Tempor primis molestie nisl litora rhoncus. Mus commodo taciti fames. Tortor tincidunt nascetur ac netus curabitur nisl volutpat varius.
-          </p><p>
-          Fusce orci nostra suspendisse velit taciti iaculis congue aenean mattis. Nulla sollicitudin neque tristique nostra dictumst? Lobortis curabitur dui molestie magnis vehicula ultrices dictumst. Facilisis curabitur montes pulvinar gravida eu tristique vel parturient, duis ligula. Facilisi porttitor dignissim nisi massa integer. Interdum per porta, quisque dictumst nec amet nostra nunc! Nisl, nisi etiam lacinia iaculis dictumst iaculis facilisi! Tempor id urna condimentum id inceptos praesent. Ultrices vulputate phasellus tincidunt vitae lorem ac nullam eleifend iaculis penatibus. Vivamus parturient ante enim amet risus, nec quam vehicula! Consequat.
           </p>
         </div>
         <div className="absolute w-60 h-60 top-4 right-0 z-10 rotate-180">

@@ -27,6 +27,10 @@ body {
   background-repeat: repeat;
 }
 
+p {
+  margin-bottom: 14px;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
