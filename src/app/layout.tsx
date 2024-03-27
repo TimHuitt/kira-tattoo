@@ -24,7 +24,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <main className="fixed w-full h-full flex items-center mx-auto mt-10 overflow-hidden z-10">
           <div className="relative pt-12 w-5/6 max-w-3xl h-full text-white mx-auto pb-40 p-6 bg-zinc-800 shadow-lg overflow-auto">
             {children}
-            <div className="absolute w-60 h-60 top-4 right-0 z-10 rotate-180">
+            <div className="absolute w-60 h-60 top-4 right-4 z-10 rotate-180">
               <Image
                 src="corner.svg"
                 alt=""
