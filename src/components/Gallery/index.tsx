@@ -1,59 +1,66 @@
-import Slider from "react-slick";
 import Image from 'next/image'
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import 'swiper/css';
+import 'swiper/css/pagination'
+import 'swiper/css/navigation'
+
+import { register } from 'swiper/element/bundle';
+register();
 
 type ImageProps = {
   images: [string, string][]
 }
 
-const ImageGallery:React.FC<ImageProps> = ({ images }) => {
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 3,
-        slidesToScroll: 3,
-        autoplay: true,
-        autoplaySpeed: 2000,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                    infinite: true,
-                    dots: true
-                }
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    initialSlide: 2
-                }
-            }
-        ]
-    };
-
-    return (
-      <div className="min-h-40 w-full my-10 px-4">
-        <Slider {...settings}>
-            {images.map((image, index) => (
-              <div key={index} className="relative min-h-40 w-40">
-                <Image 
-                  src={image[0]} 
-                  alt={image[1]} 
-                  fill 
-                  objectFit="contain" 
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-              </div>
-            ))}
-        </Slider>
-      </div>
-    );
+const ImageGallery: React.FC<ImageProps> = ({ images }) => {
+  
+  return (
+      <Swiper
+        style={{
+          '--swiper-navigation-color': '#fff',
+          '--swiper-pagination-color': '#fff',
+        } as any }
+        spaceBetween={20}
+        slidesPerView={2}
+        autoplay={{
+          delay: 2000,
+          disableOnInteraction: false,
+        }}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        onSlideChange={() => console.log('slide change')}
+        onSwiper={(swiper) => console.log(swiper)}
+      >
+      {images.map((image, index) => (
+        <div key={index} className="swiper-slide">
+          <SwiperSlide>
+            <Image 
+              src={image[0]} 
+              alt={image[1]} 
+              layout="fill"
+              objectFit="contain"
+            />
+          </SwiperSlide>
+        </div>
+      ))}
+    </Swiper>
+  );
+//   return (
+// 
+//     <div className="min-h-40 w-full my-10 px-4">
+//       <div className="swiper-container">
+//         <div className="swiper-wrapper">
+//           {images.map((image, index) => (
+//             <div key={index} className="swiper-slide">
+//               <img src={image[0]} alt={image[1]} />
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     </div>
+//   );
 };
 
 export default ImageGallery;

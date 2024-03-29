@@ -24,7 +24,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={jockey.className}>
         <Header />
         <main className="fixed w-full h-full flex items-center mx-auto mt-10 overflow-hidden z-10">
-          <div className="relative pt-12 w-5/6 max-w-3xl h-full text-white mx-auto pb-40 p-6 bg-zinc-800 shadow-lg overflow-auto">
+          <div className="relative pt-12 w-5/6 max-w-3xl h-full text-white mx-auto pb-40 p-6 bg-zinc-800 shadow-lg overflow-y-auto overflow-x-hidden">
             {children}
             <div className="absolute w-[50vmin] max-w-60 h-[50vmin] max-h-60 top-5 right-2 flex justify-end z-10 rotate-180 border-none">
               <Image
