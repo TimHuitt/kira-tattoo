@@ -4,10 +4,11 @@ import { useState, useEffect } from 'react'
 import Gallery from '../components/Gallery'
 
 export default function Home() {
-  const [ images, setImages ] = useState<[string, string][]>(([]))
+  const [ images, setImages ] = useState<string[]>(([]))
   
   useEffect(() => {
-    setImages([['/stars2.png', 'stars2.png'], ['/stars.png', 'stars'], ['/corner.svg', 'corner'], ['/stars2.png', 'stars2.png'], ['/stars.png', 'stars'], ['/corner.svg', 'corner']])
+    setImages(["/stars2.png", "/stars.png", "/corner.svg", "/stars2.png", "/stars.png", "/corner.svg"]
+    )
   },[])
 
   return (
