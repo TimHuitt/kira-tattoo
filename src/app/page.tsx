@@ -7,8 +7,7 @@ export default function Home() {
   const [ images, setImages ] = useState<string[]>(([]))
   
   useEffect(() => {
-    setImages(["/stars2.png", "/stars.png", "/corner.svg", "/stars2.png", "/stars.png", "/corner.svg"]
-    )
+    setImages(["/stars2.png", "/stars.png", "/corner.svg", "/stars2.png", "/stars.png", "/corner.svg"])
   },[])
 
   return (
