@@ -41,8 +41,8 @@ const ImageGallery: React.FC<ImageProps> = ({ images }) => {
           clickable: true,
         }}
         navigation={true}
-        onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}
+        onSlideChange={() => null}
+        onSwiper={(swiper) => null}
       >
       {images.map((image, index) => (
         <SwiperSlide key={index}>
