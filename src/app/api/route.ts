@@ -33,5 +33,4 @@ export async function GET() {
       }
     })
   }
-
 }
