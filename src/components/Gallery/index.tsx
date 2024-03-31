@@ -1,18 +1,18 @@
 
-import React, { useState, useEffect, MouseEventHandler } from 'react';
+import React, { useState, useEffect, MouseEventHandler } from 'react'
 import { useModalContext } from '../../app/provider'
 import Image from 'next/image'
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { register } from 'swiper/element/bundle';
-import { AdvancedImage } from '@cloudinary/react';
-import { Cloudinary } from '@cloudinary/url-gen/index';
-import { fill } from '@cloudinary/url-gen/actions/resize';
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { register } from 'swiper/element/bundle'
+import { AdvancedImage } from '@cloudinary/react'
+import { Cloudinary } from '@cloudinary/url-gen/index'
+import { fill } from '@cloudinary/url-gen/actions/resize'
 
-import 'swiper/css';
+import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 
-register();
+register()
 
 type ImageProps = {
   images: string[]
@@ -78,16 +78,16 @@ const ImageGallery = ({ images }: ImageProps) => {
       {images?.map((image, index) => {
         const currentImg = cld.image(image)
         currentImg.resize(fill().width(250).height(250))
+
         return (
           <SwiperSlide key={index}>
-          <div className="swiper-slide cursor-pointer" onClick={handleClick}>
+            <div className="swiper-slide flex justify-center cursor-pointer" onClick={handleClick}>
               <AdvancedImage
                 cldImg={currentImg}
                 alt={image}
-                style={{
-                  objectFit: "contain",
-                }}
+                style={{ maxWidth: '100%', height: 'auto', display: 'block', margin: '0 auto' }}
               />
+              {/* <p className='text-center'>{ image }</p> */}
             </div>
           </SwiperSlide>
         )

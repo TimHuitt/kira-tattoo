@@ -15,7 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 }
 
 async function handleGet(req: NextApiRequest, res: NextApiResponse) {
-  const maxResults = 30
+  const maxResults = 10
   const url = `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image?max_results=${maxResults}`
   
   try {
