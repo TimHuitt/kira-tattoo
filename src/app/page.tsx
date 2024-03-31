@@ -6,9 +6,27 @@ import Gallery from '../components/Gallery'
 export default function Home() {
   const [ images2, setImages2 ] = useState<string[]>(([]))
   
+  const [ images, setImages ] = useState<string[]>(([]))
+
   useEffect(() => {
     setImages2(["/stars2.png", "/stars.png", "/corner.svg", "/stars2.png", "/stars.png", "/corner.svg"])
     
+    async function fetchImages() {
+      try {
+        // Fetching data from your internal API route
+        const res = await fetch('/api/route');
+        const data = await res.json();
+        if (data && data.resources) {
+          console.log(data.resources)
+          // setImages(data.resources.map((resource: { url: any }) => resource.url));
+        }
+      } catch (e) {
+        console.error("Fetch Error:", e);
+      }
+    }
+
+    fetchImages();
+
   },[])
 
   return (
