@@ -31,7 +31,7 @@ const ImageGallery: React.FC<ImageProps> = ({ images }) => {
           '--swiper-pagination-color': '#fff',
         } as any }
         spaceBetween={20}
-        slidesPerView={2}
+        slidesPerView={1}
         loop={true}
         autoplay={{
           delay: 2000,
@@ -41,10 +41,10 @@ const ImageGallery: React.FC<ImageProps> = ({ images }) => {
           clickable: true,
         }}
         navigation={true}
-        onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}
+        // onSlideChange={() => console.log('slide change')}
+        // onSwiper={(swiper) => console.log(swiper)}
       >
-      {images.map((image, index) => (
+      {images?.map((image, index) => (
         <SwiperSlide key={index}>
          <div className="swiper-slide cursor-pointer" onClick={handleClick}>
             <Image 
