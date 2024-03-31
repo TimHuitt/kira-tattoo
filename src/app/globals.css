@@ -48,7 +48,7 @@ p {
     @apply text-lime-500 text-opacity-90 border-b-4 border-lime-200 border-opacity-90 border-b-4 hover:border-lime-500 hover:border-opacity-50
   }
   .tab {
-    @apply text-xs md:text-base lg:text-lg px-2 md:px-4 lg:px-6 border-4 h-1/2 border-b-0 border-pink-900 rounded-xl rounded-b-none bg-zinc-900 bg-opacity-75
+    @apply text-sm md:text-lg lg:text-xl px-2 md:px-4 lg:px-6 border-4 h-1/2 border-b-0 border-pink-900 rounded-xl rounded-b-none bg-zinc-900 bg-opacity-75
   }
   .tab-hover {
     @apply hover:border-pink-500 hover:h-4/6
