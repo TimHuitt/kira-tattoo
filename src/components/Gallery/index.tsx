@@ -73,7 +73,10 @@ const ImageGallery = ({ images }: ImageProps) => {
               src={image}
               alt={image} 
               fill
-              objectFit="contain"
+              sizes="(max-width: 768px) 100vw, 33vw"
+              style={{
+                objectFit: "contain"
+              }}
             />
           </div>
         </SwiperSlide>
