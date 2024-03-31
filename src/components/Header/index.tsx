@@ -11,7 +11,7 @@ const Header: React.FC = () => {
   const path: string = usePathname()
   const [ selected, setSelected ] = useState<string>('')
   const [ width, setWidth ] = useState<number>(0)
-  const [ showMenu, setShowMenu ] = useState<boolean>(true)
+  const [ showMenu, setShowMenu ] = useState<boolean>(false)
 
   useEffect(() => {
     const handleResize = () => {
@@ -30,7 +30,7 @@ const Header: React.FC = () => {
         window.removeEventListener('resize', handleResize)
       }
     }
-  
+    setShowMenu(false)
   },[])
 
   useEffect(() => {
@@ -51,10 +51,11 @@ const Header: React.FC = () => {
         setSelected('')
         break
     }
+    setShowMenu(false)
   },[path])
 
   const toggleMenu = () => {
-
+    setShowMenu(prev => !prev)
   }
   
   return (
@@ -90,12 +91,11 @@ const Header: React.FC = () => {
           )}
         </div>
       </header>
-      {/* { showMenu ? (
-        <Menu />
+      { showMenu ? (
+        <Menu toggleMenu={toggleMenu} selected={selected} />
       ) : (
         ''
-      )} */}
-      <Menu selected={selected} />
+      )}
     </>
   )
 }
