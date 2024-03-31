@@ -1,5 +1,5 @@
 
-import React, { useState, MouseEvent, MouseEventHandler } from 'react';
+import React, { useState, useEffect, MouseEventHandler } from 'react';
 import Image from 'next/image'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { register } from 'swiper/element/bundle';
@@ -17,10 +17,32 @@ type ImageProps = {
 
 
 const ImageGallery: React.FC<ImageProps> = ({ images }) => {
+  const [ width, setWidth ] = useState<number>(0)
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth)
+    }
+
+    if (typeof window !== 'undefined') {
+      handleResize()
+      window.addEventListener('onload', handleResize)
+      window.addEventListener('resize', handleResize)
+    }
+
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('onload', handleResize)
+        window.removeEventListener('resize', handleResize)
+      }
+    }
+
+  },[])
 
   const handleClick: MouseEventHandler<HTMLDivElement> = (e) => {
     const target = e.target as HTMLImageElement
     console.log(target.alt)
+    console.log(width)
   }
       
   return (
@@ -31,7 +53,7 @@ const ImageGallery: React.FC<ImageProps> = ({ images }) => {
           '--swiper-pagination-color': '#fff',
         } as any }
         spaceBetween={20}
-        slidesPerView={1}
+        slidesPerView={width > 400 ? 2 : 1}
         loop={true}
         autoplay={{
           delay: 2000,
@@ -40,7 +62,7 @@ const ImageGallery: React.FC<ImageProps> = ({ images }) => {
         pagination={{
           clickable: true,
         }}
-        navigation={true}
+        navigation={width > 400 ? true : false}
         // onSlideChange={() => console.log('slide change')}
         // onSwiper={(swiper) => console.log(swiper)}
       >
