@@ -14,12 +14,14 @@ export default function Home() {
 
   return (
     <div className="relative z-30">
-      <div className='w-5/6 max-h-60'>
+      <div className='w-5/6 max-h-60 min-h-20 md:min-h-40 md:min-h-56'>
         <div className='w-[75px] h-[75px] rounded-full overflow-hidden'>
           <Image
             src="/images/1.webp"
             alt=""
-            objectFit="contain"
+            style={{
+              objectFit: 'contain',
+            }}
             width={75}
             height={75}
           />
