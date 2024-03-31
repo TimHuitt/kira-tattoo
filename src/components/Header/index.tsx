@@ -8,7 +8,7 @@ import Menu from '../../components/Menu'
 
 
 const Header: React.FC = () => {
-  const path: string = usePathname()
+  const path: string = usePathname() ?? ''
   const [ selected, setSelected ] = useState<string>('')
   const [ width, setWidth ] = useState<number>(0)
   const [ showMenu, setShowMenu ] = useState<boolean>(false)

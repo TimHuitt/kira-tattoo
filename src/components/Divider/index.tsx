@@ -6,10 +6,12 @@ const Divider: React.FC = () => {
       <Image
           src="divider.svg"
           alt="divider"
-          objectFit="contain"
           height={10}
           width={400}
           sizes="(max-width: 768px) 100vw, 33vw"
+          style={{
+            objectFit: 'contain',
+          }}
         />
     </div>
   )
