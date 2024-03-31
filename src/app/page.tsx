@@ -21,6 +21,7 @@ export default function Home() {
         const res = await fetch('/api/route')
         const data = await res.json()
         if (data) {
+          console.log(data)
           const finalData = data.data.map((resource: { public_id: string }) => resource.public_id)
           console.log(finalData)
           setImages(finalData);

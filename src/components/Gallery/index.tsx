@@ -4,6 +4,9 @@ import { useModalContext } from '../../app/provider'
 import Image from 'next/image'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { register } from 'swiper/element/bundle';
+import { AdvancedImage } from '@cloudinary/react';
+import { Cloudinary } from '@cloudinary/url-gen/index';
+import { fill } from '@cloudinary/url-gen/actions/resize';
 
 import 'swiper/css';
 import 'swiper/css/pagination'
@@ -18,6 +21,12 @@ type ImageProps = {
 const ImageGallery = ({ images }: ImageProps) => {
   const { setShowModal, setCurrentImage } = useModalContext()
   const [ width, setWidth ] = useState<number>(0)
+
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: "dqty1eboa"
+    }
+  })
   
   useEffect(() => {
     const handleResize = () => {
@@ -66,21 +75,23 @@ const ImageGallery = ({ images }: ImageProps) => {
         // onSlideChange={() => console.log('slide change')}
         // onSwiper={(swiper) => console.log(swiper)}
       >
-      {images?.map((image, index) => (
-        <SwiperSlide key={index}>
-         <div className="swiper-slide cursor-pointer" onClick={handleClick}>
-            <Image 
-              src={image}
-              alt={image} 
-              fill
-              sizes="(max-width: 768px) 100vw, 33vw"
-              style={{
-                objectFit: "contain"
-              }}
-            />
-          </div>
-        </SwiperSlide>
-      ))}
+      {images?.map((image, index) => {
+        const currentImg = cld.image(image)
+        currentImg.resize(fill().width(250).height(250))
+        return (
+          <SwiperSlide key={index}>
+          <div className="swiper-slide cursor-pointer" onClick={handleClick}>
+              <AdvancedImage
+                cldImg={currentImg}
+                alt={image}
+                style={{
+                  objectFit: "contain",
+                }}
+              />
+            </div>
+          </SwiperSlide>
+        )
+      })}
     </Swiper>
   )
 //   return (
@@ -100,3 +111,4 @@ const ImageGallery = ({ images }: ImageProps) => {
 };
 
 export default ImageGallery;
+
