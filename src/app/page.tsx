@@ -20,7 +20,7 @@ export default function Home() {
     <>
       <div className="relative z-30">
         <div className='w-5/6 max-h-60 min-h-20 md:min-h-40 md:min-h-56'>
-          <div className='w-[75px] h-[75px] rounded-full overflow-hidden'>
+          <div className='w-[75px] h-[75px] mb-4 rounded-full overflow-hidden'>
             <Image
               src="/images/1.webp"
               alt=""
@@ -31,8 +31,8 @@ export default function Home() {
               height={75}
             />
           </div>
-          <br />
           <h1 className="text-4xl text-start">Hi, I&apos;m Kira!</h1>
+          <p className='text-sm md:text-base'>And here&apos;s something about me or something</p>
         </div>
         <div className='max-w-full overflow-hidden'>
           <Gallery images={ images } />

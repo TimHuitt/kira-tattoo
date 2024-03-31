@@ -53,7 +53,7 @@ const ImageGallery = ({ images }: ImageProps) => {
           '--swiper-pagination-color': '#fff',
         } as any }
         spaceBetween={20}
-        slidesPerView={width > 400 ? 2 : 1}
+        slidesPerView={width > 500 ? 2 : 1}
         loop={true}
         autoplay={{
           delay: 2000,
@@ -62,7 +62,7 @@ const ImageGallery = ({ images }: ImageProps) => {
         pagination={{
           clickable: true,
         }}
-        navigation={width > 400 ? true : false}
+        navigation={width > 500 ? true : false}
         // onSlideChange={() => console.log('slide change')}
         // onSwiper={(swiper) => console.log(swiper)}
       >
