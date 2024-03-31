@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, MouseEventHandler } from 'react';
+import { useModalContext } from '../../app/provider'
 import Image from 'next/image'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { register } from 'swiper/element/bundle';
@@ -14,9 +15,8 @@ type ImageProps = {
   images: string[]
 }
 
-
-
-const ImageGallery: React.FC<ImageProps> = ({ images }) => {
+const ImageGallery = ({ images }: ImageProps) => {
+  const { setShowModal, setCurrentImage } = useModalContext()
   const [ width, setWidth ] = useState<number>(0)
   
   useEffect(() => {
@@ -41,8 +41,8 @@ const ImageGallery: React.FC<ImageProps> = ({ images }) => {
 
   const handleClick: MouseEventHandler<HTMLDivElement> = (e) => {
     const target = e.target as HTMLImageElement
-    console.log(target.alt)
-    console.log(width)
+    setShowModal(true)
+    setCurrentImage(target.alt)
   }
       
   return (
