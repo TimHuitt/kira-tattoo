@@ -3,6 +3,8 @@ import { useModalContext } from '../../app/provider'
 import { AdvancedImage } from '@cloudinary/react'
 import { Cloudinary } from '@cloudinary/url-gen/index'
 import { fill } from '@cloudinary/url-gen/actions/resize'
+import BounceLoader from 'react-spinners/BounceLoader'
+import RingLoader from 'react-spinners/RingLoader'
 
 type imageProp = {
   src: string
@@ -31,13 +33,15 @@ const Modal: React.FC<imageProp> = ({ src }) => {
   // currentImg.resize(fill().width(250).height(250))
   return (
     <>
-      { loading && (
-        <div className='fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-900 z-50'>
-          <h1>Loading...</h1>
-        </div>
-      )}
-      <div className='fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-900 z-50'>
-        <h1>Loading...</h1>
+      <div className='fixed top-0 left-0 w-screen h-screen flex justify-center items-center pointer-events-none z-50'>
+        <RingLoader
+          // color={color}
+          // cssOverride={override}
+          loading={loading}
+          size={150}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
       </div>
       
       <div className='fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-900 z-40' onClick={handleClick}>

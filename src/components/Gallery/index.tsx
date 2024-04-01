@@ -7,6 +7,7 @@ import { register } from 'swiper/element/bundle'
 import { AdvancedImage } from '@cloudinary/react'
 import { Cloudinary } from '@cloudinary/url-gen/index'
 import { fill } from '@cloudinary/url-gen/actions/resize'
+import CircleLoader from 'react-spinners/CircleLoader'
 
 import 'swiper/css'
 import 'swiper/css/pagination'
@@ -21,6 +22,7 @@ type ImageProps = {
 const ImageGallery = ({ images }: ImageProps) => {
   const { setShowModal, setCurrentImage } = useModalContext()
   const [ width, setWidth ] = useState<number>(0)
+  const [ loadingImages, setLoadingImages ] = useState<boolean[]>(new Array(images.length).fill(true))
 
   const cld = new Cloudinary({
     cloud: {
@@ -35,13 +37,13 @@ const ImageGallery = ({ images }: ImageProps) => {
 
     if (typeof window !== 'undefined') {
       handleResize()
-      window.addEventListener('onload', handleResize)
+      window.addEventListener('load', handleResize)
       window.addEventListener('resize', handleResize)
     }
 
     return () => {
       if (typeof window !== 'undefined') {
-        window.removeEventListener('onload', handleResize)
+        window.removeEventListener('load', handleResize)
         window.removeEventListener('resize', handleResize)
       }
     }
@@ -53,6 +55,11 @@ const ImageGallery = ({ images }: ImageProps) => {
     setShowModal(true)
     setCurrentImage(target.alt)
   }
+
+  const handleLoading = (index: number) => {
+    console.log(loadingImages)
+    setLoadingImages(loading => loading.map((state, i) => i === index ? false : state))
+  }
       
   return (
       <Swiper
@@ -63,11 +70,11 @@ const ImageGallery = ({ images }: ImageProps) => {
         } as any }
         spaceBetween={20}
         slidesPerView={width > 500 ? 2 : 1}
-        loop={true}
-        autoplay={{
-          delay: 2000,
-          disableOnInteraction: false,
-        }}
+        // loop={true}
+        // autoplay={{
+        //   delay: 2000,
+        //   disableOnInteraction: false,
+        // }}
         pagination={{
           clickable: true,
         }}
@@ -80,11 +87,22 @@ const ImageGallery = ({ images }: ImageProps) => {
         currentImg.resize(fill().width(250).height(250))
 
         return (
-          <SwiperSlide key={index}>
+          <SwiperSlide key={`${image}-index`}>
             <div className="swiper-slide flex justify-center cursor-pointer" onClick={handleClick}>
+            <div className='w-full h-full flex justify-center items-center'>
+              <CircleLoader
+                // color={color}
+                // cssOverride={override}
+                loading={loadingImages[index]}
+                size={75}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+            </div>
               <AdvancedImage
                 cldImg={currentImg}
                 alt={image}
+                onLoad={() => handleLoading(index)}
                 style={{ maxWidth: '100%', height: 'auto', display: 'block', margin: '0 auto' }}
               />
               {/* <p className='text-center'>{ image }</p> */}
@@ -94,20 +112,6 @@ const ImageGallery = ({ images }: ImageProps) => {
       })}
     </Swiper>
   )
-//   return (
-// 
-//     <div className="min-h-40 w-full my-10 px-4">
-//       <div className="swiper-container">
-//         <div className="swiper-wrapper">
-//           {images.map((image, index) => (
-//             <div key={index} className="swiper-slide">
-//               <img src={image[0]} alt={image[1]} />
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </div>
-//   );
 };
 
 export default ImageGallery;
