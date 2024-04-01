@@ -15,7 +15,7 @@ const Menu: React.FC<MenuProps> = ({ selected, toggleMenu }) => {
     <>
       <div className='absolute top-0 left-0 w-screen h-screen bg-gray-900 opacity-50 z-20' onClick={toggleMenu}>
       </div>
-      <div className='fixed top-12 right-0 w-1/2 rounded-bl-lg flex flex-col justify-center items-center text-3xl bg-gray-900 overflow-auto z-40'>
+      <div className='fixed top-12 right-0 w-1/2 rounded-bl-lg flex flex-col justify-center items-center text-2xl bg-gray-900 overflow-auto z-40'>
         <>
           <Link href="/">
             <button className={`${selected === 'home' ? 'btn-selected' : ''} py-4`}>Home</button>

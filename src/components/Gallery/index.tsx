@@ -71,10 +71,10 @@ const ImageGallery = ({ images }: ImageProps) => {
         slidesPerView={width > 850 ? 3 : width > 650 ? 2 : 1}
         loop={true}
         autoplay={{
-          delay: 2000,
-          disableOnInteraction: false,
+          delay: 1500,
+          pauseOnMouseEnter: true,
         }}
-        navigation={width > 500 ? true : false}
+        navigation={width > 650 ? true : false}
         pagination={{
           clickable: true,
         }}
