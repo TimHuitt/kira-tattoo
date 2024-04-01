@@ -10,6 +10,7 @@ type imageProp = {
 
 const Modal: React.FC<imageProp> = ({ src }) => {
   const { showModal, setShowModal } = useModalContext()
+  const [ loading, setLoading ] = useState(true)
   
   const handleClick = () => {
     setShowModal(false)
@@ -20,19 +21,34 @@ const Modal: React.FC<imageProp> = ({ src }) => {
       cloudName: "dqty1eboa"
     }
   })
+
+  const handleLoading = () => {
+    setLoading(false)
+  }
   
 
   const currentImg = cld.image(src)
   // currentImg.resize(fill().width(250).height(250))
-
   return (
-    <div className='fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-900 z-50' onClick={handleClick}>
-      <AdvancedImage
-        cldImg={currentImg}
-        alt={src}
-        style={{ maxWidth: '100%', height: 'auto', display: 'block', margin: '0 auto' }}
-      />
-    </div>
+    <>
+      { loading && (
+        <div className='fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-900 z-50'>
+          <h1>Loading...</h1>
+        </div>
+      )}
+      <div className='fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-900 z-50'>
+        <h1>Loading...</h1>
+      </div>
+      
+      <div className='fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-900 z-40' onClick={handleClick}>
+        <AdvancedImage
+          cldImg={currentImg}
+          alt={src}
+          onLoad={handleLoading}
+          style={{ maxWidth: '100%', height: 'auto', display: 'block', margin: '0 auto' }}
+        />
+      </div>
+    </>
   )
 }
 

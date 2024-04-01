@@ -16,7 +16,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 async function handleGet(req: NextApiRequest, res: NextApiResponse) {
   const maxResults = 10
-  const url = `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image?max_results=${maxResults}`
+  const folder = "main-images"
+  const url = `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image/upload?prefix=${folder}`
   
   try {
     const resData = await fetch(url, {
