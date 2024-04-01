@@ -26,7 +26,7 @@ export default function Booking() {
                   </div>
                 </div>
               ) : (
-                <div>
+                <div key={index}>
                   
                 </div>
               )
