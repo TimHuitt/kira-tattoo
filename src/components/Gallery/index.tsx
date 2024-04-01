@@ -1,10 +1,10 @@
 
 import React, { useState, useEffect, MouseEventHandler } from 'react'
 import { useModalContext } from '../../app/provider'
-import Image from 'next/image'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { register } from 'swiper/element/bundle'
-import { AdvancedImage } from '@cloudinary/react'
+import { Pagination, Navigation } from 'swiper/modules';
+import { AdvancedImage, lazyload } from '@cloudinary/react'
 import { Cloudinary } from '@cloudinary/url-gen/index'
 import { fill } from '@cloudinary/url-gen/actions/resize'
 import CircleLoader from 'react-spinners/CircleLoader'
@@ -56,10 +56,9 @@ const ImageGallery = ({ images }: ImageProps) => {
     setCurrentImage(target.alt)
   }
 
-  const handleLoading = (index: number) => {
-    console.log(loadingImages)
-    setLoadingImages(loading => loading.map((state, i) => i === index ? false : state))
-  }
+  // const handleLoading = (index: number) => {
+  //   console.log(index)
+  // }
       
   return (
       <Swiper
@@ -68,17 +67,18 @@ const ImageGallery = ({ images }: ImageProps) => {
           '--swiper-navigation-color': '#fff',
           '--swiper-pagination-color': '#fff',
         } as any }
-        spaceBetween={20}
-        slidesPerView={width > 500 ? 2 : 1}
-        // loop={true}
-        // autoplay={{
-        //   delay: 2000,
-        //   disableOnInteraction: false,
-        // }}
+        spaceBetween={10}
+        slidesPerView={width > 850 ? 3 : width > 650 ? 2 : 1}
+        loop={true}
+        autoplay={{
+          delay: 2000,
+          disableOnInteraction: false,
+        }}
+        navigation={width > 500 ? true : false}
         pagination={{
           clickable: true,
         }}
-        navigation={width > 500 ? true : false}
+        modules={[Pagination, Navigation]}
         // onSlideChange={() => console.log('slide change')}
         // onSwiper={(swiper) => console.log(swiper)}
       >
@@ -87,24 +87,25 @@ const ImageGallery = ({ images }: ImageProps) => {
         currentImg.resize(fill().width(250).height(250))
 
         return (
-          <SwiperSlide key={`${image}-index`}>
-            <div className="swiper-slide flex justify-center cursor-pointer" onClick={handleClick}>
-            <div className='w-full h-full flex justify-center items-center'>
-              <CircleLoader
-                // color={color}
-                // cssOverride={override}
-                loading={loadingImages[index]}
-                size={75}
-                aria-label="Loading Spinner"
-                data-testid="loader"
-              />
-            </div>
-              <AdvancedImage
-                cldImg={currentImg}
-                alt={image}
-                onLoad={() => handleLoading(index)}
-                style={{ maxWidth: '100%', height: 'auto', display: 'block', margin: '0 auto' }}
-              />
+          <SwiperSlide key={`${image}-index`} lazy>
+            <div className="swiper-slide flex justify-center overflow-hidden cursor-pointer" onClick={handleClick}>
+              
+              <div className='w-full h-full flex justify-center items-center'>
+                <AdvancedImage
+                  cldImg={currentImg}
+                  alt={image}
+                  style={{ maxWidth: '100%', height: 'auto', display: 'block', margin: '0 auto', borderRadius: '20px' }}
+                  plugins={[lazyload()]}
+                />
+                <div className="swiper-lazy-preloader">
+                  {/* <CircleLoader
+                    // color={color}
+                    // cssOverride={override}
+                    loading={!loadingImages[index]}
+                    size={75}
+                  /> */}
+                </div>
+              </div>
               {/* <p className='text-center'>{ image }</p> */}
             </div>
           </SwiperSlide>

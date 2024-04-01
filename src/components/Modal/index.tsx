@@ -39,8 +39,6 @@ const Modal: React.FC<imageProp> = ({ src }) => {
           // cssOverride={override}
           loading={loading}
           size={150}
-          aria-label="Loading Spinner"
-          data-testid="loader"
         />
       </div>
       
@@ -49,7 +47,12 @@ const Modal: React.FC<imageProp> = ({ src }) => {
           cldImg={currentImg}
           alt={src}
           onLoad={handleLoading}
-          style={{ maxWidth: '100%', height: 'auto', display: 'block', margin: '0 auto' }}
+          style={{ 
+            maxWidth: '100%', 
+            maxHeight: '100%', 
+            display: 'block', 
+            margin: '0 auto',
+          }}
         />
       </div>
     </>
