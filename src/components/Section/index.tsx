@@ -7,7 +7,7 @@ import Gallery from '../Gallery'
 type SectionProps = {
   header?: string,
   description?: string,
-  images?: string[],
+  folder?: string,
 }
 
 const Section: React.FC<SectionProps> = (props) => {
@@ -16,8 +16,10 @@ const Section: React.FC<SectionProps> = (props) => {
   useEffect(() => {
     async function fetchImages() {
       try {
-        const res = await fetch('/api/route')
+        const folderPath = new URLSearchParams({path: props.folder || 'main-images'}).toString()
+        const res = await fetch(`/api/route?${folderPath}`)
         const data = await res.json()
+
         if (data) {
           const finalData = data.data.map((resource: { public_id: string }) => resource.public_id)
           setImages(finalData);
