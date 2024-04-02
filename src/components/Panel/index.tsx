@@ -1,47 +1,80 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import { AdvancedImage, lazyload } from '@cloudinary/react'
+import { Cloudinary } from '@cloudinary/url-gen/index'
+import { fill } from '@cloudinary/url-gen/actions/resize'
 
-// type imageProp = {
-//   src: string
-// }
+type PanelProp = {
+  header: string,
+  description: string,
+  image: boolean,
+  categories: string[],
+  inputType: string,
+}
 
-const Panel: React.FC = () => {
+const Panel: React.FC<PanelProp> = (props) => {
   const [ imgCategory, setImgCategory ] = useState<string>('')
+
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: "dqty1eboa"
+    }
+  })
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setImgCategory(e.target.value)
   }
 
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+    const file: File | null = e.target.files && e.target.files[0]
+    console.log(file)
+
+    const reader = new FileReader()
+
+    reader.onload = (e: ProgressEvent<FileReader>) => {
+      console.log(e.target?.result)
+    }
+    
+    file && reader.readAsDataURL(file)
+  }
+
   return (
-    <div className="w-full p-4 pt-6 mt-[10%] rounded-xl border border-1 border-slate-700 bg-slate-800">
-        <h2 className="text-xl py-2">Upload Images</h2>
-        <h4 className="text-base pl-4">Select an image, select category, add details.</h4>
+    <div className="w-full p-4 pt-6 mb-6 rounded-xl border border-1 border-slate-700 bg-slate-800">
+        <h2 className="text-xl py-2">{props.header}</h2>
+        <h4 className="text-base pl-4">{props.description}</h4>
         <div className="w-full flex justify-center my-4">
           <div className="w-5/6 h-1 rounded-xl border border-1 border-slate-500" />
         </div>
-        <div className="w-full flex flex-col items-center justify-center">
-          <div className="h-20 flex justify-center m-4 border border-2 border-slate-500 rounded-lg hover:bg-slate-700 cursor-pointer">
-            <Image 
-              src='/images/image.svg'
-              height={100}
-              width={100}
-              alt={''} 
-            />
-          </div>
-        </div>
+          { props.image && (
+            <div className="w-full flex flex-col items-center justify-center">
+              <label htmlFor="file-upload" className="flex flex-col items-center justify-center cursor-pointer">
+                <div className="h-20 flex justify-center m-4 border border-2 border-slate-500 rounded-lg hover:bg-slate-700 cursor-pointer">
+                  <Image 
+                    src='/images/image.svg'
+                    height={100}
+                    width={100}
+                    alt={''} 
+                  />
+                </div>
+                <input id="file-upload" type="file" style={{ display: 'none' }} onChange={handleFileSelect} />
+              </label>
+            </div>
+          )}
         <div className='flex justify-center items-center w-full py-4'>
           <h2 className="text-xl mr-4">Category</h2>
           <select value={imgCategory} className='p-2 text-black rounded-lg' onChange={handleChange}>
-            <option value={'featured'}>Featured</option>
-            <option value={'tattoo'}>Tattoo</option>
-            <option value={'illustration'}>Illustration</option>
-            <option value={'painting'}>Painting</option>
-            <option value={'other'}>Other</option>
+            {props.categories.map((item, index) => {
+              const itemName = item.charAt(0).toUpperCase() + item.slice(1)
+              return (
+                <option key={`${item}-${index}`} value={item}>{itemName}</option>
+              )
+            })}
           </select>
         </div>
         <div className='flex justify-center items-center w-full py-4'>
           <h2 className="text-xl mr-4">Caption</h2>
-          <input type="text" placeholder="Something about this image" className='p-2 w-3/5 rounded-lg text-black'></input>
+          <input type="text" placeholder="Something about this image" className='p-2 w-3/5 rounded-lg text-black' />
         </div>
         <div className='flex justify-center items-center w-full py-4'>
           <button className="border border-2 rounded-lg p-2 hover:bg-slate-600">Add New Image</button>
