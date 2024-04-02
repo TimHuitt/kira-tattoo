@@ -63,7 +63,7 @@ const Panel: React.FC<PanelProp> = (props) => {
           )}
         <div className='flex justify-center items-center w-full py-4'>
           <h2 className="text-xl mr-4">Category</h2>
-          <select value={imgCategory} className='p-2 text-black rounded-lg' onChange={handleChange}>
+          <select value={imgCategory} className='p-2 rounded-lg bg-slate-900' onChange={handleChange}>
             {props.categories.map((item, index) => {
               const itemName = item.charAt(0).toUpperCase() + item.slice(1)
               return (
@@ -74,7 +74,7 @@ const Panel: React.FC<PanelProp> = (props) => {
         </div>
         <div className='flex justify-center items-center w-full py-4'>
           <h2 className="text-xl mr-4">Caption</h2>
-          <input type="text" placeholder="Something about this image" className='p-2 w-3/5 rounded-lg text-black' />
+          <input type="text" placeholder="Something about this image" className='p-2 w-3/5 rounded-lg bg-slate-900' />
         </div>
         <div className='flex justify-center items-center w-full py-4'>
           <button className="border border-2 rounded-lg p-2 hover:bg-slate-600">Add New Image</button>
