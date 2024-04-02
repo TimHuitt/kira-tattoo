@@ -11,14 +11,15 @@ const Header: React.FC = () => {
   const path: string = usePathname() ?? ''
   const [ selected, setSelected ] = useState<string>('')
   const [ showMenu, setShowMenu ] = useState<boolean>(false)
-  const [width, setWidth] = useState<number>(() => {
-    if (typeof window !== 'undefined') {
-      return window.innerWidth
-    }
-    return 1024
-  });
+  const [width, setWidth] = useState<number>(1024);
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setWidth(window.innerWidth)
+    } else {
+      setWidth(1024)
+    }
+
     const handleResize = () => {
       setWidth(window.innerWidth)
     }
