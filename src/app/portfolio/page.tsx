@@ -50,6 +50,29 @@ export default function Portfolio() {
         </p><p>
         Nullam posuere lacinia nullam. Ornare vestibulum venenatis egestas cubilia curae;. Purus habitasse vel mi cras ultrices amet massa donec libero condimentum. Velit ut porttitor lectus felis dapibus ornare iaculis praesent per. Nam aliquam dui faucibus. Consectetur molestie nibh malesuada quisque vivamus sagittis bibendum penatibus non aenean. Amet ridiculus natoque maecenas neque proin. Himenaeos magnis iaculis purus per risus mattis adipiscing orci. Pharetra consequat venenatis elementum sociis donec massa integer.
         </p>
+<<<<<<< Updated upstream
+=======
+        
+        <Section 
+          header={'Tattoos'}
+          description={'Browse examples of my completed tattoos'}
+          folder='samples/'
+        />
+        <Section 
+          header={'Illustrations'}
+          description={'Browse my portfolio of illustrations in a variety of mediums'}
+        />
+        <Section 
+          header={'Paintings'}
+          description={'Browse my collection of acrylic and oil paintings'}
+        />
+        <Section 
+          header={'Other'}
+          description={'Browse everything else including sculpts, crafts, and MECHS!'}
+        />
+
+        <div className='h-10'></div>
+>>>>>>> Stashed changes
       </div>
       <Footer />
     </>
