@@ -16,7 +16,8 @@ import 'swiper/css/navigation'
 register()
 
 type ImageProps = {
-  images: string[]
+  images: string[],
+  autoplay?: boolean, 
 }
 
 const ImageGallery = ({ images }: ImageProps) => {
@@ -62,7 +63,7 @@ const ImageGallery = ({ images }: ImageProps) => {
       
   return (
       <Swiper
-        className='my-8'
+        className=''
         style={{
           '--swiper-navigation-color': '#fff',
           '--swiper-pagination-color': '#fff',
@@ -72,7 +73,6 @@ const ImageGallery = ({ images }: ImageProps) => {
         loop={true}
         autoplay={{
           delay: 1500,
-          pauseOnMouseEnter: true,
         }}
         navigation={width > 650 ? true : false}
         pagination={{
