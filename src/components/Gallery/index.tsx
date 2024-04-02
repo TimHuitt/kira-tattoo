@@ -17,10 +17,11 @@ register()
 
 type ImageProps = {
   images: string[],
-  autoplay?: boolean, 
+  autoplay?: boolean,
+  swipeDelay?: number,
 }
 
-const ImageGallery = ({ images }: ImageProps) => {
+const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
   const { setShowModal, setCurrentImage } = useModalContext()
   const [ width, setWidth ] = useState<number>(0)
   const [ loadingImages, setLoadingImages ] = useState<boolean[]>(new Array(images.length).fill(true))
@@ -57,10 +58,6 @@ const ImageGallery = ({ images }: ImageProps) => {
     setCurrentImage(target.alt)
   }
 
-  // const handleLoading = (index: number) => {
-  //   console.log(index)
-  // }
-      
   return (
       <Swiper
         className=''
@@ -72,7 +69,7 @@ const ImageGallery = ({ images }: ImageProps) => {
         slidesPerView={width > 850 ? 3 : width > 650 ? 2 : 1}
         loop={true}
         autoplay={{
-          delay: 1500,
+          delay: swipeDelay,
         }}
         navigation={width > 650 ? true : false}
         pagination={{

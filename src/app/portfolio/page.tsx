@@ -20,23 +20,30 @@ export default function Portfolio() {
           header={'Tattoos'}
           description={'Browse examples of my completed tattoos'}
           folder='samples/'
+          swipeDelay={1300}
         />
         <Section 
           header={'Illustrations'}
           description={'Browse my portfolio of illustrations in a variety of mediums'}
+          folder='samples/'
+          swipeDelay={1500}
         />
         <Section 
           header={'Paintings'}
           description={'Browse my collection of acrylic and oil paintings'}
+          folder='samples/'
+          swipeDelay={1700}
         />
         <Section 
           header={'Other'}
           description={'Browse everything else including sculpts, crafts, and MECHS!'}
+          folder='samples/'
+          swipeDelay={1900}
         />
 
         <div className='h-10'></div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
       { showModal &&
         <Modal src={currentImage}/>
       }

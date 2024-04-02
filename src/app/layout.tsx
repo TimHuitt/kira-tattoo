@@ -24,7 +24,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <ModalProvider>
           <Header />
           <main className="fixed w-full h-full flex items-center mx-auto overflow-hidden z-10">
-            <div className="relative w-[90%] max-w-3xl h-[85%] md:h-[88%] text-white mx-auto mt-10 px-6 pt-6 rounded-xl bg-zinc-800 shadow-lg overflow-y-auto overflow-x-hidden">
+            <div className="relative w-[90%] max-w-3xl h-[90%] md:h-[90%] text-white mx-auto mt-10 px-6 pt-6 rounded-xl bg-zinc-800 shadow-lg overflow-y-auto overflow-x-hidden">
               {children}
               <div className="absolute w-[50vmin] max-w-60 h-[50vmin] max-h-60 top-2 right-2 flex justify-end z-10 rotate-180 border-none">
                 <Image

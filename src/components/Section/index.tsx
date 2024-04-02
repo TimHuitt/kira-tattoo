@@ -8,6 +8,7 @@ type SectionProps = {
   header?: string,
   description?: string,
   folder?: string,
+  swipeDelay?: number,
 }
 
 const Section: React.FC<SectionProps> = (props) => {
@@ -49,7 +50,7 @@ const Section: React.FC<SectionProps> = (props) => {
         <small className='w-full md:w-3/5'>{props.description}</small>
       </div>
       <div className='max-w-full overflow-hidden'>
-          <Gallery images={ images } />
+          <Gallery images={ images } swipeDelay={props.swipeDelay}/>
         </div>
     </div>
   )
