@@ -24,7 +24,7 @@ const s3 = new S3({
 });
 
 async function handleGet(req: NextApiRequest, res: NextApiResponse) {
-  const folder = req.query.path || 'main-images';
+  const folder = req.query.path || '';
   const maxResults = 10; // Adjust as necessary
   const bucketName: string = process.env.AWS_S3_BUCKET_NAME || ''
 
@@ -41,7 +41,7 @@ async function handleGet(req: NextApiRequest, res: NextApiResponse) {
         key: file.Key, 
         url: `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${file.Key}` };
     });
-
+    console.log(resources)
     res.status(200).json({ data: resources });
   } catch (err) {
     console.error("S3 Fetch Error:", err);
