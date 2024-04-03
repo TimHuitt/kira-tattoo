@@ -25,7 +25,7 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
   const { setShowModal, setCurrentImage } = useModalContext()
   const [ width, setWidth ] = useState<number>(0)
   const [ loadingImages, setLoadingImages ] = useState<boolean[]>(new Array(images.length).fill(true))
-
+  swipeDelay = swipeDelay ? swipeDelay : 1500
   const cld = new Cloudinary({
     cloud: {
       cloudName: "dqty1eboa"

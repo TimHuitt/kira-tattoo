@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 const Divider: React.FC = () => {
   return (
-    <div className='flex justify-center w-full h-10 overflow-hidden'>
+    <div className='flex justify-center w-full py-10 overflow-hidden'>
       <Image
           src="divider.svg"
           alt="divider"
