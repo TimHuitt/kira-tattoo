@@ -14,6 +14,7 @@
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 68, 64, 74;
     --background-end-rgb: 70, 64, 79;
+    box-sizing: border-box;
   }
 }
 body {
@@ -25,10 +26,6 @@ body {
   background-size: 20%;
   background-position: top;
   background-repeat: repeat; */
-}
-
-p {
-  margin-bottom: 14px;
 }
 
 @layer utilities {
