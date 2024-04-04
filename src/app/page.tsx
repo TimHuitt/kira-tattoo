@@ -37,7 +37,7 @@ export default function Home() {
           <div className='w-[75px] h-[75px] mb-4 rounded-full overflow-hidden'>
             <Image
               src="/images/1.webp"
-              alt=""
+              alt="Profile Image"
               style={{
                 objectFit: 'contain',
               }}

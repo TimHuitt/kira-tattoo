@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, MouseEventHandler } from 'react'
+import React, { useState, useEffect, useRef, MouseEventHandler } from 'react'
 import { useModalContext } from '../../app/provider'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { register } from 'swiper/element/bundle'
@@ -22,6 +22,11 @@ type ImageProps = {
 }
 
 const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
+  const top = useRef(null)
+  const updates = useRef(null)
+  const portfolio = useRef(null)
+  const booking = useRef(null)
+  const contact = useRef(null)
   const { setShowModal, setCurrentImage } = useModalContext()
   const [ width, setWidth ] = useState<number>(0)
   const [ loadingImages, setLoadingImages ] = useState<boolean[]>(new Array(images.length).fill(true))
