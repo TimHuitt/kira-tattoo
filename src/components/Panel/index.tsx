@@ -29,7 +29,7 @@ const Panel: React.FC<PanelProp> = (props) => {
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
 
     const file: File | null = e.target.files && e.target.files[0]
-    console.log(file)
+    // console.log(file)
 
     const reader = new FileReader()
 

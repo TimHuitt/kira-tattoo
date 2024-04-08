@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState, useRef } from 'react'
+import { useScrollContext } from '@/app/ScrollContext'
 import Menu from '../../components/Menu'
 
 
@@ -12,7 +13,7 @@ const Header: React.FC = () => {
   const [ selected, setSelected ] = useState<string>('')
   const [ showMenu, setShowMenu ] = useState<boolean>(false)
   const [width, setWidth] = useState<number>(1024);
-
+  const { scrollRef, updatesRef, portfolioRef, bookingRef, contactRef, currentRef } = useScrollContext() 
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -64,6 +65,13 @@ const Header: React.FC = () => {
   const toggleMenu = () => {
     setShowMenu(prev => !prev)
   }
+
+  const scrollToLoc = (ref: React.RefObject<HTMLDivElement>) => {
+    if (scrollRef && ref && scrollRef.current && ref.current) {
+      const top = ref.current.offsetTop
+      scrollRef.current.scrollTo({top,behavior: "smooth"})
+    }
+  }
   
   return (
     <>
@@ -76,15 +84,18 @@ const Header: React.FC = () => {
         <div className="flex items-center space-x-4 h-full px-4 text-xl">
           { width > 500 ? (
             <>
-              <Link href={portfolioRef}>
+              <div onClick={() => scrollToLoc(updatesRef)}>
+                <button className={`${selected === 'updates' ? 'btn-selected' : ''} btn btn-hover`}>Updates</button>
+              </div>
+              <div onClick={() => scrollToLoc(portfolioRef)}>
                 <button className={`${selected === 'portfolio' ? 'btn-selected' : ''} btn btn-hover`}>Portfolio</button>
-              </Link>
-              <Link href={bookingRef}>
+              </div>
+              <div onClick={() => scrollToLoc(bookingRef)}>
                 <button className={`${selected === 'booking' ? 'btn-selected' : ''} btn btn-hover`}>Booking</button>
-              </Link>
-              <Link href={contactRef}>
+              </div>
+              <div onClick={() => scrollToLoc(contactRef)}>
                 <button className={`${selected === 'contact' ? 'btn-selected' : ''} btn btn-hover`}>Contact</button>
-              </Link>
+              </div>
             </>
           ) : (
             <div className='max-w-10' onClick={toggleMenu}>
