@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Menu from '../../components/Menu'
 
 
@@ -12,6 +12,7 @@ const Header: React.FC = () => {
   const [ selected, setSelected ] = useState<string>('')
   const [ showMenu, setShowMenu ] = useState<boolean>(false)
   const [width, setWidth] = useState<number>(1024);
+
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -75,13 +76,13 @@ const Header: React.FC = () => {
         <div className="flex items-center space-x-4 h-full px-4 text-xl">
           { width > 500 ? (
             <>
-              <Link href="/portfolio">
+              <Link href={portfolioRef}>
                 <button className={`${selected === 'portfolio' ? 'btn-selected' : ''} btn btn-hover`}>Portfolio</button>
               </Link>
-              <Link href="/booking">
+              <Link href={bookingRef}>
                 <button className={`${selected === 'booking' ? 'btn-selected' : ''} btn btn-hover`}>Booking</button>
               </Link>
-              <Link href="/contact">
+              <Link href={contactRef}>
                 <button className={`${selected === 'contact' ? 'btn-selected' : ''} btn btn-hover`}>Contact</button>
               </Link>
             </>

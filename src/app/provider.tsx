@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState, useMemo, ReactNode, SetStateAction, Dispatch } from 'react';
+import { createContext, useContext, useState, useMemo, ReactNode, SetStateAction, Dispatch } from 'react'
 
 interface ChildProp {
   children: ReactNode
@@ -13,7 +13,7 @@ interface modalContextType {
   setCurrentImage: Dispatch<SetStateAction<string>>
 }
 
-const ModalContext = createContext<modalContextType | undefined>(undefined);
+const ModalContext = createContext<modalContextType | undefined>(undefined)
 
 export const ModalProvider = ({ children }: ChildProp) => {
   const [ showModal, setShowModal ] = useState(false)
@@ -30,8 +30,8 @@ export const ModalProvider = ({ children }: ChildProp) => {
     <ModalContext.Provider value={value}>
       {children}
     </ModalContext.Provider>
-  );
-};
+  )
+}
 
 export const useModalContext = (): modalContextType => {
   const context = useContext(ModalContext)
@@ -39,4 +39,4 @@ export const useModalContext = (): modalContextType => {
     throw new Error('No Provider')
   }
   return context
-};
+}

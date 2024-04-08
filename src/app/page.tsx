@@ -52,7 +52,7 @@ export default function Home() {
           <Gallery images={ images } />
         </div>
         <Divider />
-        <h1 className="text-4xl text-center p-4">Projects & Events</h1>
+        <h1 className="text-4xl text-center p-4">News</h1>
         <Post />
         <Post />
         <Post />
