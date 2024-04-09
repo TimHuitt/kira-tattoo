@@ -21,7 +21,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   
   return (
     <html lang="en">
-      <body className={comfortaa.className}>
+      <body className={`${comfortaa.className}`}>
         <ScrollProvider>
         <ModalProvider>
           <Header />
