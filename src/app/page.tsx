@@ -15,7 +15,7 @@ import Image from 'next/image'
 export default function Home() { 
   const [ images, setImages ] = useState<string[]>(([]))
   const { showModal, currentImage } = useModalContext()
-  const { scrollRef, updatesRef, portfolioRef, bookingRef, contactRef, setCurrent } = useScrollContext()
+  const { scrollRef, updatesRef, portfolioRef, bookingRef, contactRef, selected, setSelected } = useScrollContext()
 
 
   useEffect(() => {
@@ -39,54 +39,84 @@ export default function Home() {
   })
 
   const handleScroll = () => {
-    // determine scroll pos and set selection for header highlighting
-    console.log(scrollRef.current?.scrollTop)
-    // setCurrent(scrollRef.current?.offsetTop)
+    // determine if scrolled to bottom
+
+
+    const offsets = {
+      home: 0,
+      updates: updatesRef.current?.offsetTop || 0,
+      portfolio: portfolioRef.current?.offsetTop || 0,
+      booking: bookingRef.current?.offsetTop || 0,
+      contact: contactRef.current?.offsetTop || 0,
+      clientHeight: scrollRef.current?.clientHeight || 0,
+      scrollHeight: scrollRef.current?.scrollHeight || 0,
+      currentScroll: scrollRef.current?.scrollTop || 0,
+    }
+
+    console.log(offsets.clientHeight, offsets.scrollHeight, offsets.currentScroll)
+
+    if (offsets.currentScroll >= offsets.home && offsets.currentScroll < offsets.updates) {
+      setSelected('home')
+    } else if (offsets.currentScroll < offsets.portfolio) {
+      setSelected('updates')
+    } else if (offsets.currentScroll >= offsets.portfolio && offsets.currentScroll < offsets.booking) {
+      setSelected('portfolio')
+    } else if (offsets.currentScroll >= offsets.booking && offsets.currentScroll < offsets.contact) {
+      setSelected('booking')
+    } else if (offsets.currentScroll + offsets.clientHeight >= offsets.scrollHeight || offsets.currentScroll >= offsets.contact) {
+      setSelected('contact')
+    }
   }
 
   return (
-    <div ref={scrollRef} className="relative w-[90%] max-w-5xl h-full text-white mx-auto mt-20 p-4 md:p-6 lg:p-8 rounded-xl bg-slate-800 shadow-xl shadow-slate-900 overflow-y-auto overflow-x-hidden">
-      <div className="relative z-30">
-        <div className='w-5/6 max-h-60 min-h-20 md:min-h-40 md:min-h-56'>
-          <div className='w-[75px] h-[75px] mb-4 rounded-full overflow-hidden'>
+    <div ref={scrollRef} className="relative w-full h-full mt-20 overflow-y-auto">
+      <div className='h-auto w-[90%] max-w-5xl text-white mx-auto  p-4 pt-10 md:p-6 lg:p-8 rounded-xl bg-slate-800 shadow-xl shadow-slate-900 overflow-x-hidden'>
+        <div className="relative z-30">
+          <div className='w-5/6 max-h-60 min-h-20 md:min-h-40 md:min-h-56'>
+            <div className='w-[75px] h-[75px] mb-4 rounded-full overflow-hidden'>
+              <Image
+                src="/images/1.webp"
+                alt="Profile Image"
+                style={{
+                  objectFit: 'contain',
+                }}
+                width={75}
+                height={75}
+              />
+            </div>
+            <h1 className="text-4xl text-start">Hi, I&apos;m Kira!</h1>
+            <p className='text-sm md:text-base opacity-60'>And here&apos;s something about me or something</p>
+          </div>
+          <div className='max-w-full overflow-hidden'>
+            <Gallery images={ images } />
+          </div>
+          <Divider sectionRef={updatesRef}/>
+          <div>
+            <h1 className="text-4xl text-center p-4">Updates</h1>
+          </div>
+          <Post />
+          <Post />
+          <Post />
+          <Divider sectionRef={portfolioRef} />
+          <Portfolio />
+          <Divider sectionRef={bookingRef} />
+          <Booking />
+          <Divider sectionRef={contactRef} />
+          <Contact />
+          <div className="absolute w-[50vmin] max-w-60 h-[50vmin] max-h-60 top-[-1rem] right-[-1.5rem] flex justify-end z-10 rotate-180 border-none">
             <Image
-              src="/images/1.webp"
-              alt="Profile Image"
-              style={{
-                objectFit: 'contain',
-              }}
-              width={75}
-              height={75}
+              src="corner.svg"
+              alt=""
+              fill
+              sizes="(max-width: 768px) 100vw, 33vw"
             />
           </div>
-          <h1 className="text-4xl text-start">Hi, I&apos;m Kira!</h1>
-          <p className='text-sm md:text-base opacity-60'>And here&apos;s something about me or something</p>
         </div>
-        <div className='max-w-full overflow-hidden'>
-          <Gallery images={ images } />
-        </div>
-        <Divider />
-        <div ref={updatesRef}>
-          <h1 className="text-4xl text-center p-4">News</h1>
-        </div>
-        <Post />
-        <Post />
-        <Post />
-        <Divider />
-        <div ref={portfolioRef}>
-        <Portfolio />
-        </div>
-        <Divider />
-        <div ref={bookingRef}>
-          <Booking />
-        </div>
-        <div ref={contactRef}>
-          <Contact />
-        </div>
+        { showModal &&
+          <Modal src={currentImage}/>
+        }
+        
       </div>
-      { showModal &&
-        <Modal src={currentImage}/>
-      }
     </div>
   );
 }

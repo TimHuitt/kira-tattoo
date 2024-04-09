@@ -27,16 +27,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <Header />
           <main className="fixed w-full h-full flex items-center mx-auto overflow-hidden z-10">
             {children}
-            <div>
-              <div className="absolute w-[50vmin] max-w-60 h-[50vmin] max-h-60 top-4 right-2 flex justify-end z-10 rotate-180 border-none">
-                <Image
-                  src="corner.svg"
-                  alt=""
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-              </div>
-            </div>
             <div className='h-10 ' />
           </main>
         </ModalProvider>

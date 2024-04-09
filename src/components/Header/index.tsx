@@ -10,10 +10,9 @@ import Menu from '../../components/Menu'
 
 const Header: React.FC = () => {
   const path: string = usePathname() ?? ''
-  const [ selected, setSelected ] = useState<string>('')
   const [ showMenu, setShowMenu ] = useState<boolean>(false)
   const [width, setWidth] = useState<number>(1024);
-  const { scrollRef, updatesRef, portfolioRef, bookingRef, contactRef, currentRef } = useScrollContext() 
+  const { scrollRef, updatesRef, portfolioRef, bookingRef, contactRef, currentRef, selected, setSelected } = useScrollContext() 
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -41,47 +40,28 @@ const Header: React.FC = () => {
     setShowMenu(false)
   },[])
 
-  useEffect(() => {
-    switch(path) {
-      case '/':
-        setSelected('home')
-        break
-      case '/portfolio':
-        setSelected('portfolio')
-        break
-      case '/booking':
-        setSelected('booking')
-        break
-      case '/contact':
-        setSelected('contact')
-        break
-      default:
-        setSelected('')
-        break
-    }
-    setShowMenu(false)
-  },[path])
-
   const toggleMenu = () => {
     setShowMenu(prev => !prev)
   }
 
-  const scrollToLoc = (ref: React.RefObject<HTMLDivElement>) => {
+  const scrollToLoc = (ref?: React.RefObject<HTMLDivElement>) => {
     if (scrollRef && ref && scrollRef.current && ref.current) {
-      const top = ref.current.offsetTop
+      const top = ref.current.offsetTop + ref.current.offsetHeight
       scrollRef.current.scrollTo({top,behavior: "smooth"})
+    } else if (scrollRef && scrollRef.current) {
+      scrollRef.current.scrollTo({top: 0, behavior: "smooth"})
     }
+    setShowMenu(false)
   }
   
   return (
     <>
       <header className="fixed w-full flex h-12 justify-between items-center bg-zinc-900 shadow-md shadow-violet-500/50 z-50">
-        <Link href="/" className='h-full'>
-          <div className="flex items-center h-full px-4 bg-purple-600">
-            <h1 className="text-4xl">Kira.</h1>
+        
+          <div className="flex items-center h-full px-4 bg-purple-600 cursor-pointer" onClick={() => scrollToLoc()}>
+            <h1 className="text-4xl pointer-events-none user-select-none">Kira.</h1>
           </div>
-        </Link>
-        <div className="flex items-center space-x-4 h-full px-4 text-xl">
+        <div className="flex items-center space-x-4 h-full px-4 text-base lg:text-xl">
           { width > 500 ? (
             <>
               <div onClick={() => scrollToLoc(updatesRef)}>
@@ -110,7 +90,11 @@ const Header: React.FC = () => {
         </div>
       </header>
       { showMenu ? (
-        <Menu toggleMenu={toggleMenu} selected={selected} />
+        <Menu 
+          toggleMenu={toggleMenu} 
+          selected={selected} 
+          scrollToLoc={scrollToLoc}
+        />
       ) : (
         ''
       )}

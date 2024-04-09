@@ -22,10 +22,11 @@ body {
   width: 100vw;
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-start-rgb));
-  /* background-image: url("/stars.png");
+  background-image: url("/stars3.png");
   background-size: 20%;
   background-position: top;
-  background-repeat: repeat; */
+  background-repeat: repeat;
+  backdrop-filter: brightness(70%)
 }
 
 @layer utilities {

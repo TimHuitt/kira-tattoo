@@ -1,4 +1,5 @@
 import { useState, useEffect, ReactNode } from 'react'
+import { useScrollContext } from '@/app/ScrollContext'
 import Image from 'next/image'
 
 import Link from 'next/link'
@@ -6,10 +7,11 @@ import Link from 'next/link'
 interface MenuProps {
   selected: string
   toggleMenu: any
+  scrollToLoc: (ref: React.RefObject<HTMLDivElement>) => void
 }
 
-const Menu: React.FC<MenuProps> = ({ selected, toggleMenu }) => {
-
+const Menu: React.FC<MenuProps> = ({ selected, toggleMenu, scrollToLoc }) => {
+  const { updatesRef, portfolioRef, bookingRef, contactRef } = useScrollContext() 
 
   return (
     <>
@@ -17,32 +19,30 @@ const Menu: React.FC<MenuProps> = ({ selected, toggleMenu }) => {
       </div>
       <div className='fixed top-12 right-0 w-1/2 rounded-bl-lg flex flex-col justify-center items-center text-2xl bg-gray-900 overflow-auto z-40'>
         <>
-          <Link href="/">
-            <button className={`${selected === 'home' ? 'btn-selected' : ''} py-4`}>Home</button>
-          </Link>
-          <Link href="/portfolio">
+          <div onClick={() => scrollToLoc(updatesRef)}>
+            <button className={`${selected === 'home' ? 'btn-selected' : ''} py-4`}>Updates</button>
+          </div>
+          <div onClick={() => scrollToLoc(portfolioRef)}>
             <button className={`${selected === 'portfolio' ? 'btn-selected' : ''} py-4`}>Portfolio</button>
-          </Link>
-
-          <Link href="/portfolio">
+          </div>
+          <div onClick={() => scrollToLoc(updatesRef)}>
             <button className="py-2 text-lg opacity-60">Tattoo</button>
-          </Link>
-          <Link href="/portfolio">
+          </div>
+          <div onClick={() => scrollToLoc(updatesRef)}>
             <button className="py-2 text-lg opacity-60">Illustration</button>
-          </Link>
-          <Link href="/portfolio">
+          </div>
+          <div onClick={() => scrollToLoc(updatesRef)}>
             <button className="py-2 text-lg opacity-60">Painting</button>
-          </Link>
-          <Link href="/portfolio">
+          </div>
+          <div onClick={() => scrollToLoc(updatesRef)}>
             <button className="py-2 text-lg opacity-60">Other</button>
-          </Link>
-          
-          <Link href="/booking">
+          </div>
+          <div onClick={() => scrollToLoc(bookingRef)}>
             <button className={`${selected === 'booking' ? 'btn-selected' : ''} py-4`}>Booking</button>
-          </Link>
-          <Link href="/contact">
+          </div>
+          <div onClick={() => scrollToLoc(contactRef)}>
             <button className={`${selected === 'contact' ? 'btn-selected' : ''} py-4`}>Contact</button>
-          </Link>
+          </div>
         </>
       </div>
     </>
