@@ -54,9 +54,17 @@ body {
   .tab-selected {
     @apply border-pink-500 h-4/6
   }
+  .swiper {
+    @apply w-full h-[300px] z-30
+  }
+  .label {
+    @apply py-4 mt-4
+  }
+  .input {
+    @apply w-full md:w-3/5 outline-lime-500
+  }
+  .text-area {
+    @apply h-40
+  }
 }
 
-.swiper {
-  width: 100%;
-  height: 300px;
-}

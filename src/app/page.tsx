@@ -40,7 +40,7 @@ export default function Home() {
 
   const handleScroll = () => {
     // determine if scrolled to bottom
-
+    if (!scrollRef.current) return
 
     const offsets = {
       home: 0,
@@ -53,7 +53,7 @@ export default function Home() {
       currentScroll: scrollRef.current?.scrollTop || 0,
     }
 
-    console.log(offsets.clientHeight, offsets.scrollHeight, offsets.currentScroll)
+    // console.log(offsets.clientHeight, offsets.scrollHeight, offsets.currentScroll)
 
     if (offsets.currentScroll >= offsets.home && offsets.currentScroll < offsets.updates) {
       setSelected('home')
@@ -73,7 +73,7 @@ export default function Home() {
       <div className='h-auto w-[90%] max-w-5xl text-white mx-auto  p-4 pt-10 md:p-6 lg:p-8 rounded-xl bg-slate-800 shadow-xl shadow-slate-900 overflow-x-hidden'>
         <div className="relative z-30">
           <div className='w-5/6 max-h-60 min-h-20 md:min-h-40 md:min-h-56'>
-            <div className='w-[75px] h-[75px] mb-4 rounded-full overflow-hidden'>
+            <div className='w-[75px] h-[75px] mb-10 rounded-full overflow-hidden'>
               <Image
                 src="/images/1.webp"
                 alt="Profile Image"
@@ -85,7 +85,7 @@ export default function Home() {
               />
             </div>
             <h1 className="text-4xl text-start">Hi, I&apos;m Kira!</h1>
-            <p className='text-sm md:text-base opacity-60'>And here&apos;s something about me or something</p>
+            <p className='text-sm md:text-base md:pb-10 opacity-60'>And here&apos;s something about me or something</p>
           </div>
           <div className='max-w-full overflow-hidden'>
             <Gallery images={ images } />
@@ -103,7 +103,7 @@ export default function Home() {
           <Booking />
           <Divider sectionRef={contactRef} />
           <Contact />
-          <div className="absolute w-[50vmin] max-w-60 h-[50vmin] max-h-60 top-[-1rem] right-[-1.5rem] flex justify-end z-10 rotate-180 border-none">
+          <div className="absolute w-[50vmin] max-w-60 h-[50vmin] max-h-60 top-[-1.25rem] right-[-.75rem] md:top-[-.5rem] md:right-[-1.25rem] lg:top-[-1rem] lg:right-[-1.5rem] flex justify-end z-10 rotate-180 border-none z-10">
             <Image
               src="corner.svg"
               alt=""

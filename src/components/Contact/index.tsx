@@ -5,11 +5,22 @@ export default function Contact() {
   return (
     <>
       <div className="relative z-30">
-        <h1  className="text-4xl text-center pt-20 pb-32">Contact</h1>
-        <p>
-        Sapien, pulvinar nostra integer sociosqu dignissim ultrices tincidunt ad penatibus sed! Mus porttitor felis et; pellentesque diam. Blandit quisque, posuere pretium vivamus. Metus urna mattis taciti pharetra nascetur maecenas. Justo placerat lacus ipsum. Ad sed ante eu eleifend massa aenean aptent curae; justo placerat. Proin sollicitudin dui dictum parturient fusce felis ad felis montes. Ante arcu porta laoreet; mus porttitor eros cras arcu vestibulum imperdiet. Tempor primis molestie nisl litora rhoncus. Mus commodo taciti fames. Tortor tincidunt nascetur ac netus curabitur nisl volutpat varius.
-        </p>
-        <div className='h-20 ' />
+        <h1  className="text-4xl text-center py-10">Contact</h1>
+        <div className="w-full flex justify-center mb-40">
+          <div className="w-5/6 flex flex-col items-center text-center">
+
+            <p className="label">Name</p>
+            <input type="text" className="input"></input>
+
+            <p className="label">Email</p>
+            <input type="text" className="input"></input>
+
+            <p className="label">Comments</p>
+            <textarea className="input text-area"></textarea>
+            
+          </div>
+          <div className='h-20 ' />
+        </div>
       </div>
     </>
   );
