@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useModalContext } from './provider'
 import { useScrollContext } from '@/app/ScrollContext'
+
 import Gallery from '../components/Gallery'
 import Divider from '../components/Divider'
 import Modal from '../components/Modal'
