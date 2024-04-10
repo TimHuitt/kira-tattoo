@@ -3,19 +3,23 @@ import { useEffect, useState } from 'react'
 interface dates {
   date: string
   day: number
-  dayName: string
   month: string
   year: number
   handleClick: React.MouseEventHandler<HTMLDivElement>
 }
 
-const Book: React.FC<dates> = ({date, day, dayName, month, year, handleClick}) => {
+const Book: React.FC<dates> = ({date, day, month, year, handleClick}) => {
   const [ dates, setDates ] = useState<{key: string[]}>()
+  const [ dayName, setDayName ] = useState<string>('')
+  const [ selectedDay, setSelectedDay ] = useState<number>(0)
   const [ time, setTime ] = useState<string>('')
 
-  useEffect(() => {
-    
-  },[])
+  useEffect(() => {  
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+
+    setSelectedDay(parseInt(date.split('-')[1]))
+    setDayName(days[parseInt(date.split('-')[1]) % 7])
+  },[date])
 
   const handleTime = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setTime(e.target.value)
@@ -28,7 +32,7 @@ const Book: React.FC<dates> = ({date, day, dayName, month, year, handleClick}) =
         onClick={handleClick}
       >
         <div 
-          className="relative w-[90%] md:w-3/5 h-auto max-h-5/6 flex flex-col items-center bg-slate-800 border border-2 border-slate-500 rounded-lg overflow-y-auto z-50"
+          className="relative w-[90%] md:w-3/5 lg:w-1/2 h-auto max-h-5/6 flex flex-col items-center bg-slate-800 border border-2 border-slate-500 rounded-lg overflow-y-auto z-50"
           onClick={(e) => e.stopPropagation()} 
         >
           <div className='absolute top-2 right-2 px-2 bg-fuchsia-900 rounded-full cursor-pointer' onClick={handleClick}>x</div>
@@ -42,14 +46,14 @@ const Book: React.FC<dates> = ({date, day, dayName, month, year, handleClick}) =
 
               <div className='flex'>
                 <h2>{month},&nbsp;</h2>
-                <h2>{day}&nbsp;</h2>
+                <h2>{selectedDay}&nbsp;</h2>
                 <h2>{year}</h2>
               </div>
             </div>
-            <div className="w-full flex justify-center my-4">
+            {/* <div className="w-full flex justify-center my-4">
               <div className="w-5/6 h-1 rounded-xl border border-1 border-slate-500" />
-            </div>
-            <div className='mb-4'>
+            </div> */}
+            <div className='my-4'>
               <small className='text-gray-500'>Available Times</small>
               <div className=''>
                 <select 

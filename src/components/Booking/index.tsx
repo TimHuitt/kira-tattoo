@@ -13,8 +13,7 @@ const Booking: React.FC<size> = ({ width }) => {
   const [ year, setYear ] = useState<number>(0)
   const [ monthNum, setMonthNum ] = useState<number>(0)
   const [ month, setMonth ] = useState<string>('')
-  const [ day, setDay ] = useState<number>(0)
-  const [ dayName, setDayName ] = useState<string>('')
+  const [ dayPos, seDayPos ] = useState<string>('')
   const [ showBook, setShowBook ] = useState<boolean>(false)
   const currentID = useRef<string>('')
 
@@ -31,7 +30,6 @@ const Booking: React.FC<size> = ({ width }) => {
     setYear(date.getFullYear())
     setMonthNum(date.getMonth())
     setMonth(months[date.getMonth()])
-    setDay(date.getDate())
 
     const first = new Date(date.getFullYear(), date.getMonth(), 1).getDay()
     const last = new Date(date.getFullYear(), date.getMonth(), 0).getDate()
@@ -43,7 +41,7 @@ const Booking: React.FC<size> = ({ width }) => {
     const daysLong = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     const daysShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
     
-    setDayName(daysLong[date.getDate() % 7])
+    seDayPos(daysLong[date.getDate() % 7])
     setDays(width > 678 ? daysLong : daysShort)
   },[width])
 
@@ -84,7 +82,7 @@ const Booking: React.FC<size> = ({ width }) => {
         </div>
       </div>
       {showBook && (
-        <Book date={currentID.current} day={day} dayName={dayName} month={month} year={year} handleClick={handleClick}/>
+        <Book date={currentID.current} month={month} year={year} handleClick={handleClick}/>
       )}
     </>
   );
