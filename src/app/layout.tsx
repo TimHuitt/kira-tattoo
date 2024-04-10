@@ -19,8 +19,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   
   return (
-    <html lang="en">
-      <body className={`${comfortaa.className}`}>
+    <html lang="en" className="overflow-hidden">
+      <body className={`${comfortaa.className} overflow-hidden`}>
         <ScrollProvider>
         <ModalProvider>
           <Header />
