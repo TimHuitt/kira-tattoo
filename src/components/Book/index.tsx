@@ -3,12 +3,13 @@ import { useEffect, useState } from 'react'
 interface dates {
   date: string
   day: number
+  dayName: string
   month: string
   year: number
   handleClick: React.MouseEventHandler<HTMLDivElement>
 }
 
-const Book: React.FC<dates> = ({date, day, month, year, handleClick}) => {
+const Book: React.FC<dates> = ({date, day, dayName, month, year, handleClick}) => {
   const [ dates, setDates ] = useState<{key: string[]}>()
   const [ time, setTime ] = useState<string>('')
 
@@ -34,6 +35,7 @@ const Book: React.FC<dates> = ({date, day, month, year, handleClick}) => {
           <h1 className='py-6'>Book Some Time!</h1>
           <div className="relative w-5/6 h-fill flex flex-col items-center text-center">
             <div className='w-full md:max-w-3/5 flex justify-center'>
+              <h1>{dayName},&nbsp;</h1>
               <h1>{month},&nbsp;</h1>
               <h1>{day}&nbsp;</h1>
               <h1>{year}</h1>

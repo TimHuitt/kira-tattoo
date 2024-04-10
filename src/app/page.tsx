@@ -92,7 +92,7 @@ export default function Home() {
   return (
     <div ref={scrollRef} className="relative w-full h-full mt-20 overflow-y-auto">
       <div className='h-auto w-[90%] max-w-5xl text-white mx-auto  p-4 pt-10 md:p-6 lg:p-8 rounded-xl bg-slate-800 shadow-xl shadow-slate-900 overflow-x-hidden'>
-        <div className="relative z-30">
+        <div className="relative">
           <div className='w-5/6 max-h-60 min-h-20 md:min-h-40 md:min-h-56'>
             <div className='w-[75px] h-[75px] mb-10 rounded-full overflow-hidden'>
               <Image
@@ -106,7 +106,7 @@ export default function Home() {
               />
             </div>
             <h1 className="text-4xl text-start">Hi, I&apos;m Kira!</h1>
-            <p className='text-sm md:text-base md:pb-10 opacity-60'>And here&apos;s something about me or something</p>
+            <p className='text-sm md:text-base pb-20 md:pb-30 opacity-60'>And here&apos;s something about me or something</p>
           </div>
           <div className='max-w-full h-[300px] flex items-center overflow-hidden'>
             <Gallery images={ images } />

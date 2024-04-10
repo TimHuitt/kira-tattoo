@@ -65,7 +65,7 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
 
   return (
       <Swiper
-        className=''
+        className='z-20'
         style={{
           '--swiper-navigation-color': '#fff',
           '--swiper-pagination-color': '#fff',
@@ -92,19 +92,17 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
               
               <div className='w-full h-full flex justify-center items-center'>
                 <AdvancedImage
-                  width="100%"
-                  height="300px"
+                  className="block w-auto h-[300px] max-w-full my-0 rounded-xl mx-auto"
                   cldImg={currentImg}
                   alt={image}
-                  style={{ maxWidth: '100%', height: 'auto', display: 'block', margin: '0 auto', borderRadius: '20px' }}
                   // plugins={[lazyload({threshold: 1})]}
                 />
                 <div className="swiper-lazy-preloader">
-                  {/* <CircleLoader
+                  <CircleLoader
                     // color={color}
                     // cssOverride={override}
                     size={75}
-                  /> */}
+                  />
                 </div>
               </div>
               {/* <p className='text-center'>{ image }</p> */}
