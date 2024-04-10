@@ -4,34 +4,30 @@ import Image from "next/image";
 import { useState, useEffect } from 'react'
 
 export default function Booking() {
+  const [ days ] = useState<string[]>(['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'])
   const [ calendar, setCalendar ] = useState<number[]>()
   const [ startIndex, setStartIndex ] = useState<number>(0)
   const [year, setYear] = useState<number>(0)
   const [month, setMonth] = useState<string>('')
   const [day, setDay] = useState<number>(0)
-  const [today, setToday] = useState<number>(0)
 
 
   useEffect(() => {
-    const date = new Date()
-    setYear(date.getFullYear())
-
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    setMonth(months[date.getMonth()])
     
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    const date = new Date()
+
+    setYear(date.getFullYear())
+    setMonth(months[date.getMonth()])
     setDay(date.getDate())
-    setToday(date.getDay())
 
     const first = new Date(year, date.getMonth(), 1).getDay()
-
     const last = new Date(year, date.getMonth(), 0).getDate()
     const days = first + last
 
-    console.log(first)
-
     setCalendar(Array.from({length: days}, (_, i) => i - first + 1))
     setStartIndex(first)
-  },[year, month, day, today])
+  },[year, month, day])
 
   return (
     <>
@@ -42,10 +38,13 @@ export default function Booking() {
             <h2>{month}</h2>
             <h2>{year}</h2>
           </div>
-          <div className="grid grid-rows-6 grid-cols-7 w-full h-auto rounded-xl border border-0 border-fuchsia-700 overflow-hidden">
+          <div className="grid grid-rows-6 grid-cols-7 grid-rows-[40px,repeat(5,minmax(0,1fr))] text-center text-slate-600 w-full h-auto mb-20 rounded-xl border border-0 border-fuchsia-700 overflow-hidden">
+            {days.map((day, index) => (
+              <h3 key={`${days}-${index}-label`} className="days">{day}</h3>
+            ))}
             {calendar?.map((day, index) => (
               index >= startIndex ? (
-                <div key={`${day}-${index}`} className="text-xs md:text-base h-14 md:h-20 lg:h-32 bg-slate-900 hover:bg-slate-800 border border-2 border-slate-700 md:border-0 hover:border hover:border-4 hover:border-lime-700 active:bg-slate-800 m-[.1rem] md:m-1 rounded-lg cursor-pointer">
+                <div key={`${day}-${index}`} className="text-xs text-start md:text-base text-slate-400 h-14 md:h-20 lg:h-32 bg-gray-900 hover:bg-gray-700 border border-2 border-slate-700 md:border-0 hover:border hover:border-4 hover:border-lime-700 active:bg-slate-800 m-[.1rem] md:m-1 rounded-lg cursor-pointer">
                   <div className="p-2">
                     {day}
                   </div>
