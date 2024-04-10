@@ -63,11 +63,17 @@ body {
   .label {
     @apply py-4 mt-4
   }
+  .book-label {
+    @apply pb-2 mt-2
+  }
   .input {
-    @apply w-full md:w-3/5 p-4 rounded-lg outline-lime-500 bg-gray-900 resize-none
+    @apply w-full md:w-3/5 p-4 rounded-lg outline-lime-500 bg-gray-900
+  }
+  .book-input {
+    @apply w-full md:w-3/5 p-2 rounded-lg outline-lime-500 bg-gray-900
   }
   .text-area {
-    @apply h-40
+    @apply h-40 resize-none
   }
   .form-button {
     @apply mx-2 md:mx-10 p-4 rounded-lg bg-gray-900 hover:bg-gray-700 active:bg-gray-500 border border-slate-600
