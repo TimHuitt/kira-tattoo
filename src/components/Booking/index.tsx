@@ -19,9 +19,7 @@ const Booking: React.FC<size> = ({ width }) => {
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const target = e.target as HTMLElement;
-
     currentID.current = target.id
-    console.log('test')
     setShowBook(prev => !prev)
   }
 
@@ -83,7 +81,7 @@ const Booking: React.FC<size> = ({ width }) => {
         </div>
       </div>
       {showBook && (
-        <Book date={currentID.current} handleClick={handleClick}/>
+        <Book date={currentID.current} day={day} month={month} year={year} handleClick={handleClick}/>
       )}
     </>
   );
