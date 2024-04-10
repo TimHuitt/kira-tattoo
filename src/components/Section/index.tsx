@@ -49,7 +49,7 @@ const Section: React.FC<SectionProps> = (props) => {
         </div>
         <small className='w-full md:w-3/5 opacity-50'>{props.description}</small>
       </div>
-      <div className='max-w-full overflow-hidden'>
+      <div className='max-w-full h-[320px] overflow-hidden'>
           <Gallery images={ images } swipeDelay={props.swipeDelay}/>
         </div>
     </div>
