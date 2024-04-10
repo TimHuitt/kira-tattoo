@@ -97,14 +97,14 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
                   cldImg={currentImg}
                   alt={image}
                   style={{ maxWidth: '100%', height: 'auto', display: 'block', margin: '0 auto', borderRadius: '20px' }}
-                  plugins={[lazyload({threshold: 1})]}
+                  // plugins={[lazyload({threshold: 1})]}
                 />
                 <div className="swiper-lazy-preloader">
-                  <CircleLoader
+                  {/* <CircleLoader
                     // color={color}
                     // cssOverride={override}
                     size={75}
-                  />
+                  /> */}
                 </div>
               </div>
               {/* <p className='text-center'>{ image }</p> */}
