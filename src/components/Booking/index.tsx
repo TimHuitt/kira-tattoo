@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-
+import { useState, useEffect, useRef } from 'react'
+import Book from '../Book'
 interface size {
   width: number
 }
@@ -10,14 +10,19 @@ const Booking: React.FC<size> = ({ width }) => {
   const [ days, setDays ] = useState<string[]>([])
   const [ calendar, setCalendar ] = useState<number[]>()
   const [ startIndex, setStartIndex ] = useState<number>(0)
-  const [year, setYear] = useState<number>(0)
-  const [monthNum, setMonthNum] = useState<number>(0)
-  const [month, setMonth] = useState<string>('')
-  const [day, setDay] = useState<number>(0)
+  const [ year, setYear ] = useState<number>(0)
+  const [ monthNum, setMonthNum ] = useState<number>(0)
+  const [ month, setMonth ] = useState<string>('')
+  const [ day, setDay ] = useState<number>(0)
+  const [ showBook, setShowBook ] = useState<boolean>(false)
+  const currentID = useRef<string>('')
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const target = e.target as HTMLElement;
-    
+
+    currentID.current = target.id
+    console.log('test')
+    setShowBook(prev => !prev)
   }
 
   useEffect(() => {
@@ -58,11 +63,13 @@ const Booking: React.FC<size> = ({ width }) => {
               index >= startIndex ? (
                 <div 
                   key={`${day}-${index}`} 
-                  id={`${monthNum}-${day}-${year}`} 
                   className="text-xs text-start md:text-base text-slate-400 h-14 md:h-20 lg:h-32 bg-gray-900 hover:bg-gray-700 border border-2 border-slate-700 md:border-0 hover:border hover:border-4 hover:border-lime-700 active:bg-slate-800 m-[.1rem] md:m-1 rounded-lg cursor-pointer"
-                  onClick={handleClick}  
                 >
-                  <div className="p-2">
+                  <div 
+                    className="w-full h-full p-2" 
+                    id={`${monthNum}-${day}-${year}`}  
+                    onClick={handleClick}
+                  >
                     {day}
                   </div>
                 </div>
@@ -75,6 +82,9 @@ const Booking: React.FC<size> = ({ width }) => {
           </div>
         </div>
       </div>
+      {showBook && (
+        <Book date={currentID.current} handleClick={handleClick}/>
+      )}
     </>
   );
 }
