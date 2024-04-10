@@ -17,10 +17,10 @@ export default function Home() {
   const [ images, setImages ] = useState<string[]>(([]))
   const { showModal, currentImage } = useModalContext()
   const { scrollRef, updatesRef, portfolioRef, bookingRef, contactRef, selected, setSelected } = useScrollContext()
-
+  const [ width, setWidth ] = useState<number>(0)
 
   useEffect(() => {
-    async function fetchImages() {
+    async function fetchImages() {      
       try {
         const res = await fetch('/api/route')
         const data = await res.json()
@@ -37,6 +37,26 @@ export default function Home() {
 
   useEffect(() => {
     scrollRef.current?.addEventListener('scroll', handleScroll);
+  })
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth)
+    }
+
+    if (typeof window !== 'undefined') {
+      handleResize()
+      window.addEventListener('load', handleResize)
+      window.addEventListener('resize', handleResize)
+    }
+
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('load', handleResize)
+        window.removeEventListener('resize', handleResize)
+      }
+    }
+
   })
 
   const handleScroll = () => {
@@ -101,7 +121,7 @@ export default function Home() {
           <Divider sectionRef={portfolioRef} />
           <Portfolio />
           <Divider sectionRef={bookingRef} />
-          <Booking />
+          <Booking width={width}/>
           <Divider sectionRef={contactRef} />
           <Contact />
           <div className="absolute w-[50vmin] max-w-60 h-[50vmin] max-h-60 top-[-1.25rem] right-[-.75rem] md:top-[-.5rem] md:right-[-1.25rem] lg:top-[-1rem] lg:right-[-1.5rem] flex justify-end z-10 rotate-180 border-none z-10">

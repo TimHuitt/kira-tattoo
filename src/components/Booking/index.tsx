@@ -2,8 +2,12 @@
 
 import { useState, useEffect } from 'react'
 
-export default function Booking() {
-  const [ days ] = useState<string[]>(['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'])
+interface size {
+  width: number
+}
+
+const Booking: React.FC<size> = ({ width }) => {
+  const [ days, setDays ] = useState<string[]>([])
   const [ calendar, setCalendar ] = useState<number[]>()
   const [ startIndex, setStartIndex ] = useState<number>(0)
   const [year, setYear] = useState<number>(0)
@@ -13,9 +17,8 @@ export default function Booking() {
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const target = e.target as HTMLElement;
-    console.log(target.id);
+    
   }
-
 
   useEffect(() => {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -32,7 +35,11 @@ export default function Booking() {
 
     setCalendar(Array.from({length: days}, (_, i) => i - first + 1))
     setStartIndex(first)
-  },[])
+
+    const daysLong = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    const daysShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+    setDays(width > 678 ? daysLong : daysShort)
+  },[width])
 
   return (
     <>
@@ -71,3 +78,5 @@ export default function Booking() {
     </>
   );
 }
+
+export default Booking
