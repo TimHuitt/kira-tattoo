@@ -42,8 +42,8 @@ const Booking: React.FC<size> = ({ width }) => {
 
     const daysLong = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     const daysShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-    console.log(date.getDate() % 7)
-    setDayName(daysLong[date.getDate()])
+    
+    setDayName(daysLong[date.getDate() % 7])
     setDays(width > 678 ? daysLong : daysShort)
   },[width])
 

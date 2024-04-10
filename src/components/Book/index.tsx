@@ -32,16 +32,25 @@ const Book: React.FC<dates> = ({date, day, dayName, month, year, handleClick}) =
           onClick={(e) => e.stopPropagation()} 
         >
           <div className='absolute top-2 right-2 px-2 bg-fuchsia-900 rounded-full cursor-pointer' onClick={handleClick}>x</div>
-          <h1 className='py-6'>Book Some Time!</h1>
+          <h1 className='mt-8 text-xl'>Book Some Time!</h1>
+          <div className="w-full flex justify-center my-4">
+            <div className="w-5/6 h-1 rounded-xl border border-1 border-slate-500" />
+          </div>
           <div className="relative w-5/6 h-fill flex flex-col items-center text-center">
-            <div className='w-full md:max-w-3/5 flex justify-center'>
-              <h1>{dayName},&nbsp;</h1>
-              <h1>{month},&nbsp;</h1>
-              <h1>{day}&nbsp;</h1>
-              <h1>{year}</h1>
+            <div className='w-full md:max-w-3/5 flex flex-col items-center text-gray-400'>
+              <h2>{dayName}</h2>
+
+              <div className='flex'>
+                <h2>{month},&nbsp;</h2>
+                <h2>{day}&nbsp;</h2>
+                <h2>{year}</h2>
+              </div>
             </div>
-            <div className='my-4'>
-              <small>Available Times</small>
+            <div className="w-full flex justify-center my-4">
+              <div className="w-5/6 h-1 rounded-xl border border-1 border-slate-500" />
+            </div>
+            <div className='mb-4'>
+              <small className='text-gray-500'>Available Times</small>
               <div className=''>
                 <select 
                   className='p-2 rounded-lg bg-gray-900'
