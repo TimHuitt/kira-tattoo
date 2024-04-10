@@ -30,7 +30,7 @@ const Section: React.FC<SectionProps> = (props) => {
       }
     }
     fetchImages()
-  },[])
+  },[props.folder])
 
   return (
     <div className='flex flex-col w-full mt-10 p-4 rounded-lg bg-pink-500 bg-opacity-20 border border-2 border-fuchsia-900'>

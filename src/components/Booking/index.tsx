@@ -7,7 +7,7 @@ export default function Booking() {
   const [ calendar, setCalendar ] = useState<number[]>()
   const [ startIndex, setStartIndex ] = useState<number>(0)
   const [year, setYear] = useState<number>(0)
-  const [month, setMonth] = useState<string>(0)
+  const [month, setMonth] = useState<string>('')
   const [day, setDay] = useState<number>(0)
   const [today, setToday] = useState<number>(0)
 
