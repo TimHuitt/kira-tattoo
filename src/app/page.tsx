@@ -88,7 +88,7 @@ export default function Home() {
             <h1 className="text-4xl text-start">Hi, I&apos;m Kira!</h1>
             <p className='text-sm md:text-base md:pb-10 opacity-60'>And here&apos;s something about me or something</p>
           </div>
-          <div className='max-w-full overflow-hidden'>
+          <div className='max-w-full h-[300px] flex items-center overflow-hidden'>
             <Gallery images={ images } />
           </div>
           <Divider sectionRef={updatesRef}/>

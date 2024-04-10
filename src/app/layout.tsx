@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { ModalProvider } from '@/app/provider';
 import { Comfortaa } from "next/font/google";
-import Image from "next/image";
 import { ScrollProvider } from '@/app/ScrollContext'
 import Header from '../components/Header'
 import "./globals.css";

@@ -71,41 +71,40 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
           '--swiper-pagination-color': '#fff',
         } as any }
         spaceBetween={10}
-        slidesPerView={width > 850 ? 3 : width > 650 ? 2 : 1}
+        slidesPerView={width > 900 ? 3 : width > 768 ? 2 : 1}
         loop={true}
         autoplay={{
           delay: swipeDelay,
         }}
-        navigation={width > 650 ? true : false}
+        navigation={true}
         pagination={{
           clickable: true,
         }}
         modules={[Pagination, Navigation]}
-        // onSlideChange={() => console.log('slide change')}
-        // onSwiper={(swiper) => console.log(swiper)}
       >
       {images?.map((image, index) => {
         const currentImg = cld.image(image)
         currentImg.resize(fill().width(250).height(250))
 
         return (
-          <SwiperSlide key={`${image}-index`} lazy>
-            <div className="swiper-slide flex justify-center overflow-hidden cursor-pointer" onClick={handleClick}>
+          <SwiperSlide key={`${image}-index`}>
+            <div className="swiper-slide flex justify-center py-5 overflow-hidden cursor-pointer" onClick={handleClick}>
               
               <div className='w-full h-full flex justify-center items-center'>
                 <AdvancedImage
+                  width="100%"
+                  height="300px"
                   cldImg={currentImg}
                   alt={image}
                   style={{ maxWidth: '100%', height: 'auto', display: 'block', margin: '0 auto', borderRadius: '20px' }}
-                  plugins={[lazyload()]}
+                  plugins={[lazyload({threshold: 1})]}
                 />
                 <div className="swiper-lazy-preloader">
-                  {/* <CircleLoader
+                  <CircleLoader
                     // color={color}
                     // cssOverride={override}
-                    loading={!loadingImages[index]}
                     size={75}
-                  /> */}
+                  />
                 </div>
               </div>
               {/* <p className='text-center'>{ image }</p> */}
