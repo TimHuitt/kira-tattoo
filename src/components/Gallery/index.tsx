@@ -92,7 +92,7 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
               
               <div className='w-full h-full flex justify-center items-center'>
                 <AdvancedImage
-                  className="block w-auto h-[300px] max-w-full my-0 rounded-xl mx-auto"
+                  className="block w-auto h-full max-w-full my-0 rounded-xl mx-auto"
                   cldImg={currentImg}
                   alt={image}
                   // plugins={[lazyload({threshold: 1})]}

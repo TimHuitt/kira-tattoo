@@ -8,7 +8,7 @@ interface dates {
   handleClick: React.MouseEventHandler<HTMLDivElement>
 }
 
-const Book: React.FC<dates> = ({date, month, year, handleClick}) => {
+const Book: React.FC<dates> = ({date, day, month, year, handleClick}) => {
   const [ dates, setDates ] = useState<{key: string[]}>()
   const [ dayName, setDayName ] = useState<string>('')
   const [ selectedDay, setSelectedDay ] = useState<number>(0)
