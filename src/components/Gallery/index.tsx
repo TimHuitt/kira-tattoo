@@ -65,7 +65,7 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
 
   return (
       <Swiper
-        className='z-20'
+        className='z-30'
         style={{
           '--swiper-pagination-color': '#A21CAF',
           '--swiper-navigation-color': '#A21CAF',

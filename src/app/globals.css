@@ -66,9 +66,6 @@ body {
   .input {
     @apply w-full md:w-3/5 p-4 rounded-lg outline-lime-500 bg-gray-900
   }
-  .book-input {
-    @apply w-full md:w-3/5 p-2 rounded-lg outline-lime-500 bg-gray-900
-  }
   .text-area {
     @apply h-40 resize-none
   }

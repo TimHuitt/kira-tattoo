@@ -62,7 +62,7 @@ const Booking: React.FC<size> = ({ width }) => {
               index >= startIndex ? (
                 <div 
                   key={`${day}-${index}`} 
-                  className="text-xs text-start md:text-base text-slate-400 h-14 md:h-20 lg:h-32 bg-gray-900 hover:bg-gray-700 border border-2 border-slate-700 md:border-0 hover:border hover:border-4 hover:border-lime-700 active:bg-slate-800 m-[.1rem] md:m-1 rounded-lg cursor-pointer"
+                  className="text-xs text-start md:text-base text-slate-400 h-14 md:h-20 lg:h-32 bg-gray-900 hover:bg-gray-700 border border-2 border-slate-700 md:border-0 hover:border hover:border-4 hover:border-lime-700 active:bg-slate-800 shadow-inner shadow-fuchsia-900 m-[.1rem] md:m-1 rounded-lg cursor-pointer"
                 >
                   <div 
                     className="w-full h-full p-2" 

@@ -70,10 +70,10 @@ const Book: React.FC<dates> = ({date, day, month, year, handleClick}) => {
               </div>
             </div>
             <p className="book-label">Name</p>
-            <input type="text" className="book-input"></input>
+            <input type="text" className="input"></input>
 
             <p className="book-label">Email</p>
-            <input type="text" className="book-input"></input>
+            <input type="text" className="input"></input>
 
             <p className="book-label">Comments</p>
             <textarea className="input text-area"></textarea>
