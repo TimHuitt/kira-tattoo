@@ -67,8 +67,8 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
       <Swiper
         className='z-20'
         style={{
-          '--swiper-navigation-color': '#fff',
-          '--swiper-pagination-color': '#fff',
+          '--swiper-pagination-color': '#A21CAF',
+          '--swiper-navigation-color': '#A21CAF',
         } as any }
         spaceBetween={10}
         slidesPerView={width > 900 ? 3 : width > 768 ? 2 : 1}
@@ -88,9 +88,9 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
 
         return (
           <SwiperSlide key={`${image}-index`}>
-            <div className="swiper-slide flex justify-center py-5 overflow-hidden cursor-pointer" onClick={handleClick}>
+            <div className="swiper-slide flex justify-center py-5 cursor-pointer" onClick={handleClick}>
               
-              <div className='w-full h-full flex justify-center items-center'>
+              <div className='w-full h-[90%] flex justify-center items-center'>
                 <AdvancedImage
                   className="block w-auto h-full max-w-full my-0 rounded-xl mx-auto"
                   cldImg={currentImg}
