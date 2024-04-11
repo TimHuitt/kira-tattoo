@@ -32,7 +32,7 @@ const Book: React.FC<dates> = ({date, day, month, year, handleClick}) => {
         onClick={handleClick}
       >
         <div 
-          className="relative w-[90%] md:w-3/5 lg:max-w-[600px] h-auto max-h-5/6 flex flex-col items-center bg-slate-800 border border-2 border-slate-500 rounded-lg overflow-y-auto z-50"
+          className="absolute top-20 md:top-42 w-[90%] md:w-3/5 lg:max-w-[600px] h-5/6 md:h-auto flex flex-col items-center bg-slate-800 border border-2 border-slate-500 rounded-lg overflow-y-auto z-50"
           onClick={(e) => e.stopPropagation()} 
         >
           <div className='absolute top-2 right-2 px-2 bg-fuchsia-900 rounded-full cursor-pointer' onClick={handleClick}>x</div>
