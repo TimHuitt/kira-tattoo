@@ -93,7 +93,7 @@ export default function Home() {
     <div ref={scrollRef} className="relative w-full h-full mt-20 overflow-y-auto">
       <div className='h-auto w-[90%] max-w-5xl text-white mx-auto  p-4 pt-10 md:p-6 lg:p-8 rounded bg-slate-800 shadow-xl shadow-slate-900 overflow-x-hidden'>
         <div className="relative">
-          <div className='w-5/6 max-h-60 min-h-20 md:min-h-40 md:min-h-56'>
+          <div className='w-5/6 max-h-60 min-h-20 pt-0 md:pt-6 md:min-h-40 md:min-h-56'>
             <div className='w-[100px] h-[100px] mb-6 rounded-full overflow-hidden'>
               <Image
                 src="/images/1.webp"
