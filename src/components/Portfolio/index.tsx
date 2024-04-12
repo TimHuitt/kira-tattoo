@@ -19,25 +19,25 @@ export default function Portfolio() {
         <Section 
           header={'Tattoos'}
           description={'Examples of my completed tattoos'}
-          folder='samples/'
+          folder='main-images/tattoo-featured'
           swipeDelay={1300}
         />
         <Section 
           header={'Illustrations'}
           description={'Illustrations in a variety of mediums'}
-          folder='samples/'
+          folder='main-images/illustration-featured'
           swipeDelay={1500}
         />
         <Section 
           header={'Paintings'}
           description={'Collection of acrylic and oil paintings'}
-          folder='samples/'
+          folder='main-images/painting'
           swipeDelay={1700}
         />
         <Section 
           header={'Other'}
           description={'Everything else including sculpts, crafts, and MECHS!'}
-          folder='samples/'
+          folder='main-images/other'
           swipeDelay={1900}
         />
       </div>
