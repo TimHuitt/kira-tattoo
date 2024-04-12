@@ -48,13 +48,14 @@ const Booking: React.FC<size> = ({ width }) => {
   return (
     <>
       <div className="relative w-full h-auto relative z-30">
-        <h1  className="text-4xl text-center pb-10">Booking</h1>
-        <div className="relative top-[30%] w-full h-auto">
-          <div className="flex justify-around py-4 text-2xl">
+        <h1  className="text-4xl text-center pb-10 moto">Booking</h1>
+        <div className="relative top-[30%] w-full h-auto flex justify-center">
+          <h3>Check my schedule and book time at <a href="#" className='underline'>calendly.com</a></h3>
+          {/* <div className="flex justify-around py-4 text-2xl">
             <h2>{month}</h2>
             <h2>{year}</h2>
           </div>
-          <div className="grid grid-rows-6 grid-cols-7 grid-rows-[40px,repeat(5,minmax(0,1fr))] text-center text-slate-600 w-full h-auto mb-20 rounded-xl border border-0 border-fuchsia-700 overflow-hidden">
+          <div className="grid grid-rows-6 grid-cols-7 grid-rows-[40px,repeat(5,minmax(0,1fr))] text-center text-slate-600 w-full h-auto mb-20 rounded border border-0 border-fuchsia-700 overflow-hidden">
             {days.map((day, index) => (
               <h3 key={`${days}-${index}-label`} className="days">{day}</h3>
             ))}
@@ -62,7 +63,7 @@ const Booking: React.FC<size> = ({ width }) => {
               index >= startIndex ? (
                 <div 
                   key={`${day}-${index}`} 
-                  className="text-xs text-start md:text-base text-slate-400 h-14 md:h-20 lg:h-32 bg-gray-900 hover:bg-gray-700 border border-2 border-slate-700 md:border-0 hover:border hover:border-4 hover:border-lime-700 active:bg-slate-800 shadow-inner shadow-fuchsia-900 m-[.1rem] md:m-1 rounded-lg cursor-pointer"
+                  className="text-xs text-start md:text-base text-slate-400 h-14 md:h-20 lg:h-32 bg-gray-900 hover:bg-gray-700 border border-2 border-slate-700 md:border-0 hover:border hover:border-4 hover:border-lime-700 active:bg-slate-800 shadow-inner shadow-fuchsia-900 m-[.1rem] md:m-1 rounded-sm cursor-pointer"
                 >
                   <div 
                     className="w-full h-full p-2" 
@@ -78,7 +79,7 @@ const Booking: React.FC<size> = ({ width }) => {
                 </div>
               )
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
       {showBook && (

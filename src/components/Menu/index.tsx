@@ -40,9 +40,9 @@ const Menu: React.FC<MenuProps> = ({ selected, toggleMenu, scrollToLoc }) => {
           <div onClick={() => scrollToLoc(bookingRef)}>
             <button className={`${selected === 'booking' ? 'btn-selected' : ''} py-4`}>Booking</button>
           </div>
-          <div onClick={() => scrollToLoc(contactRef)}>
+          {/* <div onClick={() => scrollToLoc(contactRef)}>
             <button className={`${selected === 'contact' ? 'btn-selected' : ''} py-4`}>Contact</button>
-          </div>
+          </div> */}
         </>
       </div>
     </>

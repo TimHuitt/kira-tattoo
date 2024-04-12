@@ -5,7 +5,7 @@ export default function Contact() {
   return (
     <>
       <div className="relative w-full z-30 text-lg">
-        <h1  className="text-4xl text-center py-10">Contact</h1>
+        <h1  className="text-4xl text-center py-10 moto">Contact</h1>
         <div className="w-full flex justify-center mb-40">
           <div className="w-full md:w-5/6 flex flex-col items-center text-center">
 

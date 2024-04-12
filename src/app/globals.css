@@ -21,12 +21,20 @@ body {
   height: 100vh;
   width: 100vw;
   color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-start-rgb));
+  background: rgb(var(--background-start-rgb)); 
   background-image: url("/stars3.png");
   background-size: 20%;
   background-position: top;
   background-repeat: repeat;
   backdrop-filter: brightness(70%)
+}
+
+@font-face {
+  font-family: 'moto-verse';
+  src: url('/fonts/moto-verse.otf') format('opentype'),
+       url('/fonts/moto-verse.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
 }
 
 @layer utilities {
@@ -46,7 +54,7 @@ body {
     @apply text-lime-500 text-opacity-90 border-b-4 border-lime-200 border-opacity-90 border-b-4 hover:border-lime-500 hover:border-opacity-50
   }
   .tab {
-    @apply text-sm md:text-lg lg:text-xl px-2 md:px-4 lg:px-6 border-4 h-1/2 border-b-0 border-pink-900 rounded-xl rounded-b-none bg-zinc-900 bg-opacity-75
+    @apply text-sm md:text-lg lg:text-xl px-2 md:px-4 lg:px-6 border-4 h-1/2 border-b-0 border-pink-900 rounded rounded-b-none bg-zinc-900 bg-opacity-75
   }
   .tab-hover {
     @apply hover:border-pink-500 hover:h-4/6
@@ -64,13 +72,13 @@ body {
     @apply pb-2 mt-2
   }
   .input {
-    @apply w-full md:w-3/5 p-4 rounded-lg outline-lime-500 bg-gray-900
+    @apply w-full md:w-3/5 p-4 rounded-sm outline-lime-500 bg-gray-900
   }
   .text-area {
     @apply h-40 resize-none
   }
   .form-button {
-    @apply mx-2 md:mx-10 p-4 rounded-lg bg-gray-900 hover:bg-gray-700 active:bg-gray-500 border border-slate-600
+    @apply mx-2 md:mx-10 p-4 rounded-sm bg-gray-900 hover:bg-gray-700 active:bg-gray-500 border border-slate-600
   }
   .submit {
     @apply bg-green-600 bg-opacity-30
@@ -108,4 +116,10 @@ body {
 }
 .swiper-pagination-color {
   color: #84CC16;
+}
+
+
+.moto {
+  font-family: 'moto-verse', sans-serif;
+  opacity: .85;
 }

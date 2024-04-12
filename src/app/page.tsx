@@ -91,7 +91,7 @@ export default function Home() {
 
   return (
     <div ref={scrollRef} className="relative w-full h-full mt-20 overflow-y-auto">
-      <div className='h-auto w-[90%] max-w-5xl text-white mx-auto  p-4 pt-10 md:p-6 lg:p-8 rounded-xl bg-slate-800 shadow-xl shadow-slate-900 overflow-x-hidden'>
+      <div className='h-auto w-[90%] max-w-5xl text-white mx-auto  p-4 pt-10 md:p-6 lg:p-8 rounded bg-slate-800 shadow-xl shadow-slate-900 overflow-x-hidden'>
         <div className="relative">
           <div className='w-5/6 max-h-60 min-h-20 md:min-h-40 md:min-h-56'>
             <div className='w-[75px] h-[75px] mb-10 rounded-full overflow-hidden'>
@@ -113,7 +113,7 @@ export default function Home() {
           </div>
           <Divider sectionRef={updatesRef}/>
           <div>
-            <h1 className="text-4xl text-center p-4">Updates</h1>
+            <h1 className="text-4xl text-center p-4 moto">Updates</h1>
           </div>
           <Post />
           <Post />
