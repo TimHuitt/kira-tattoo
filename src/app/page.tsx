@@ -7,7 +7,7 @@ import { useScrollContext } from '@/app/ScrollContext'
 import Gallery from '../components/Gallery'
 import Divider from '../components/Divider'
 import Modal from '../components/Modal'
-import Post from '../components/Post'
+import Updates from '../components/Updates'
 import Portfolio from '@/components/Portfolio'
 import Booking from '@/components/Booking'
 import Contact from '@/components/Contact'
@@ -112,12 +112,7 @@ export default function Home() {
             <Gallery images={ images } />
           </div>
           <Divider sectionRef={updatesRef}/>
-          <div>
-            <h1 className="text-4xl text-center p-4 moto">Updates</h1>
-          </div>
-          <Post />
-          <Post />
-          <Post />
+          <Updates />
           <Divider sectionRef={portfolioRef} />
           <Portfolio />
           <Divider sectionRef={bookingRef} />
