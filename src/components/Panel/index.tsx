@@ -54,7 +54,7 @@ const Panel: React.FC<PanelProp> = (props) => {
             { props.image && (
               <div className="w-full flex flex-col items-center justify-center">
                 <label htmlFor="file-upload" className="flex flex-col items-center justify-center cursor-pointer">
-                  <div className="h-20 flex justify-center m-4 rounded-sm hover:bg-slate-500 cursor-pointer">
+                  <div className="h-20 flex justify-center m-4 rounded hover:bg-slate-500 cursor-pointer">
                     <Image 
                       src='/images/image.svg'
                       height={100}
@@ -68,7 +68,7 @@ const Panel: React.FC<PanelProp> = (props) => {
             )}
           <div className='flex justify-center items-center w-full py-4'>
             <h2 className="text-xl mr-4">Category</h2>
-            <select value={imgCategory} className='p-2 rounded-sm bg-slate-900 hover:bg-slate-500' onChange={handleChange}>
+            <select value={imgCategory} className='p-2 rounded bg-slate-900 hover:bg-slate-500' onChange={handleChange}>
               {props.categories.map((item, index) => {
                 const itemName = item.charAt(0).toUpperCase() + item.slice(1)
                 return (
@@ -79,10 +79,10 @@ const Panel: React.FC<PanelProp> = (props) => {
           </div>
           <div className='flex justify-center items-center w-full py-4'>
             <h2 className="text-xl mr-4">Caption</h2>
-            <input type="text" placeholder="Something about this image" className='p-2 w-3/5 rounded-sm bg-slate-900 hover:bg-slate-500' />
+            <input type="text" placeholder="Something about this image" className='p-2 w-3/5 rounded bg-slate-900 hover:bg-slate-500' />
           </div>
           <div className='flex justify-center items-center w-full py-4'>
-            <button className="border border-2 rounded-sm p-2 hover:bg-slate-500">Add New Image</button>
+            <button className="border border-2 rounded p-2 hover:bg-slate-500">Add New Image</button>
           </div>
         </div>
       </div>

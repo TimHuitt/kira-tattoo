@@ -1,4 +1,4 @@
-import Post from "../Post"
+import Posts from "../Posts"
 
 const Updates: React.FC = () => {
 
@@ -7,9 +7,7 @@ const Updates: React.FC = () => {
       <div>
         <h1 className="text-4xl text-center p-4 moto">Updates</h1>
       </div>
-      <Post />
-      <Post />
-      <Post />
+      <Posts />
     </div>
   )
 }

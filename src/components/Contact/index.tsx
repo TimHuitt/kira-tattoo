@@ -35,8 +35,7 @@ export default function Contact() {
     <>
       <div className="relative w-full z-30 text-lg">
         <h1  className="text-4xl text-center py-10 moto">Contact</h1>
-          <div 
-            className="w-full flex justify-center mb-40">
+          <div className="w-full flex justify-center mb-40">
             <form onSubmit={handleSubmit} className="w-full md:w-5/6 flex flex-col items-center text-center">
               <label className="label" htmlFor="name">Name</label>
               <input 
