@@ -1,6 +1,6 @@
 
-import React, { useState, useEffect, useRef, MouseEventHandler } from 'react'
-import { useModalContext } from '../../app/provider'
+import React, { useState, useEffect, useRef } from 'react'
+import { useModalContext } from '../../app/ModalContext'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { register } from 'swiper/element/bundle'
 import { Pagination, Navigation } from 'swiper/modules';
@@ -31,6 +31,7 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
   const [ width, setWidth ] = useState<number>(0)
   const [ loadingImages, setLoadingImages ] = useState<boolean[]>(new Array(images.length).fill(true))
   swipeDelay = swipeDelay ? swipeDelay : 1500
+
   const cld = new Cloudinary({
     cloud: {
       cloudName: "dqty1eboa"
@@ -57,7 +58,7 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
 
   },[])
 
-  const handleClick: MouseEventHandler<HTMLDivElement> = (e) => {
+  const handleClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
     const target = e.target as HTMLImageElement
     setShowModal(true)
     setCurrentImage(target.alt)

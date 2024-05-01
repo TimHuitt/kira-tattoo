@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useModalContext } from './provider'
+import { useModalContext } from './ModalContext'
 import { useScrollContext } from '@/app/ScrollContext'
 
 import Gallery from '../components/Gallery'
