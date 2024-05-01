@@ -7,6 +7,7 @@ import { useScrollContext } from '@/app/ScrollContext'
 import Gallery from '../components/Gallery'
 import Divider from '../components/Divider'
 import Modal from '../components/Modal'
+import Page from '../components/Page'
 import Updates from '../components/Updates'
 import Portfolio from '@/components/Portfolio'
 import Booking from '@/components/Booking'
@@ -15,7 +16,7 @@ import Image from 'next/image'
 
 export default function Home() { 
   const [ images, setImages ] = useState<string[]>(([]))
-  const { showModal, currentImage } = useModalContext()
+  const { showModal, currentImage, showPage, currentPage } = useModalContext()
   const { scrollRef, updatesRef, portfolioRef, bookingRef, contactRef, selected, setSelected } = useScrollContext()
   const [ width, setWidth ] = useState<number>(0)
 
@@ -130,6 +131,9 @@ export default function Home() {
         </div>
         { showModal &&
           <Modal src={currentImage}/>
+        }
+        { showPage &&
+          <Page />
         }
         
       </div>

@@ -17,24 +17,28 @@ export default function Portfolio() {
         Sapien, pulvinar nostra integer sociosqu dignissim ultrices tincidunt ad penatibus sed! Mus porttitor felis et.
         </p>
         <Section 
+          id={'tattoo'}
           header={'Tattoos'}
           description={'Examples of my completed tattoos'}
           folder='main-images/tattoo-featured'
           swipeDelay={1300}
         />
         <Section 
+          id={'illustration'}
           header={'Illustrations'}
           description={'Illustrations in a variety of mediums'}
           folder='main-images/illustration-featured'
           swipeDelay={1500}
         />
         <Section 
+          id={'painting'}
           header={'Paintings'}
           description={'Collection of acrylic and oil paintings'}
           folder='main-images/painting'
           swipeDelay={1700}
         />
         <Section 
+          id={'other'}
           header={'Other'}
           description={'Everything else including sculpts, crafts, and MECHS!'}
           folder='main-images/other'

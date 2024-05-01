@@ -11,6 +11,10 @@ interface modalContextType {
   setShowModal: Dispatch<SetStateAction<boolean>>
   currentImage: string
   setCurrentImage: Dispatch<SetStateAction<string>>
+  showPage: boolean
+  setShowPage: Dispatch<SetStateAction<boolean>>
+  currentPage: string
+  setCurrentPage: Dispatch<SetStateAction<string>>
 }
 
 const ModalContext = createContext<modalContextType | undefined>(undefined)
@@ -18,13 +22,19 @@ const ModalContext = createContext<modalContextType | undefined>(undefined)
 export const ModalProvider = ({ children }: ChildProp) => {
   const [ showModal, setShowModal ] = useState(false)
   const [ currentImage, setCurrentImage ] = useState('')
+  const [ showPage, setShowPage ] = useState(false)
+  const [ currentPage, setCurrentPage ] = useState('')
   
   const value = useMemo(() => ({
     showModal,
     setShowModal,
     currentImage,
     setCurrentImage,
-  }), [showModal, currentImage])
+    showPage,
+    setShowPage,
+    currentPage,
+    setCurrentPage,
+  }), [showModal, currentImage, showPage, currentPage])
 
   return (
     <ModalContext.Provider value={value}>
