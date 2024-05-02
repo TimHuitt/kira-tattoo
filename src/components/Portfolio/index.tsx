@@ -53,17 +53,3 @@ export default function Portfolio() {
   );
 }
 
-// export async function getStaticProps() {
-//   return {
-//     props: {
-// 
-//     }
-//   }
-// 
-//   const res = await fetch('/api/route');
-//   const data = await res.json();
-// 
-//   console.log(data)
-// 
-// 
-// }

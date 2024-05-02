@@ -20,8 +20,8 @@ const Section: React.FC<SectionProps> = (props) => {
   useEffect(() => {
     async function fetchImages() {
       try {
-        const folderPath = props.folder || 'main-images'
-        console.log(folderPath)
+        const folderPath = new URLSearchParams({path: props.folder || 'main-images'}).toString()
+        
         const res = await fetch(`/api/route?${folderPath}`)
         const data = await res.json()
 
@@ -44,8 +44,8 @@ const Section: React.FC<SectionProps> = (props) => {
 
   return (
     <div className='flex flex-col w-full mt-10 p-4 rounded bg-pink-500 bg-opacity-20 border border-2 border-fuchsia-900'>
-      <div className='flex flex-col items-start w-full p-2 hover:bg-slate-800 border border-2 border-fuchsia-800 border-opacity-50 rounded cursor-pointer'>
-        <div className='flex justify-between w-full md:full' id={props.id} onClick={handleClick}>
+      <div className='flex flex-col items-start w-full p-2 hover:bg-slate-800 hover:text-lime-300 border border-2 border-fuchsia-800 border-opacity-50 rounded cursor-pointer' onClick={handleClick}>
+        <div className='flex justify-between w-full md:full' id={props.id}>
           <h1 className="text-xl md:text-3xl text-start moto">{props.header}</h1>
           <div className='relative top-0 opacity-30'>
             <Image

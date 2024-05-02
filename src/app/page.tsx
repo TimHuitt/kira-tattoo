@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useModalContext } from './ModalContext'
 import { useScrollContext } from '@/app/ScrollContext'
+import { sql } from "@vercel/postgres";
 
 import Gallery from '../components/Gallery'
 import Divider from '../components/Divider'
@@ -75,8 +76,6 @@ export default function Home() {
       currentScroll: scrollRef.current?.scrollTop || 0,
     }
 
-    // console.log(offsets.clientHeight, offsets.scrollHeight, offsets.currentScroll)
-
     if (offsets.currentScroll >= offsets.home && offsets.currentScroll < offsets.updates) {
       setSelected('home')
     } else if (offsets.currentScroll < offsets.portfolio) {
@@ -133,7 +132,7 @@ export default function Home() {
           <Modal src={currentImage}/>
         }
         { showPage &&
-          <Page />
+          <Page folder={`main-images/${currentPage}-featured`}/>
         }
         
       </div>

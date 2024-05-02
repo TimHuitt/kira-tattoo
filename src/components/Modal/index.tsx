@@ -26,9 +26,9 @@ const Modal: React.FC<imageProp> = ({ src }) => {
     setLoading(false)
   }
   
-
   const currentImg = cld.image(src)
   // currentImg.resize(fill().width(250).height(250))
+  
   return (
     <>
       <div className='fixed top-0 left-0 w-screen h-screen flex justify-center items-center pointer-events-none z-50'>
