@@ -1,6 +1,4 @@
 ## Main Features
-- add updates limit - show 'more'
-- create scrolling modal to show portfolio sections with full size images
 - add contact notification on success/failure
 - add images to posts
 
@@ -13,11 +11,8 @@
 - add change order option to images (?)
 
 ## Backend
-- add mongodb connection
-  - create crud routes
-- create schema for posts
-- add cloudinary uploading/deleting
-  - renaming
+- create routes
+- add cloudinary upload/delete
 
 
 ## Routes
