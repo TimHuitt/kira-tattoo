@@ -2,6 +2,7 @@
 - add updates limit - show 'more'
 - create scrolling modal to show portfolio sections with full size images
 - add contact notification on success/failure
+- add images to posts
 
 ## Admin
 - add authorization
@@ -17,3 +18,50 @@
 - create schema for posts
 - add cloudinary uploading/deleting
   - renaming
+
+
+## Routes
+
+### Header Info
+  - user photo
+  - intro header
+  - intro statement
+  - featured images
+
+## Updates
+  - post
+    - header
+    - description
+    - content
+    - images
+    - date
+
+## Portfolio
+  - header text
+  - images
+
+## Booking
+  - link
+
+```sql
+  CREATE TABLE Header (
+    header VARCHAR(255),
+    statement VARCHAR(255),
+    photo VARCHAR(255),
+    images VARCHAR(255)
+  );
+  CREATE TABLE Updates (
+    header VARCHAR(255),
+    description VARCHAR(255),
+    content VARCHAR(255),
+    images VARCHAR(255),
+    date DATE
+  );
+  CREATE TABLE Portfolio (
+    header VARCHAR(255),
+    images VARCHAR(255)
+  );
+  CREATE TABLE Booking (
+    link VARCHAR(255)
+  );
+```

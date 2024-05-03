@@ -1,9 +1,10 @@
 'use client'
 
+// http://localhost:3000/api/add-content?name=John&number=6548152255
+
 import { useState, useEffect } from 'react'
 import { useModalContext } from './ModalContext'
 import { useScrollContext } from '@/app/ScrollContext'
-import { sql } from "@vercel/postgres";
 
 import Gallery from '../components/Gallery'
 import Divider from '../components/Divider'
@@ -139,3 +140,5 @@ export default function Home() {
     </div>
   );
 }
+
+
