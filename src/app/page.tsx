@@ -25,7 +25,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchImages() {      
       try {
-        const res = await fetch('/api/route')
+        const res = await fetch('/api/cloudinary/get-images')
         const data = await res.json()
         if (data) {
           const finalData = data.data.map((resource: { public_id: string }) => resource.public_id)

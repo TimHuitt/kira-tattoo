@@ -22,7 +22,7 @@ const Section: React.FC<SectionProps> = (props) => {
       try {
         const folderPath = new URLSearchParams({path: props.folder || 'main-images'}).toString()
         
-        const res = await fetch(`/api/route?${folderPath}`)
+        const res = await fetch(`/api/cloudinary/get-images?${folderPath}`)
         const data = await res.json()
 
         if (data) {
