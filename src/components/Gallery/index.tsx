@@ -22,11 +22,6 @@ type ImageProps = {
 }
 
 const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
-  const top = useRef(null)
-  const updates = useRef(null)
-  const portfolio = useRef(null)
-  const booking = useRef(null)
-  const contact = useRef(null)
   const { setShowModal, setCurrentImage } = useModalContext()
   const [ width, setWidth ] = useState<number>(0)
   const [ loadingImages, setLoadingImages ] = useState<boolean[]>(new Array(images.length).fill(true))
