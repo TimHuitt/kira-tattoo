@@ -5,6 +5,9 @@ export const config = {
   runtime: 'edge'
 }
 
+// add each content add section via search param
+// 
+
 export default async function GET(request: Request) {
   const url = new URL(request.url, 'http://dummyurl');
   const searchParams = url.searchParams

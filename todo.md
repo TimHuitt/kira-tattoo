@@ -1,6 +1,7 @@
 ## Main Features
 - add contact notification on success/failure
-- add images to posts
+- add image saving to db and fetching to posts
+- add gallery loading indicator
 
 ## Admin
 - add authorization
