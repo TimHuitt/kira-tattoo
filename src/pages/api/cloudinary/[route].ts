@@ -1,20 +1,20 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-export default async function GET(req: NextApiRequest, res: NextApiResponse) {
-  switch (req.method) {
-    case 'GET':
-      await handleGet(req, res);
-      break;
-    case 'POST':
-      // await handlePost(req, res);
-      break;
-    default:
-      res.setHeader('Allow', ['GET', 'POST']);
-      res.status(405).end(`Method ${req.method} Not Allowed`);
-  }
-}
+// export default async function handleRequest(req: NextApiRequest, res: NextApiResponse) {
+//   switch (req.method) {
+//     case 'GET':
+//       await handleGet(req, res);
+//       break;
+//     case 'POST':
+//       // await handlePost(req, res);
+//       break;
+//     default:
+//       res.setHeader('Allow', ['GET', 'POST']);
+//       res.status(405).end(`Method ${req.method} Not Allowed`);
+//   }
+// }
 
-async function handleGet(req: NextApiRequest, res: NextApiResponse) {
+export default async function GET(req: NextApiRequest, res: NextApiResponse) {
   const maxResults = 10
   const folder = req.query.path || 'main-images'
   const url = `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image/upload?prefix=${folder}`
