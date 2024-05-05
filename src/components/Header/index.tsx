@@ -1,14 +1,12 @@
 'use client'
 
 import Image from 'next/image'
-import axios from 'axios'
 import { useEffect, useState, useRef } from 'react'
 import { useScrollContext } from '@/app/ScrollContext'
 import Menu from '../../components/Menu'
 
 
 const Header: React.FC = () => {
-  const [ headerData, setHeaderData ] = useState<string[]>([])
   const [ showMenu, setShowMenu ] = useState<boolean>(false)
   const [width, setWidth] = useState<number>(1024);
   const { scrollRef, updatesRef, portfolioRef, bookingRef, contactRef, currentRef, selected, setSelected } = useScrollContext() 
@@ -31,18 +29,6 @@ const Header: React.FC = () => {
     }
     
     setShowMenu(false)
-
-    const getHeader = async () => {
-      try {
-        const res = await axios.get('api/header/get-content')
-        const resData = res
-        console.log(resData)
-      } catch (err) {
-  
-      }
-    }
-
-    getHeader()
 
     return () => {
       if (typeof window !== 'undefined') {

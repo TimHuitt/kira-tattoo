@@ -26,7 +26,7 @@ async function GET(req: NextApiRequest, res: NextApiResponse) {
     const data = await sql`SELECT * FROM header`
     const rowData = data.rows[0]
     console.log(rowData)
-    res.status(200).json({ data: rowData })
+    res.status(200).json({ rowData })
   } catch (err) {
     console.error('Fetching Error:', err)
     return new NextResponse(JSON.stringify({ error: 'Internal Fetching Error'}), { status: 500 })

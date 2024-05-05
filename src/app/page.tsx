@@ -5,6 +5,7 @@
 import { useState, useEffect } from 'react'
 import { useModalContext } from './ModalContext'
 import { useScrollContext } from '@/app/ScrollContext'
+import axios from 'axios'
 
 import Gallery from '../components/Gallery'
 import Divider from '../components/Divider'
@@ -16,11 +17,17 @@ import Booking from '@/components/Booking'
 import Contact from '@/components/Contact'
 import Image from 'next/image'
 
+interface HeaderData {
+  header: string
+  statement: string
+}
+
 export default function Home() { 
   const [ images, setImages ] = useState<string[]>(([]))
   const { showModal, currentImage, showPage, currentPage } = useModalContext()
   const { scrollRef, updatesRef, portfolioRef, bookingRef, contactRef, selected, setSelected } = useScrollContext()
   const [ width, setWidth ] = useState<number>(0)
+  const [ headerData, setHeaderData ] = useState<HeaderData | null>(null)
 
   useEffect(() => {
     async function fetchImages() {      
@@ -37,7 +44,22 @@ export default function Home() {
     }
     
     fetchImages()
+
+
+    const getHeader = async () => {
+      try {
+        const res = await axios.get('api/header/get-content')
+        const resData = res.data.rowData
+        setHeaderData(resData)
+      } catch (err) {
+
+      }
+    }
+
+    getHeader()
+
   },[])
+
 
   useEffect(() => {
     scrollRef.current?.addEventListener('scroll', handleScroll);
@@ -107,8 +129,8 @@ export default function Home() {
                 height={100}
               />
             </div>
-            <h1 className="text-4xl text-start">Hi, I&apos;m Kira!</h1>
-            <p className='text-sm md:text-base pb-20 md:pb-30 opacity-60'>And here&apos;s something about me or something</p>
+            <h1 className="text-4xl text-start">{headerData?.header}</h1>
+            <p className='text-sm md:text-base pb-20 md:pb-30 opacity-60'>{headerData?.statement}</p>
           </div>
           <div className='max-w-full h-[300px] flex items-center overflow-hidden'>
             <Gallery images={ images } />
