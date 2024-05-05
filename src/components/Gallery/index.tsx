@@ -110,5 +110,5 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
   )
 };
 
-export default ImageGallery;
+export default ImageGallery
 

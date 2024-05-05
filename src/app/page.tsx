@@ -15,6 +15,7 @@ import Updates from '../components/Updates'
 import Portfolio from '@/components/Portfolio'
 import Booking from '@/components/Booking'
 import Contact from '@/components/Contact'
+import Edit from '@/components/Edit'
 import Image from 'next/image'
 
 interface HeaderData {
@@ -117,7 +118,7 @@ export default function Home() {
     <div ref={scrollRef} className="relative w-full h-full mt-20 overflow-y-auto">
       <div className='h-auto w-[90%] max-w-5xl text-white mx-auto  p-4 pt-10 md:p-6 lg:p-8 rounded bg-slate-800 shadow-xl shadow-slate-900 overflow-x-hidden'>
         <div className="relative">
-          <div className='w-5/6 max-h-60 min-h-20 pt-0 md:pt-6 md:min-h-40 md:min-h-56'>
+          <div className='relative w-full max-h-60 min-h-20 pt-0 md:pt-6 md:min-h-40 md:min-h-56'>
             <div className='w-[100px] h-[100px] mb-6 rounded-full overflow-hidden'>
               <Image
                 src="/images/1.webp"
@@ -129,8 +130,15 @@ export default function Home() {
                 height={100}
               />
             </div>
-            <h1 className="text-4xl text-start">{headerData?.header}</h1>
-            <p className='text-sm md:text-base pb-20 md:pb-30 opacity-60'>{headerData?.statement}</p>
+            <Edit />
+            <div className='relative w-full'>
+              <h1 className="text-4xl text-start">{headerData?.header}</h1>
+              <Edit />
+            </div>
+            <div className='relative'>
+              <p className='text-sm md:text-base pb-20 md:pb-30 opacity-60'>{headerData?.statement}</p>
+              <Edit />
+            </div>
           </div>
           <div className='max-w-full h-[300px] flex items-center overflow-hidden'>
             <Gallery images={ images } />
