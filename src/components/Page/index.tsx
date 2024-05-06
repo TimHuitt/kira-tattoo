@@ -25,7 +25,7 @@ const Page: React.FC<PageProp> = ({ folder }) => {
     async function fetchImages() {
       try {
         const folderPath = new URLSearchParams({path: folderRef.current || 'main-images'}).toString()
-        const res = await fetch(`/api/cloudinary/route?${folderPath}`)
+        const res = await fetch(`/api/cloudinary?${folderPath}`)
         const data = await res.json()
         if (data) {
           const finalData = data.data.map((resource: { public_id: string }) => resource.public_id)

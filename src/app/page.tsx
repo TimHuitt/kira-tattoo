@@ -34,7 +34,7 @@ const Home = () => {
   useEffect(() => {
     async function fetchImages() {      
       try {
-        const res = await fetch('/api/cloudinary/route')
+        const res = await fetch('/api/cloudinary')
         const data = await res.json()
         if (data) {
           const finalData = data.data.map((resource: { public_id: string }) => resource.public_id)
