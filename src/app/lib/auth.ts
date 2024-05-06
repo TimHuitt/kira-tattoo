@@ -16,9 +16,9 @@ export const options: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-      const isAuthorized = true;
-
+    async signIn({ user}) {
+      const isAuthorized = user.email === 'timhuitt@gmail.com';
+      console.log(user.email, isAuthorized)
       if (!isAuthorized) {
         return false
       }

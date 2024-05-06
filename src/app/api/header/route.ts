@@ -11,7 +11,6 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
   try {
     const data = await sql`SELECT * FROM header`
     const rowData = data.rows[0]
-    console.log(rowData)
     return NextResponse.json({ rowData })
   } catch (err) {
     console.error('Fetching Error:', err)
