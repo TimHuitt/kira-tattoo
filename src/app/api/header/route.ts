@@ -1,32 +1,25 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
+import { getServerSession } from 'next-auth';
+import { options } from '@/app/lib/auth'
 
-export default async function handleRequest(req: NextApiRequest, res: NextApiResponse) {
-  switch (req.method) {
-    case 'GET':
-      await GET(req, res);
-      break;
-    case 'POST':
-      // await handlePost(req, res);
-      break;
-    default:
-      return new NextResponse(`Method ${req.method} Not Allowed`, { status: 405 });
-  }
-}
 
 // add each content add section via search param
 // 
 
-async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextApiRequest, res: NextApiResponse) {
   // const name = req.query.name || ''
   // const number = req.query.number || ''
+
+  const session = await getServerSession(options)
+  console.log(session)
 
   try {
     const data = await sql`SELECT * FROM header`
     const rowData = data.rows[0]
     console.log(rowData)
-    res.status(200).json({ rowData })
+    return NextResponse.json({ rowData })
   } catch (err) {
     console.error('Fetching Error:', err)
     return new NextResponse(JSON.stringify({ error: 'Internal Fetching Error'}), { status: 500 })
