@@ -2,6 +2,7 @@
 - add contact notification on success/failure
 - add image saving to db and fetching to posts
 - add gallery loading indicator
+- move all db data (including existing header data) to context
 
 ## Admin
 - add authorization

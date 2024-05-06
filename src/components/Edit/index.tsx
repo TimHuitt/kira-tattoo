@@ -2,8 +2,18 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 
+import { getSession } from "next-auth/react"
+
 const Edit: React.FC = () => {
-  const [ isAdmin, setIsAdmin ] = useState<boolean>(true)
+  const [ isAdmin, setIsAdmin ] = useState<boolean>(false)
+
+  useEffect(() => {
+    const currentSession = async () => {
+      const current: any = await getSession()
+      setIsAdmin(current !== null)
+    }
+    currentSession()
+  },[])
 
   return (
     <>
