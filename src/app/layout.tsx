@@ -22,13 +22,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" className="overflow-hidden">
       <body className={`${comfortaa.className} overflow-hidden`}>
         <ScrollProvider>
-        <ModalProvider>
-          <Header />
-          <main className="fixed w-full h-full flex items-center mx-auto overflow-hidden z-10">
-            {children}
-            <div className='h-10 ' />
-          </main>
-        </ModalProvider>
+          <ModalProvider>
+            <Header />
+            <main className="fixed w-full h-full flex items-center mx-auto overflow-hidden z-10">
+              {children}
+              <div className='h-10 ' />
+            </main>
+          </ModalProvider>
         </ScrollProvider>
       </body>
     </html>
