@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 
-import { useScrollContext } from '@/app/ScrollContext'
+import { useScrollContext } from '@/app/api/middleware/ScrollContext'
 import Panel from '../../components/Panel'
 
 export default function Admin() {  

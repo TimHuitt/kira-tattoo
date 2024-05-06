@@ -1,5 +1,5 @@
 import { useState, useEffect, ReactNode } from 'react'
-import { useScrollContext } from '@/app/ScrollContext'
+import { useScrollContext } from '@/app/api/middleware/ScrollContext'
 import Image from 'next/image'
 
 import Link from 'next/link'

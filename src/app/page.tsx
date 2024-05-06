@@ -3,12 +3,11 @@
 // http://localhost:3000/api/add-content?name=John&number=6548152255
 
 import { useState, useEffect } from 'react'
-import { useModalContext } from './ModalContext'
-import { useScrollContext } from '@/app/ScrollContext'
+import { useModalContext } from './api/middleware/ModalContext'
+import { useScrollContext } from '@/app/api/middleware/ScrollContext'
 import axios from 'axios'
 
 import Login from '../components/Login'
-
 import Gallery from '../components/Gallery'
 import Divider from '../components/Divider'
 import Modal from '../components/Modal'
@@ -25,7 +24,7 @@ interface HeaderData {
   statement: string
 }
 
-export default function Home() { 
+const Home = () => { 
   const [ images, setImages ] = useState<string[]>(([]))
   const { showModal, currentImage, showPage, currentPage } = useModalContext()
   const { scrollRef, updatesRef, portfolioRef, bookingRef, contactRef, selected, setSelected } = useScrollContext()
@@ -175,4 +174,4 @@ export default function Home() {
   );
 }
 
-
+export default Home

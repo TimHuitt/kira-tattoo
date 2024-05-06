@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useModalContext } from '../../app/ModalContext'
+import { useModalContext } from '../../app/api/middleware/ModalContext'
 import { AdvancedImage } from '@cloudinary/react'
 import { Cloudinary } from '@cloudinary/url-gen/index'
 import RingLoader from 'react-spinners/RingLoader'

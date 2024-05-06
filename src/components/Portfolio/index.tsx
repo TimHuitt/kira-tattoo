@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Footer from '@/components/Footer'
 import Section from '@/components/Section'
-import { useModalContext } from '@/app/ModalContext'
+import { useModalContext } from '@/app/api/middleware/ModalContext'
 import Modal from '@/components/Modal'
 
 export default function Portfolio() {

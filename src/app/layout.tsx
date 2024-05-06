@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { ModalProvider } from '@/app/ModalContext';
 import { Comfortaa } from "next/font/google";
-import { ScrollProvider } from '@/app/ScrollContext'
+import { ModalProvider } from '@/app/api/middleware/ModalContext';
+import { ScrollProvider } from '@/app/api/middleware/ScrollContext'
 import Header from '../components/Header'
 import "./globals.css";
 
@@ -22,13 +22,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" className="overflow-hidden">
       <body className={`${comfortaa.className} overflow-hidden`}>
         <ScrollProvider>
-          <ModalProvider>
-            <Header />
-            <main className="fixed w-full h-full flex items-center mx-auto overflow-hidden z-10">
-              {children}
-              <div className='h-10 ' />
-            </main>
-          </ModalProvider>
+        <ModalProvider>
+          <Header />
+          <main className="fixed w-full h-full flex items-center mx-auto overflow-hidden z-10">
+            {children}
+            <div className='h-10 ' />
+          </main>
+        </ModalProvider>
         </ScrollProvider>
       </body>
     </html>
