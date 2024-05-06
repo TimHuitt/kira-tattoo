@@ -22,6 +22,8 @@ import Image from 'next/image'
 interface HeaderData {
   header: string
   statement: string
+  photo: string
+  images: string
 }
 
 const Home = () => { 
@@ -52,6 +54,7 @@ const Home = () => {
       try {
         const res = await axios.get('api/header')
         const resData = res.data.rowData
+        console.log(resData)
         setHeaderData(resData)
       } catch (err) {
 
@@ -132,15 +135,15 @@ const Home = () => {
                 height={100}
               />
             </div>
-            <Edit isLeft={true} />
+            <Edit data={headerData} element={'header/image'} isLeft={true} />
             <div className='inline-flex relative'>
               <h1 className="text-4xl text-start">{headerData?.header}</h1>
-              <Edit />
+              <Edit data={headerData} element={'header/header'} />
             </div>
             <div></div>
             <div className='inline-flex relative w-5/6 md:w-auto'>
               <p className='text-sm md:text-base pb-20 md:pb-30 opacity-60'>{headerData?.statement}</p>
-              <Edit />
+              <Edit data={headerData} element={'header/statement'} />
             </div>
           </div>
           <div className='max-w-full h-[300px] flex items-center overflow-hidden'>
