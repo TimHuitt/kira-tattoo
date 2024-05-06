@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-
 export async function GET(req: NextRequest, res: NextResponse) {
   const maxResults = 10
   const path = new URL(req.url)

@@ -1,10 +1,4 @@
-import type {
-  GetServerSidePropsContext,
-  NextApiRequest,
-  NextApiResponse,
-} from "next"
 import type { NextAuthOptions } from "next-auth"
-import { getServerSession } from "next-auth"
 import GoogleProvider from 'next-auth/providers/google'
 
 export const options: NextAuthOptions = {
@@ -15,6 +9,9 @@ export const options: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_SECRET as string,
     }),
   ],
+  session: {
+    strategy: 'jwt',
+  },
   callbacks: {
     async signIn({ user}) {
       const isAuthorized = user.email === 'timhuitt@gmail.com';
@@ -23,17 +20,14 @@ export const options: NextAuthOptions = {
       }
       return true
     },
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id
+      }
+      return token
+    },
     async redirect() {
       return '/'
     }
   }
-}
-
-export function auth(
-  ...args:
-    | [GetServerSidePropsContext["req"], GetServerSidePropsContext["res"]]
-    | [NextApiRequest, NextApiResponse]
-    | []
-) {
-  return getServerSession(...args, options)
 }

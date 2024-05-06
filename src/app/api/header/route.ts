@@ -1,11 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 
-
-export async function GET(req: NextRequest) {
-  // const name = req.query.name || ''
-  // const number = req.query.number || ''
-
+export async function GET(req: NextRequest, res: NextResponse) {
 
   try {
     const data = await sql`SELECT * FROM header`
