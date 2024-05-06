@@ -18,14 +18,16 @@ export const options: NextAuthOptions = {
   callbacks: {
     async signIn({ user}) {
       const isAuthorized = user.email === 'timhuitt@gmail.com';
-      console.log(user.email, isAuthorized)
       if (!isAuthorized) {
         return false
       }
       return true
     },
+    async redirect() {
+      return '/'
+    }
   }
-} satisfies NextAuthOptions
+}
 
 export function auth(
   ...args:

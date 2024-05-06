@@ -132,12 +132,13 @@ const Home = () => {
                 height={100}
               />
             </div>
-            <Edit />
-            <div className='relative '>
+            <Edit isLeft={true} />
+            <div className='inline-flex relative'>
               <h1 className="text-4xl text-start">{headerData?.header}</h1>
               <Edit />
             </div>
-            <div className='relative'>
+            <div></div>
+            <div className='inline-flex relative w-5/6 md:w-auto'>
               <p className='text-sm md:text-base pb-20 md:pb-30 opacity-60'>{headerData?.statement}</p>
               <Edit />
             </div>

@@ -4,8 +4,13 @@ import Image from 'next/image'
 
 import { getSession } from "next-auth/react"
 
-const Edit: React.FC = () => {
+interface EditProps {
+  isLeft?: boolean
+}
+
+const Edit: React.FC<EditProps> = ({ isLeft = false }) => {
   const [ isAdmin, setIsAdmin ] = useState<boolean>(false)
+  const [ left ] = useState<boolean>(isLeft)
 
   useEffect(() => {
     const currentSession = async () => {
@@ -18,7 +23,7 @@ const Edit: React.FC = () => {
   return (
     <>
       { isAdmin && (
-        <div className='absolute top-0 right-0 cursor-pointer z-50'>
+        <div className={`absolute top-0 ${left ? '-left-2' : '-right-10'} cursor-pointer z-50`}>
           <Image
             src="/edit.svg"
             alt="Profile Image"
