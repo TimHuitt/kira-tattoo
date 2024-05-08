@@ -3,7 +3,9 @@ import { Comfortaa } from "next/font/google";
 import { ModalProvider } from '@/app/api/middleware/ModalContext';
 import { ScrollProvider } from '@/app/api/middleware/ScrollContext'
 import Header from '../components/Header'
+
 import "./globals.css";
+import 'react-tooltip/dist/react-tooltip.css'
 
 const comfortaa = Comfortaa({
   subsets: ["latin"],

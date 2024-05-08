@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from 'react'
+import { PlacesType, Tooltip } from 'react-tooltip'
 import Image from 'next/image'
 import axios from 'axios'
 
@@ -19,9 +20,22 @@ interface EditProps {
   isLeft?: boolean
   isBottom?: boolean
   size?: number
+  tooltip?: string
+  tooltipPlace?: PlacesType | undefined
 }
 
-const Edit: React.FC<EditProps> = ({ element, data, type = 'edit', isLeft = false, isBottom = false, size = 20}) => {
+const Edit: React.FC<EditProps> = (
+  { 
+    element, 
+    data, 
+    type = 'edit', 
+    isLeft = false, 
+    isBottom = false, 
+    size = 20, 
+    tooltip = '',
+    tooltipPlace = 'top',
+  }
+) => {
   const [ isAdmin, setIsAdmin ] = useState<boolean>(false)
 
   useEffect(() => {
@@ -50,20 +64,25 @@ const Edit: React.FC<EditProps> = ({ element, data, type = 'edit', isLeft = fals
   return (
     <>
       { isAdmin && (
-        <div 
-          className={`absolute ${isBottom ? 'bottom-0' : 'top-0'} ${isLeft ? 'left-0' : 'right-0'} m-1 cursor-pointer z-50`}
-          onClick={handleClick}
-        >
-          <Image
-            src={type === 'remove' ? "/remove.svg" : type === 'add' ? "/add.svg" : "/edit.svg"}
-            alt="Profile Image"
-            style={{
-              objectFit: 'contain',
-            }}
-            width={size}
-            height={size}
-          />
-        </div>
+        <>
+          <div 
+            className={`tooltip-${element} absolute ${isBottom ? 'bottom-0' : 'top-0'} ${isLeft ? 'left-0' : 'right-0'} m-1 cursor-pointer z-40`}
+            onClick={handleClick}
+          >
+            <Image
+              src={type === 'remove' ? "/remove.svg" : type === 'add' ? "/add.svg" : "/edit.svg"}
+              alt="Profile Image"
+              style={{
+                objectFit: 'contain',
+              }}
+              width={size}
+              height={size}
+            />
+          </div>
+          <Tooltip anchorSelect={`.tooltip-${element}`} place={tooltipPlace}>
+            {tooltip}
+          </Tooltip>
+        </>
       )}
     </>
   )

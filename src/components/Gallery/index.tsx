@@ -25,7 +25,6 @@ type ImageProps = {
 const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
   const { setShowModal, setCurrentImage } = useModalContext()
   const [ width, setWidth ] = useState<number>(0)
-  const [ loadingImages, setLoadingImages ] = useState<boolean[]>(new Array(images.length).fill(true))
   swipeDelay = swipeDelay ? swipeDelay : 1500
 
   const cld = new Cloudinary({
@@ -84,9 +83,11 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
       {images?.map((image, index) => {
         const currentImg = cld.image(image)
         currentImg.resize(fill().width(250).height(250))
+        const imageName = image.split('/').pop() || 'image'
+        console.log(imageName)
 
         return (
-          <SwiperSlide key={`${image}-index`}>
+          <SwiperSlide key={`${imageName}-${index}`}>
             <div className="swiper-slide flex justify-center py-5 cursor-pointer" onClick={handleClick}>
               
               <div className='h-[90%] flex justify-center items-center'>
@@ -104,8 +105,8 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
                   />
                 </div>
               </div>
-              {/* <p className='text-center'>{ image }</p> */}
-              <Edit element={image} type={'remove'} />
+              {/* <p className='text-center'>{ imageName }</p> */}
+              <Edit element={`${imageName}-${index}`} type={'remove'} />
             </div>
           </SwiperSlide>
         )
