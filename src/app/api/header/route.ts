@@ -14,10 +14,6 @@ export async function GET() {
 
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
-    const pathParts = req.nextUrl.pathname.split('/')
-    console.log(pathParts)
-    const body = await req.json()
-    console.log(body)
 
     // const tableName = pathParts[pathParts.length - 1]
 

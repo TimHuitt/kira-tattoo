@@ -8,6 +8,7 @@ import { AdvancedImage, lazyload } from '@cloudinary/react'
 import { Cloudinary } from '@cloudinary/url-gen/index'
 import { fill } from '@cloudinary/url-gen/actions/resize'
 import CircleLoader from 'react-spinners/CircleLoader'
+import Edit from '@/components/Edit';
 
 import 'swiper/css'
 import 'swiper/css/pagination'
@@ -61,7 +62,7 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
 
   return (
       <Swiper
-        className='z-30'
+        className='relative w-full z-30'
         style={{
           '--swiper-pagination-color': '#A21CAF',
           '--swiper-navigation-color': '#A21CAF',
@@ -71,11 +72,13 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
         loop={true}
         autoplay={{
           delay: swipeDelay,
+          pauseOnMouseEnter: true,
         }}
         navigation={true}
         pagination={{
           clickable: true,
         }}
+        
         modules={[Pagination, Navigation]}
       >
       {images?.map((image, index) => {
@@ -86,12 +89,12 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
           <SwiperSlide key={`${image}-index`}>
             <div className="swiper-slide flex justify-center py-5 cursor-pointer" onClick={handleClick}>
               
-              <div className='w-full h-[90%] flex justify-center items-center'>
+              <div className='h-[90%] flex justify-center items-center'>
                 <AdvancedImage
                   className="block w-auto h-full max-w-full my-0 rounded mx-auto"
                   cldImg={currentImg}
                   alt={image}
-                  // plugins={[lazyload({threshold: 1})]}
+                  plugins={[lazyload({threshold: 1})]}
                 />
                 <div className="swiper-lazy-preloader">
                   <CircleLoader
@@ -102,6 +105,7 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
                 </div>
               </div>
               {/* <p className='text-center'>{ image }</p> */}
+              <Edit element={image} type={'remove'} />
             </div>
           </SwiperSlide>
         )

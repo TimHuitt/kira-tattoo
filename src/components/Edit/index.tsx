@@ -14,13 +14,14 @@ interface HeaderData {
 
 interface EditProps {
   element: string
-  data: HeaderData | null
+  data?: HeaderData | null
+  type?: string | null
   isLeft?: boolean
+  isBottom?: boolean
 }
 
-const Edit: React.FC<EditProps> = ({ element, data, isLeft = false}) => {
+const Edit: React.FC<EditProps> = ({ element, data, type = 'edit', isLeft = false, isBottom = false}) => {
   const [ isAdmin, setIsAdmin ] = useState<boolean>(false)
-  const [ left ] = useState<boolean>(isLeft)
 
   useEffect(() => {
     const currentSession = async () => {
@@ -37,7 +38,7 @@ const Edit: React.FC<EditProps> = ({ element, data, isLeft = false}) => {
         statement: 'oh, ok',
       })
       .then(res => {
-        console.log(res)
+        console.log(element)
       })
       .catch(err => {
         console.error('Error', err)
@@ -49,17 +50,17 @@ const Edit: React.FC<EditProps> = ({ element, data, isLeft = false}) => {
     <>
       { isAdmin && (
         <div 
-          className={`absolute top-0 ${left ? '-left-2' : '-right-10'} cursor-pointer z-50`}
+          className={`absolute ${isBottom ? 'bottom-0' : 'top-2'} ${isLeft ? '-left-2' : 'right-0'} cursor-pointer z-50`}
           onClick={handleClick}
         >
           <Image
-            src="/edit.svg"
+            src={type === 'remove' ? "/remove.svg" : type === 'add' ? "/add.svg" : "/edit.svg"}
             alt="Profile Image"
             style={{
               objectFit: 'contain',
             }}
-            width={20}
-            height={20}
+            width={type === 'add' ? 30 : 20}
+            height={type === 'add' ? 30 : 20}
           />
         </div>
       )}

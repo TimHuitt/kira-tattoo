@@ -54,7 +54,14 @@ const Home = () => {
       try {
         const res = await axios.get('api/header')
         const resData = res.data.rowData
-        console.log(resData)
+
+        // resData === {
+        //   header: "Hi, I'm Kira", 
+        //   statement: "And here's something about me or something", 
+        //   photo: '1.webp', 
+        //   images: 'main-images'
+        // }
+
         setHeaderData(resData)
       } catch (err) {
 
@@ -137,17 +144,18 @@ const Home = () => {
             </div>
             <Edit data={headerData} element={'header/image'} isLeft={true} />
             <div className='inline-flex relative'>
-              <h1 className="text-4xl text-start">{headerData?.header}</h1>
+              <h1 className="text-4xl text-start pe-10">{headerData?.header}</h1>
               <Edit data={headerData} element={'header/header'} />
             </div>
             <div></div>
             <div className='inline-flex relative w-5/6 md:w-auto'>
-              <p className='text-sm md:text-base pb-20 md:pb-30 opacity-60'>{headerData?.statement}</p>
+              <p className='text-sm md:text-base pb-20 md:pb-30 pe-10 opacity-60'>{headerData?.statement}</p>
               <Edit data={headerData} element={'header/statement'} />
             </div>
           </div>
-          <div className='max-w-full h-[300px] flex items-center overflow-hidden'>
+          <div className='relative max-w-full h-[300px] flex items-center'>
             <Gallery images={ images } />
+            <Edit element={'add-post'} type={'add'} isBottom={true} />
           </div>
           <Divider sectionRef={updatesRef}/>
           <Updates />
