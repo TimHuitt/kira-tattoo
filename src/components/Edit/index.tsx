@@ -18,9 +18,10 @@ interface EditProps {
   type?: string | null
   isLeft?: boolean
   isBottom?: boolean
+  size?: number
 }
 
-const Edit: React.FC<EditProps> = ({ element, data, type = 'edit', isLeft = false, isBottom = false}) => {
+const Edit: React.FC<EditProps> = ({ element, data, type = 'edit', isLeft = false, isBottom = false, size = 20}) => {
   const [ isAdmin, setIsAdmin ] = useState<boolean>(false)
 
   useEffect(() => {
@@ -50,7 +51,7 @@ const Edit: React.FC<EditProps> = ({ element, data, type = 'edit', isLeft = fals
     <>
       { isAdmin && (
         <div 
-          className={`absolute ${isBottom ? 'bottom-0' : 'top-2'} ${isLeft ? '-left-2' : 'right-0'} cursor-pointer z-50`}
+          className={`absolute ${isBottom ? 'bottom-0' : 'top-0'} ${isLeft ? 'left-0' : 'right-0'} m-1 cursor-pointer z-50`}
           onClick={handleClick}
         >
           <Image
@@ -59,8 +60,8 @@ const Edit: React.FC<EditProps> = ({ element, data, type = 'edit', isLeft = fals
             style={{
               objectFit: 'contain',
             }}
-            width={type === 'add' ? 30 : 20}
-            height={type === 'add' ? 30 : 20}
+            width={size}
+            height={size}
           />
         </div>
       )}

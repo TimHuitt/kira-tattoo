@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import postsData from '@/assets/content/updates.json'
+import Edit from '@/components/Edit'
 
 interface Post {
   date: string
@@ -42,6 +43,8 @@ const Posts = () => {
               <div className='w-[100px] h-[100px] bg-slate-900'></div>
             </div>
             <p className='text-xs md:text-base'>{posts[post].content}</p>
+
+            <Edit element={'add-post'} type={'remove'} isLeft={true} />
           </div>
         ))
       ) : (

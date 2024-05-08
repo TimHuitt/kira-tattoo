@@ -9,7 +9,7 @@ const Updates: React.FC = () => {
         <h1 className="text-4xl text-center p-4 moto">Updates</h1>
       </div>
 
-      <Edit element={'add-post'} type={'add'} />
+      <Edit element={'add-post'} type={'add'} size={30} />
       <Posts />
     </div>
   )
