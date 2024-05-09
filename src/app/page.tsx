@@ -3,8 +3,8 @@
 // http://localhost:3000/api/add-content?name=John&number=6548152255
 
 import { useState, useEffect } from 'react'
-import { useModalContext } from './api/middleware/ModalContext'
-import { useScrollContext } from '@/app/api/middleware/ScrollContext'
+import { useModalContext } from '../context/ModalContext'
+import { useScrollContext } from '@/context/ScrollContext'
 import axios from 'axios'
 
 import Login from '../components/Login'

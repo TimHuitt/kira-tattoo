@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { useModalContext } from '../../app/api/middleware/ModalContext'
+import { useModalContext } from '../../context/ModalContext'
 import Gallery from '../Gallery'
 
 type SectionProps = {

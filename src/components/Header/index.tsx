@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useEffect, useState, useRef } from 'react'
-import { useScrollContext } from '@/app/api/middleware/ScrollContext'
+import { useScrollContext } from '@/context/ScrollContext'
 import Menu from '../../components/Menu'
 
 

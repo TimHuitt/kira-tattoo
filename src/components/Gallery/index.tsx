@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react'
-import { useModalContext } from '../../app/api/middleware/ModalContext'
+import { useModalContext } from '../../context/ModalContext'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { register } from 'swiper/element/bundle'
 import { Pagination, Navigation } from 'swiper/modules';

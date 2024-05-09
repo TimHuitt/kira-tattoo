@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { AdvancedImage } from '@cloudinary/react'
 import { Cloudinary } from '@cloudinary/url-gen/index'
-import { useModalContext } from '../../app/api/middleware/ModalContext'
+import { useModalContext } from '../../context/ModalContext'
 import RingLoader from 'react-spinners/RingLoader'
 
 type PageProp = {
