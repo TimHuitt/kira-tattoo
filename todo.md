@@ -3,6 +3,7 @@
 - add image saving to db and fetching to posts
 - add gallery loading indicator
 - move all db data (including existing header data) to context
+- clicking links should close any open windows (images/portfolio view)
 
 ## Admin
 - add authorization
@@ -19,22 +20,9 @@
 ## Performance
 - ** images?.map in Gallery is rerendering exponentially
 - handle resize in context (instead of gallery)
-- debounce resize 
-  ```js
-    useEffect(() => {
-      const handleResize = _.throttle(() => {
-        setWidth(window.innerWidth);
-      }, 100); // Adjust the throttle time to your needs
-
-      window.addEventListener('resize', handleResize);
-      return () => {
-        window.removeEventListener('resize', handleResize);
-      };
-    }, []);
-  ```
 - use memoization for image processing
   ```js
-    const processedImages = useMemo(() => images.map(image => {
+  const processedImages = useMemo(() => images.map(image => {
     const currentImg = cld.image(image);
     currentImg.resize(fill().width(250).height(250));
     return currentImg;

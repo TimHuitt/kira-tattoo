@@ -5,6 +5,7 @@
 import { useState, useEffect } from 'react'
 import { useModalContext } from '../context/ModalContext'
 import { useScrollContext } from '@/context/ScrollContext'
+import { useScreenContext } from '../context/ScreenContext'
 import axios from 'axios'
 
 import Login from '../components/Login'
@@ -27,10 +28,10 @@ interface HeaderData {
 }
 
 const Home = () => { 
+  const { width } = useScreenContext()
   const [ images, setImages ] = useState<string[]>(([]))
   const { showModal, currentImage, showPage, currentPage } = useModalContext()
   const { scrollRef, updatesRef, portfolioRef, bookingRef, contactRef, selected, setSelected } = useScrollContext()
-  const [ width, setWidth ] = useState<number>(0)
   const [ headerData, setHeaderData ] = useState<HeaderData | null>(null)
 
   useEffect(() => {
@@ -77,25 +78,6 @@ const Home = () => {
     scrollRef.current?.addEventListener('scroll', handleScroll);
   })
 
-  useEffect(() => {
-    const handleResize = () => {
-      setWidth(window.innerWidth)
-    }
-
-    if (typeof window !== 'undefined') {
-      handleResize()
-      window.addEventListener('load', handleResize)
-      window.addEventListener('resize', handleResize)
-    }
-
-    return () => {
-      if (typeof window !== 'undefined') {
-        window.removeEventListener('load', handleResize)
-        window.removeEventListener('resize', handleResize)
-      }
-    }
-
-  })
 
   const handleScroll = () => {
     // determine if scrolled to bottom

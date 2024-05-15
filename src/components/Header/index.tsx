@@ -3,40 +3,14 @@
 import Image from 'next/image'
 import { useEffect, useState, useRef } from 'react'
 import { useScrollContext } from '@/context/ScrollContext'
-import Menu from '../../components/Menu'
+import { useScreenContext } from '@/context/ScreenContext'
+import Menu from '@/components/Menu'
 
 
 const Header: React.FC = () => {
+  const { width } = useScreenContext()
   const [ showMenu, setShowMenu ] = useState<boolean>(false)
-  const [width, setWidth] = useState<number>(1024);
   const { scrollRef, updatesRef, portfolioRef, bookingRef, contactRef, currentRef, selected, setSelected } = useScrollContext() 
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setWidth(window.innerWidth)
-    } else {
-      setWidth(1024)
-    }
-
-    const handleResize = () => {
-      setWidth(window.innerWidth)
-    }
-  
-    if (typeof window !== 'undefined') {
-      handleResize()
-      window.addEventListener('onload', handleResize)
-      window.addEventListener('resize', handleResize)
-    }
-    
-    setShowMenu(false)
-
-    return () => {
-      if (typeof window !== 'undefined') {
-        window.removeEventListener('onload', handleResize)
-        window.removeEventListener('resize', handleResize)
-      }
-    }
-  },[])
 
   const toggleMenu = () => {
     setShowMenu(prev => !prev)

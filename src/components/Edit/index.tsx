@@ -5,6 +5,7 @@ import Image from 'next/image'
 import axios from 'axios'
 
 import { getSession } from "next-auth/react"
+import Admin from '@/components/Admin'
 
 interface HeaderData {
   header: string
@@ -37,6 +38,7 @@ const Edit: React.FC<EditProps> = (
   }
 ) => {
   const [ isAdmin, setIsAdmin ] = useState<boolean>(false)
+  const [ showAdmin, setShowAdmin ] = useState<boolean>(false)
 
   useEffect(() => {
     const currentSession = async () => {
@@ -47,17 +49,19 @@ const Edit: React.FC<EditProps> = (
   },[])
 
   const handleClick = async(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-
-      axios.post('api/header', {
-        header: 'Testing',
-        statement: 'oh, ok',
-      })
-      .then(res => {
-        console.log(element)
-      })
-      .catch(err => {
-        console.error('Error', err)
-      })
+      e.preventDefault()
+      e.stopPropagation()
+      setShowAdmin(true)
+      // axios.post('api/header', {
+      //   header: 'Testing',
+      //   statement: 'oh, ok',
+      // })
+      // .then(res => {
+      //   console.log(element)
+      // })
+      // .catch(err => {
+      //   console.error('Error', err)
+      // })
 
   }
 
@@ -84,6 +88,10 @@ const Edit: React.FC<EditProps> = (
           </Tooltip>
         </>
       )}
+      { showAdmin && (
+        <Admin setShowAdmin={setShowAdmin}/>
+      )}
+      
     </>
   )
 }

@@ -1,11 +1,12 @@
 
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useMemo, useState, useEffect, useRef } from 'react'
 import { useModalContext } from '../../context/ModalContext'
+import { useScreenContext } from '@/context/ScreenContext'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { register } from 'swiper/element/bundle'
 import { Pagination, Navigation } from 'swiper/modules';
-import { AdvancedImage, lazyload } from '@cloudinary/react'
 import { Cloudinary } from '@cloudinary/url-gen/index'
+import { AdvancedImage, lazyload } from '@cloudinary/react'
 import { fill } from '@cloudinary/url-gen/actions/resize'
 import CircleLoader from 'react-spinners/CircleLoader'
 import Edit from '@/components/Edit';
@@ -22,36 +23,36 @@ type ImageProps = {
   swipeDelay?: number,
 }
 
+interface MemoTypes {
+  src: string
+  alt: string
+}
+
+const cld = new Cloudinary({
+  cloud: {
+    cloudName: "dqty1eboa"
+  }
+})
+
+const MemoizedImage: React.FC<MemoTypes> = React.memo(({ src, alt }) => {
+  const image = cld.image(src);
+  image.resize(fill().width(250).height(250));
+
+  return (
+    <AdvancedImage
+      className="block w-auto h-full max-w-full my-0 rounded mx-auto"
+      cldImg={image}
+      alt={alt}
+      plugins={[lazyload({threshold: 1})]}
+    />
+  );
+});
+MemoizedImage.displayName = 'MemoizedImage'
+
 const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
+  const { width } = useScreenContext()
   const { setShowModal, setCurrentImage } = useModalContext()
-  const [ width, setWidth ] = useState<number>(0)
   swipeDelay = swipeDelay ? swipeDelay : 1500
-
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName: "dqty1eboa"
-    }
-  })
-  
-  useEffect(() => {
-    const handleResize = () => {
-      setWidth(window.innerWidth)
-    }
-
-    if (typeof window !== 'undefined') {
-      handleResize()
-      window.addEventListener('load', handleResize)
-      window.addEventListener('resize', handleResize)
-    }
-
-    return () => {
-      if (typeof window !== 'undefined') {
-        window.removeEventListener('load', handleResize)
-        window.removeEventListener('resize', handleResize)
-      }
-    }
-
-  },[])
 
   const handleClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
     const target = e.target as HTMLImageElement
