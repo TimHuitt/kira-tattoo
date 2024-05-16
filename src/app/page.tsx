@@ -3,21 +3,23 @@
 // http://localhost:3000/api/add-content?name=John&number=6548152255
 
 import { useState, useEffect } from 'react'
-import { useModalContext } from '../context/ModalContext'
+import { useModalContext } from '@/context/ModalContext'
 import { useScrollContext } from '@/context/ScrollContext'
-import { useScreenContext } from '../context/ScreenContext'
+import { useScreenContext } from '@/context/ScreenContext'
+import { useAdminContext } from '@/context/AdminContext'
 import axios from 'axios'
 
-import Login from '../components/Login'
-import Gallery from '../components/Gallery'
-import Divider from '../components/Divider'
-import Modal from '../components/Modal'
-import Page from '../components/Page'
-import Updates from '../components/Updates'
+import Login from '@/components/Login'
+import Gallery from '@/components/Gallery'
+import Divider from '@/components/Divider'
+import Modal from '@/components/Modal'
+import Page from '@/components/Page'
+import Updates from '@/components/Updates'
 import Portfolio from '@/components/Portfolio'
 import Booking from '@/components/Booking'
 import Contact from '@/components/Contact'
 import Edit from '@/components/Edit'
+import Admin from '@/components/Admin'
 import Image from 'next/image'
 
 interface HeaderData {
@@ -28,8 +30,9 @@ interface HeaderData {
 }
 
 const Home = () => { 
-  const { width } = useScreenContext()
   const [ images, setImages ] = useState<string[]>(([]))
+  const { width } = useScreenContext()
+  const { showAdmin, setShowAdmin } = useAdminContext()
   const { showModal, currentImage, showPage, currentPage } = useModalContext()
   const { scrollRef, updatesRef, portfolioRef, bookingRef, contactRef, selected, setSelected } = useScrollContext()
   const [ headerData, setHeaderData ] = useState<HeaderData | null>(null)
@@ -162,7 +165,9 @@ const Home = () => {
         { showPage &&
           <Page folder={`main-images/${currentPage}-featured`}/>
         }
-        
+        { showAdmin && (
+          <Admin setShowAdmin={setShowAdmin}/>
+        )}
       </div>
     </div>
   );

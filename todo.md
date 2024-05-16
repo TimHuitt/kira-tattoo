@@ -18,6 +18,7 @@
 - add cloudinary upload/delete
 
 ## Performance
+- check 'console.log(imageName)' exponentially rendering
 - ** images?.map in Gallery is rerendering exponentially
 - handle resize in context (instead of gallery)
 - use memoization for image processing

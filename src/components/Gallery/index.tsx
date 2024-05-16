@@ -85,7 +85,7 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
         const currentImg = cld.image(image)
         currentImg.resize(fill().width(250).height(250))
         const imageName = image.split('/').pop() || 'image'
-        console.log(imageName)
+        // console.log(imageName)
 
         return (
           <SwiperSlide key={`${imageName}-${index}`}>

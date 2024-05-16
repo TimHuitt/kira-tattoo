@@ -3,6 +3,7 @@ import { Comfortaa } from "next/font/google";
 import { ScreenProvider } from '@/context/ScreenContext';
 import { ModalProvider } from '@/context/ModalContext';
 import { ScrollProvider } from '@/context/ScrollContext'
+import { AdminProvider } from "@/context/AdminContext";
 import Header from '../components/Header'
 
 import "./globals.css";
@@ -27,11 +28,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <ScrollProvider>
         <ModalProvider>
         <ScreenProvider>
+        <AdminProvider>
           <Header />
           <main className="fixed w-full h-full flex items-center mx-auto overflow-hidden z-10">
             {children}
             <div className='h-10 ' />
           </main>
+        </AdminProvider>
         </ScreenProvider>
         </ModalProvider>
         </ScrollProvider>

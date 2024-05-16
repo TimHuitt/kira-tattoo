@@ -23,62 +23,62 @@ const Panel: React.FC<PanelProp> = (props) => {
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    e.stopPropagation()
     setImgCategory(e.target.value)
   }
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation()
     const file: File | null = e.target.files && e.target.files[0]
     const reader = new FileReader()    
     file && reader.readAsDataURL(file)
   }
 
-  const handleClick = () => {
-    setHidden(prev => prev === 'hidden' ? '' : 'hidden')
+  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation()
   }
 
   return (
-    <div className='w-full p-4 pt-2 mb-6 rounded border border-1 border-slate-700 bg-slate-800 hover:bg-slate-700'>
-        <div className='w-full cursor-pointer' onClick={handleClick}>
+    <div className='w-5/6 md:w-2/3 lg:w-1/2 xl:w-1/3 p-4 pt-2 mb-6 rounded border border-4 border-slate-700 bg-slate-800' onClick={handleClick}>
+        <div className='w-full'>
           <h2 className="text-base md:text-xl py-2">{props.header}</h2>
           <h4 className="text-xs md:text-base text-end pl-4">{props.description}</h4>
         </div>
-        <div className={hidden}>
-          <div className="w-full flex justify-center my-4">
-            <div className="w-5/6 h-1 rounded border border-1 border-slate-500" />
-          </div>
-            { props.image && (
-              <div className="w-full flex flex-col items-center justify-center">
-                <label htmlFor="file-upload" className="flex flex-col items-center justify-center cursor-pointer">
-                  <div className="h-20 flex justify-center m-4 rounded hover:bg-slate-500 cursor-pointer">
-                    <Image 
-                      src='/images/image.svg'
-                      height={100}
-                      width={100}
-                      alt={''} 
-                    />
-                  </div>
-                  <input id="file-upload" type="file" style={{ display: 'none' }} onChange={handleFileSelect} />
-                </label>
-              </div>
-            )}
-          <div className='flex justify-center items-center w-full py-4'>
-            <h2 className="text-xl mr-4">Category</h2>
-            <select value={imgCategory} className='p-2 rounded bg-slate-900 hover:bg-slate-500' onChange={handleChange}>
-              {props.categories.map((item, index) => {
-                const itemName = item.charAt(0).toUpperCase() + item.slice(1)
-                return (
-                  <option key={`${item}-${index}`} value={item}>{itemName}</option>
-                )
-              })}
-            </select>
-          </div>
-          <div className='flex justify-center items-center w-full py-4'>
-            <h2 className="text-xl mr-4">Caption</h2>
-            <input type="text" placeholder="Something about this image" className='p-2 w-3/5 rounded bg-slate-900 hover:bg-slate-500' />
-          </div>
-          <div className='flex justify-center items-center w-full py-4'>
-            <button className="border border-2 rounded p-2 hover:bg-slate-500">Add New Image</button>
-          </div>
+        <div className="w-full flex justify-center my-4">
+          <div className="w-5/6 h-1 rounded border border-1 border-slate-500" />
+        </div>
+          { props.image && (
+            <div className="w-full flex flex-col items-center justify-center">
+              <label htmlFor="file-upload" className="flex flex-col items-center justify-center cursor-pointer">
+                <div className="h-20 flex justify-center m-4 rounded hover:bg-slate-500 cursor-pointer">
+                  <Image 
+                    src='/images/image.svg'
+                    height={100}
+                    width={100}
+                    alt={''} 
+                  />
+                </div>
+                <input id="file-upload" type="file" style={{ display: 'none' }} onChange={handleFileSelect} />
+              </label>
+            </div>
+          )}
+        <div className='flex justify-center items-center w-full py-4'>
+          <h2 className="text-xl mr-4">Category</h2>
+          <select value={imgCategory} className='p-2 rounded bg-slate-900 hover:bg-slate-500' onChange={handleChange}>
+            {props.categories.map((item, index) => {
+              const itemName = item.charAt(0).toUpperCase() + item.slice(1)
+              return (
+                <option key={`${item}-${index}`} value={item}>{itemName}</option>
+              )
+            })}
+          </select>
+        </div>
+        <div className='flex justify-center items-center w-full py-4'>
+          <h2 className="text-xl mr-4">Caption</h2>
+          <input type="text" placeholder="Something about this image" className='p-2 w-3/5 rounded bg-slate-900 hover:bg-slate-500' />
+        </div>
+        <div className='flex justify-center items-center w-full py-4'>
+          <button className="border border-2 rounded p-2 hover:bg-slate-500">Add New Image</button>
         </div>
       </div>
   )
