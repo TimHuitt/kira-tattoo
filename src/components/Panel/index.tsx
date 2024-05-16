@@ -38,23 +38,14 @@ const Panel: React.FC<PanelProp> = (props) => {
     e.stopPropagation()
   }
 
-  
-  // setCurrentSelection(element)
-  // setShowAdmin(prev => !prev)
-
   useEffect(() => {
-    axios.put(`api/header`, {
-      header: 'testing',
-      statement: 'ok',
-    })
+    axios.put(`api/header`, editData)
     .then(res => {
       console.log(res.data.message)
     })
     .catch(err => {
       console.error('Error', err)
     })
-
-    console.log(editData)
 
   },[editData])
 

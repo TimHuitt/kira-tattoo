@@ -23,9 +23,7 @@ export async function PUT(req: NextRequest, res: NextResponse) {
 
   try {
     const body = await req.json()
-    const { header, statement } = body
-    
-    console.log(header, statement)
+    console.log(body)
 
     return new NextResponse(JSON.stringify({ message: "Data processed" }), { status: 200 })
   } catch (err) {

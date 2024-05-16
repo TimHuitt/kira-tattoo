@@ -2,7 +2,7 @@
 
 // http://localhost:3000/api/add-content?name=John&number=6548152255
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useModalContext } from '@/context/ModalContext'
 import { useScrollContext } from '@/context/ScrollContext'
 import { useScreenContext } from '@/context/ScreenContext'
@@ -32,7 +32,7 @@ interface HeaderData {
 const Home = () => { 
   const [ images, setImages ] = useState<string[]>(([]))
   const { width } = useScreenContext()
-  const { showAdmin, setShowAdmin } = useAdminContext()
+  const { showAdmin, setShowAdmin, currentSelection } = useAdminContext()
   const { showModal, currentImage, showPage, currentPage } = useModalContext()
   const { scrollRef, updatesRef, portfolioRef, bookingRef, contactRef, selected, setSelected } = useScrollContext()
   const [ headerData, setHeaderData ] = useState<HeaderData | null>(null)
@@ -42,22 +42,12 @@ const Home = () => {
       try {
         const res = await axios.get('api/header')
         const resData = res.data.rowData
-
-        // resData === {
-        //   header: "Hi, I'm Kira", 
-        //   statement: "And here's something about me or something", 
-        //   photo: '1.webp', 
-        //   images: 'main-images'
-        // }
-
         setHeaderData(resData)
       } catch (err) {
         console.error(err)
       }
     }
-
     getHeader()
-
   },[])
 
 
@@ -74,17 +64,10 @@ const Home = () => {
         console.error("Fetch Error:", e)
       }
     }
-    
     fetchImages()
   },[])
 
-
-  useEffect(() => {
-    scrollRef.current?.addEventListener('scroll', handleScroll);
-  })
-
-
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     if (!scrollRef.current) return
 
     const offsets = {
@@ -109,7 +92,16 @@ const Home = () => {
     } else if (offsets.currentScroll + offsets.clientHeight >= offsets.scrollHeight || offsets.currentScroll >= offsets.contact) {
       setSelected('contact')
     }
-  }
+  },[bookingRef, contactRef, portfolioRef, scrollRef, setSelected, updatesRef])
+
+  useEffect(() => {
+    const scrollEl = scrollRef.current
+    scrollEl?.addEventListener('scroll', handleScroll);
+
+    return () => {
+      scrollEl?.removeEventListener('scroll', handleScroll);
+    }
+  },[handleScroll, scrollRef])
 
   return (
     <div ref={scrollRef} className="relative w-full h-full mt-20 overflow-y-auto">

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, createContext, useContext, useState, useMemo, ReactNode, SetStateAction, Dispatch } from 'react'
+import { createContext, useContext, useState, useMemo, ReactNode, SetStateAction, Dispatch } from 'react'
 
 
 interface EditDataTypes {
@@ -27,14 +27,14 @@ export const AdminProvider = ({ children }: {children: ReactNode}) => {
   const [ currentSelection, setCurrentSelection ] = useState<string>('')
   const [ editData, setEditData ] = useState<EditDataTypes | null>(null)
 
-  const values = {
-    showAdmin, 
-    setShowAdmin, 
-    currentSelection, 
+  const values = useMemo(() => ({
+    showAdmin,
+    setShowAdmin,
+    currentSelection,
     setCurrentSelection,
     editData,
     setEditData,
-  }
+  }), [showAdmin, currentSelection, editData])
   
   return (
     <AdminContext.Provider value={values}>
