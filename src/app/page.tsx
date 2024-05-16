@@ -128,20 +128,20 @@ const Home = () => {
                 height={100}
               />
             </div>
-            <Edit data={headerData} element={'header/image'} isLeft={true} />
+            <Edit element={'header/image'} data={headerData} isLeft={true} />
             <div className='inline-flex relative'>
               <h1 className="text-4xl text-start pe-10">{headerData?.header}</h1>
-              <Edit data={headerData} element={'header/header'} />
+              <Edit element={'header/header'} data={headerData} />
             </div>
             <div></div>
             <div className='inline-flex relative w-5/6 md:w-auto'>
               <p className='text-sm md:text-base pb-20 md:pb-30 pe-10 opacity-60'>{headerData?.statement}</p>
-              <Edit data={headerData} element={'header/statement'} />
+              <Edit element={'header/statement'} data={headerData} />
             </div>
           </div>
           <div className='relative max-w-full h-[300px] flex items-center'>
             <Gallery images={ images } />
-            <Edit element={'add/post'} type={'add'} isBottom={true} size={30} />
+            <Edit element={'header/image'} type={'add'} isBottom={true} size={30} />
           </div>
           <Divider sectionRef={updatesRef}/>
           <Updates />

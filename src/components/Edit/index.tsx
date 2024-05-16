@@ -55,7 +55,10 @@ const Edit: React.FC<EditProps> = (
       // console.log(target.alt)
       console.log(element, data)
 
-      setCurrentSelection('testing')
+      const section = element.split('/')[0].charAt(0).toUpperCase() + element.split('/')[0].slice(1)
+      const area = element.split('/')[1]
+      
+      setCurrentSelection(section)
 
       setShowAdmin(prev => !prev)
 
