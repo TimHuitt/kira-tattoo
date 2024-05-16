@@ -12,10 +12,13 @@ export async function GET() {
   }
 }
 
-export async function POST(req: NextRequest, res: NextResponse) {
-  try {
 
-    // const tableName = pathParts[pathParts.length - 1]
+export async function PUT(req: NextRequest, res: NextResponse) {
+
+  try {
+    const body = await req.json()
+    const { header, statement } = body
+    console.log(header, statement)
 
     return new NextResponse(JSON.stringify({ message: "Data processed" }), { status: 200 })
   } catch (err) {
@@ -23,3 +26,5 @@ export async function POST(req: NextRequest, res: NextResponse) {
     return new NextResponse(JSON.stringify({ error: 'Internal Server Error' }), { status: 500 });
   }
 }
+
+// console.log(req.nextUrl.searchParams.get('test'))

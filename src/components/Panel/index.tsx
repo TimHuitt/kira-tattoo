@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { AdvancedImage, lazyload } from '@cloudinary/react'
 import { Cloudinary } from '@cloudinary/url-gen/index'
 import { fill } from '@cloudinary/url-gen/actions/resize'
+import { useAdminContext } from '@/context/AdminContext'
 
 type PanelProp = {
   header: string,
@@ -13,6 +14,7 @@ type PanelProp = {
 }
 
 const Panel: React.FC<PanelProp> = (props) => {
+  const { currentSelection } = useAdminContext()
   const [ imgCategory, setImgCategory ] = useState<string>('')
   const [ hidden, setHidden ] = useState<string>('hidden')
 
@@ -41,7 +43,7 @@ const Panel: React.FC<PanelProp> = (props) => {
   return (
     <div className='w-5/6 md:w-2/3 lg:w-1/2 xl:w-1/3 p-4 pt-2 mb-6 rounded border border-4 border-slate-700 bg-slate-800' onClick={handleClick}>
         <div className='w-full'>
-          <h2 className="text-base md:text-xl py-2">{props.header}</h2>
+          <h2 className="text-base md:text-xl py-2">{props.header}{currentSelection}</h2>
           <h4 className="text-xs md:text-base text-end pl-4">{props.description}</h4>
         </div>
         <div className="w-full flex justify-center my-4">

@@ -38,7 +38,7 @@ const Edit: React.FC<EditProps> = (
   }
 ) => {
   const [ isAdmin, setIsAdmin ] = useState<boolean>(false)
-  const { setShowAdmin } = useAdminContext()
+  const { setShowAdmin, currentSelection, setCurrentSelection } = useAdminContext()
 
   useEffect(() => {
     const currentSession = async () => {
@@ -48,21 +48,27 @@ const Edit: React.FC<EditProps> = (
     currentSession()
   },[])
 
+
   const handleClick = async(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       e.stopPropagation()
+      const target = e.target as HTMLImageElement
+      // console.log(target.alt)
+      console.log(element, data)
+
+      setCurrentSelection('testing')
+
       setShowAdmin(prev => !prev)
 
-
-      // axios.post('api/header', {
-      //   header: 'Testing',
-      //   statement: 'oh, ok',
-      // })
-      // .then(res => {
-      //   console.log(element)
-      // })
-      // .catch(err => {
-      //   console.error('Error', err)
-      // })
+      axios.put(`api/header`, {
+        header: 'Testing',
+        statement: 'oh, ok',
+      })
+      .then(res => {
+        console.log(res.data.message)
+      })
+      .catch(err => {
+        console.error('Error', err)
+      })
 
   }
 

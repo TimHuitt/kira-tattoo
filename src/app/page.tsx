@@ -38,22 +38,6 @@ const Home = () => {
   const [ headerData, setHeaderData ] = useState<HeaderData | null>(null)
 
   useEffect(() => {
-    async function fetchImages() {      
-      try {
-        const res = await fetch('/api/cloudinary')
-        const data = await res.json()
-        if (data) {
-          const finalData = data.data.map((resource: { public_id: string }) => resource.public_id)
-          setImages(finalData);
-        }
-      } catch (e) {
-        console.error("Fetch Error:", e)
-      }
-    }
-    
-    fetchImages()
-
-
     const getHeader = async () => {
       try {
         const res = await axios.get('api/header')
@@ -68,7 +52,7 @@ const Home = () => {
 
         setHeaderData(resData)
       } catch (err) {
-
+        console.error(err)
       }
     }
 
@@ -78,12 +62,29 @@ const Home = () => {
 
 
   useEffect(() => {
+    async function fetchImages() {      
+      try {
+        const res = await fetch('/api/cloudinary')
+        const data = await res.json()
+        if (data) {
+          const finalData = data.data.map((resource: { public_id: string }) => resource.public_id)
+          setImages(finalData);
+        }
+      } catch (e) {
+        console.error("Fetch Error:", e)
+      }
+    }
+    
+    fetchImages()
+  },[])
+
+
+  useEffect(() => {
     scrollRef.current?.addEventListener('scroll', handleScroll);
   })
 
 
   const handleScroll = () => {
-    // determine if scrolled to bottom
     if (!scrollRef.current) return
 
     const offsets = {
@@ -127,20 +128,20 @@ const Home = () => {
                 height={100}
               />
             </div>
-            <Edit data={headerData} element={'header-image'} isLeft={true} />
+            <Edit data={headerData} element={'header/image'} isLeft={true} />
             <div className='inline-flex relative'>
               <h1 className="text-4xl text-start pe-10">{headerData?.header}</h1>
-              <Edit data={headerData} element={'header-header'} />
+              <Edit data={headerData} element={'header/header'} />
             </div>
             <div></div>
             <div className='inline-flex relative w-5/6 md:w-auto'>
               <p className='text-sm md:text-base pb-20 md:pb-30 pe-10 opacity-60'>{headerData?.statement}</p>
-              <Edit data={headerData} element={'header-statement'} />
+              <Edit data={headerData} element={'header/statement'} />
             </div>
           </div>
           <div className='relative max-w-full h-[300px] flex items-center'>
             <Gallery images={ images } />
-            <Edit element={'add-post'} type={'add'} isBottom={true} size={30} />
+            <Edit element={'add/post'} type={'add'} isBottom={true} size={30} />
           </div>
           <Divider sectionRef={updatesRef}/>
           <Updates />

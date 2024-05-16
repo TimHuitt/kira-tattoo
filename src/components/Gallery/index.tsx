@@ -85,7 +85,6 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
         const currentImg = cld.image(image)
         currentImg.resize(fill().width(250).height(250))
         const imageName = image.split('/').pop() || 'image'
-        // console.log(imageName)
 
         return (
           <SwiperSlide key={`${imageName}-${index}`}>
@@ -107,7 +106,7 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
                 </div>
               </div>
               {/* <p className='text-center'>{ imageName }</p> */}
-              <Edit element={`${imageName}-${index}`} type={'remove'} />
+              <Edit element={imageName} type={'remove'} />
             </div>
           </SwiperSlide>
         )
