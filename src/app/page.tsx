@@ -128,7 +128,7 @@ const Home = () => {
                 height={100}
               />
             </div>
-            <Edit element={'header/image'} data={headerData} isLeft={true} />
+            <Edit element={'header/photo'} data={headerData} isLeft={true} />
             <div className='inline-flex relative'>
               <h1 className="text-4xl text-start pe-10">{headerData?.header}</h1>
               <Edit element={'header/header'} data={headerData} />
@@ -141,7 +141,7 @@ const Home = () => {
           </div>
           <div className='relative max-w-full h-[300px] flex items-center'>
             <Gallery images={ images } />
-            <Edit element={'header/image'} type={'add'} isBottom={true} size={30} />
+            <Edit element={'header/images'} type={'add'} isBottom={true} size={30} />
           </div>
           <Divider sectionRef={updatesRef}/>
           <Updates />

@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { AdvancedImage, lazyload } from '@cloudinary/react'
-import { Cloudinary } from '@cloudinary/url-gen/index'
-import { fill } from '@cloudinary/url-gen/actions/resize'
+import axios from 'axios'
+// import { Cloudinary } from '@cloudinary/url-gen/index'
 import { useAdminContext } from '@/context/AdminContext'
 
 type PanelProp = {
@@ -14,15 +13,14 @@ type PanelProp = {
 }
 
 const Panel: React.FC<PanelProp> = (props) => {
-  const { currentSelection } = useAdminContext()
+  const { currentSelection, editData } = useAdminContext()
   const [ imgCategory, setImgCategory ] = useState<string>('')
-  const [ hidden, setHidden ] = useState<string>('hidden')
 
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName: "dqty1eboa"
-    }
-  })
+  // const cld = new Cloudinary({
+  //   cloud: {
+  //     cloudName: "dqty1eboa"
+  //   }
+  // })
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     e.stopPropagation()
@@ -39,6 +37,26 @@ const Panel: React.FC<PanelProp> = (props) => {
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation()
   }
+
+  
+  // setCurrentSelection(element)
+  // setShowAdmin(prev => !prev)
+
+  useEffect(() => {
+    axios.put(`api/header`, {
+      header: 'testing',
+      statement: 'ok',
+    })
+    .then(res => {
+      console.log(res.data.message)
+    })
+    .catch(err => {
+      console.error('Error', err)
+    })
+
+    console.log(editData)
+
+  },[editData])
 
   return (
     <div className='w-5/6 md:w-2/3 lg:w-1/2 xl:w-1/3 p-4 pt-2 mb-6 rounded border border-4 border-slate-700 bg-slate-800' onClick={handleClick}>

@@ -1,9 +1,7 @@
 
 import { useState, useEffect } from 'react'
-import { PlacesType, Tooltip } from 'react-tooltip'
 import { useAdminContext } from '@/context/AdminContext'
 import Image from 'next/image'
-import axios from 'axios'
 
 import { getSession } from "next-auth/react"
 
@@ -16,13 +14,11 @@ interface HeaderData {
 
 interface EditProps {
   element: string
-  data?: HeaderData | null
+  data?: HeaderData | string | null
   type?: string | null
   isLeft?: boolean
   isBottom?: boolean
   size?: number
-  tooltip?: string
-  tooltipPlace?: PlacesType | undefined
 }
 
 const Edit: React.FC<EditProps> = (
@@ -32,13 +28,11 @@ const Edit: React.FC<EditProps> = (
     type = 'edit', 
     isLeft = false, 
     isBottom = false, 
-    size = 20, 
-    tooltip = '',
-    tooltipPlace = 'top',
+    size = 20,
   }
 ) => {
   const [ isAdmin, setIsAdmin ] = useState<boolean>(false)
-  const { setShowAdmin, currentSelection, setCurrentSelection } = useAdminContext()
+  const { setEditData, setCurrentSelection, setShowAdmin } = useAdminContext()
 
   useEffect(() => {
     const currentSession = async () => {
@@ -51,27 +45,22 @@ const Edit: React.FC<EditProps> = (
 
   const handleClick = async(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       e.stopPropagation()
-      const target = e.target as HTMLImageElement
-      // console.log(target.alt)
-      console.log(element, data)
+
+      // console.log(element, data)
 
       const section = element.split('/')[0].charAt(0).toUpperCase() + element.split('/')[0].slice(1)
       const area = element.split('/')[1]
       
-      setCurrentSelection(section)
+      setEditData({
+        section,
+        area,
+        input: 'test',
+        currentData: 'original',
+      })
 
+
+      setCurrentSelection(element)
       setShowAdmin(prev => !prev)
-
-      axios.put(`api/header`, {
-        header: 'Testing',
-        statement: 'oh, ok',
-      })
-      .then(res => {
-        console.log(res.data.message)
-      })
-      .catch(err => {
-        console.error('Error', err)
-      })
 
   }
 
@@ -80,7 +69,7 @@ const Edit: React.FC<EditProps> = (
       { isAdmin && (
         <>
           <div 
-            className={`tooltip-${element} absolute ${isBottom ? 'bottom-0' : 'top-0'} ${isLeft ? 'left-0' : 'right-0'} m-1 cursor-pointer z-40`}
+            className={`absolute ${isBottom ? 'bottom-0' : 'top-0'} ${isLeft ? 'left-0' : 'right-0'} m-1 cursor-pointer z-40`}
             onClick={handleClick}
           >
             <Image
@@ -93,9 +82,6 @@ const Edit: React.FC<EditProps> = (
               height={size}
             />
           </div>
-          <Tooltip anchorSelect={`.tooltip-${element}`} place={tooltipPlace}>
-            {tooltip}
-          </Tooltip>
         </>
       )}      
     </>

@@ -15,9 +15,16 @@ export async function GET() {
 
 export async function PUT(req: NextRequest, res: NextResponse) {
 
+  // UPDATE ${section}
+  // SET ${area} = ${input}
+  // WHERE ${area} = ${currentData}
+  // RETURNING *;
+
+
   try {
     const body = await req.json()
     const { header, statement } = body
+    
     console.log(header, statement)
 
     return new NextResponse(JSON.stringify({ message: "Data processed" }), { status: 200 })
