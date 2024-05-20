@@ -20,31 +20,22 @@ export async function PUT(req: NextRequest, res: NextResponse) {
     const section = body.section
     const area = body.area
     const input = body.input
-    const current = body.currentData
+    const query = `UPDATE ${section} SET ${area} = $1`
 
-    const result = await sql`UPDATE ${section} SET ${area} = ${input};`
+    const result = await sql.query(query, [input])
 
 
-//     const result = await sql`
-//       UPDATE header
-//       SET header = 'test';
-//     `
-// 
-
-    console.log(result)
-    
-    // if (result) {
-    //   console.log(result)
-    //   // return new NextResponse(JSON.stringify({ message: result }), { status: 200 })
-    //   // return new NextResponse(JSON.stringify({ message: "Data processed" }), { status: 200 })
-    // } else {
-    //   throw new Error('Parameter is not a number!');
-    // }
+    if (result.rowCount > 0) {
+      // return new NextResponse(JSON.stringify({ message: result }), { status: 200 })
+      return new NextResponse(JSON.stringify({ message: "Data processed" }), { status: 200 })
+    } else {
+      throw new Error('Error Updating Database')
+    }
 
 
   } catch (err) {
     console.error('Error parsing JSON or processing data:', err);
-    return new NextResponse(JSON.stringify({ error: 'Internal Server Error' }), { status: 500 });
+    return new NextResponse(JSON.stringify({ error: err }), { status: 500 });
   }
 }
 

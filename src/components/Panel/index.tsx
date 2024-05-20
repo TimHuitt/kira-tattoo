@@ -13,7 +13,7 @@ type PanelProp = {
 }
 
 const Panel: React.FC<PanelProp> = (props) => {
-  const { currentSelection, setShowAdmin, editData } = useAdminContext()
+  const { currentSelection, setShowAdmin, editData, setProcessed } = useAdminContext()
   const [ input, setInput ] = useState(editData?.currentData)
 
   // const cld = new Cloudinary({
@@ -43,7 +43,10 @@ const Panel: React.FC<PanelProp> = (props) => {
 
     axios.put(`api/header`, tempData)
     .then(res => {
-      console.log(res.data.message)
+      if (res.data.message === "Data processed") {
+        setProcessed(true)
+        setShowAdmin(false)
+      }
     })
     .catch(err => {
       console.error('Error', err)

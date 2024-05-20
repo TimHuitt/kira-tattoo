@@ -32,7 +32,7 @@ interface HeaderData {
 const Home = () => { 
   const [ images, setImages ] = useState<string[]>(([]))
   const { width } = useScreenContext()
-  const { showAdmin, setShowAdmin, currentSelection } = useAdminContext()
+  const { showAdmin, setShowAdmin, processed, setProcessed } = useAdminContext()
   const { showModal, currentImage, showPage, currentPage } = useModalContext()
   const { scrollRef, updatesRef, portfolioRef, bookingRef, contactRef, selected, setSelected } = useScrollContext()
   const [ headerData, setHeaderData ] = useState<HeaderData | null>(null)
@@ -48,7 +48,8 @@ const Home = () => {
       }
     }
     getHeader()
-  },[])
+    setProcessed(false)
+  },[processed, setProcessed])
 
 
   useEffect(() => {

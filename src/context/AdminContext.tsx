@@ -15,6 +15,8 @@ interface AdminContextType {
   setShowAdmin: Dispatch<SetStateAction<boolean>>
   currentSelection: string
   setCurrentSelection: Dispatch<SetStateAction<string>>
+  processed: boolean
+  setProcessed: Dispatch<SetStateAction<boolean>>
   editData: EditDataType | null
   setEditData: Dispatch<SetStateAction<EditDataType | null>>
 }
@@ -26,6 +28,7 @@ export const AdminProvider = ({ children }: {children: ReactNode}) => {
   const [ showAdmin, setShowAdmin ] = useState<boolean>(false)
   const [ currentSelection, setCurrentSelection ] = useState<string>('')
   const [ editData, setEditData ] = useState<EditDataType | null>(null)
+  const [ processed, setProcessed ] = useState<boolean>(false)
 
   const values = useMemo(() => ({
     showAdmin,
@@ -34,7 +37,9 @@ export const AdminProvider = ({ children }: {children: ReactNode}) => {
     setCurrentSelection,
     editData,
     setEditData,
-  }), [showAdmin, currentSelection, editData])
+    processed,
+    setProcessed,
+  }), [showAdmin, currentSelection, editData, processed])
   
   return (
     <AdminContext.Provider value={values}>
