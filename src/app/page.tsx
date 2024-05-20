@@ -57,8 +57,8 @@ const Home = () => {
         const res = await fetch('/api/cloudinary')
         const data = await res.json()
         if (data) {
-          const finalData = data.data.map((resource: { public_id: string }) => resource.public_id)
-          setImages(finalData);
+          const imagesList = data.data.map((resource: { public_id: string }) => resource.public_id)
+          setImages(imagesList);
         }
       } catch (e) {
         console.error("Fetch Error:", e)
@@ -120,15 +120,15 @@ const Home = () => {
                 height={100}
               />
             </div>
-            <Edit element={'header/photo'} data={headerData} isLeft={true} />
+            <Edit element={'header/photo'} data={headerData?.photo} isLeft={true} />
             <div className='inline-flex relative'>
               <h1 className="text-4xl text-start pe-10">{headerData?.header}</h1>
-              <Edit element={'header/header'} data={headerData} />
+              <Edit element={'header/header'} data={headerData?.header} />
             </div>
             <div></div>
             <div className='inline-flex relative w-5/6 md:w-auto'>
               <p className='text-sm md:text-base pb-20 md:pb-30 pe-10 opacity-60'>{headerData?.statement}</p>
-              <Edit element={'header/statement'} data={headerData} />
+              <Edit element={'header/statement'} data={headerData?.statement} />
             </div>
           </div>
           <div className='relative max-w-full h-[300px] flex items-center'>

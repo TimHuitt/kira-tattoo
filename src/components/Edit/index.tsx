@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react'
 import { useAdminContext } from '@/context/AdminContext'
+
 import Image from 'next/image'
 
 import { getSession } from "next-auth/react"
@@ -14,7 +15,7 @@ interface HeaderData {
 
 interface EditProps {
   element: string
-  data?: HeaderData | string | null
+  data?: string | null
   type?: string | null
   isLeft?: boolean
   isBottom?: boolean
@@ -45,23 +46,18 @@ const Edit: React.FC<EditProps> = (
 
   const handleClick = async(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       e.stopPropagation()
-
-      // console.log(element, data)
-
-      const section = element.split('/')[0].charAt(0).toUpperCase() + element.split('/')[0].slice(1)
+      const section = element.split('/')[0]
       const area = element.split('/')[1]
       
       setEditData({
         section,
         area,
-        input: 'test',
-        currentData: 'original',
+        input: '',
+        currentData: data || '',
       })
-
-
-      setCurrentSelection(element)
+      
+      setCurrentSelection(area.charAt(0).toUpperCase() + area.split('/')[0].slice(1))
       setShowAdmin(prev => !prev)
-
   }
 
   return (

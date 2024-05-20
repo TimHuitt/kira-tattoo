@@ -13,8 +13,8 @@ type PanelProp = {
 }
 
 const Panel: React.FC<PanelProp> = (props) => {
-  const { currentSelection, editData } = useAdminContext()
-  const [ imgCategory, setImgCategory ] = useState<string>('')
+  const { currentSelection, setShowAdmin, editData } = useAdminContext()
+  const [ input, setInput ] = useState(editData?.currentData)
 
   // const cld = new Cloudinary({
   //   cloud: {
@@ -22,9 +22,9 @@ const Panel: React.FC<PanelProp> = (props) => {
   //   }
   // })
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    e.stopPropagation()
-    setImgCategory(e.target.value)
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    e.preventDefault()
+    setInput(e.target.value)
   }
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,22 +38,27 @@ const Panel: React.FC<PanelProp> = (props) => {
     e.stopPropagation()
   }
 
-  useEffect(() => {
-    axios.put(`api/header`, editData)
+  const handleSubmit = () => {
+    const tempData = {...editData, input}
+
+    axios.put(`api/header`, tempData)
     .then(res => {
       console.log(res.data.message)
     })
     .catch(err => {
       console.error('Error', err)
     })
+  }
 
-  },[editData])
+  const handleCancel = () => {
+    setShowAdmin(false)
+  }
 
   return (
     <div className='w-5/6 md:w-2/3 lg:w-1/2 xl:w-1/3 p-4 pt-2 mb-6 rounded border border-4 border-slate-700 bg-slate-800' onClick={handleClick}>
         <div className='w-full'>
-          <h2 className="text-base md:text-xl py-2">{props.header}{currentSelection}</h2>
-          <h4 className="text-xs md:text-base text-end pl-4">{props.description}</h4>
+          <h2 className="text-base md:text-xl py-2">Updating {currentSelection}</h2>
+          {/* <h4 className="text-xs md:text-base text-end pl-4">{props.description}</h4> */}
         </div>
         <div className="w-full flex justify-center my-4">
           <div className="w-5/6 h-1 rounded border border-1 border-slate-500" />
@@ -73,7 +78,7 @@ const Panel: React.FC<PanelProp> = (props) => {
               </label>
             </div>
           )}
-        <div className='flex justify-center items-center w-full py-4'>
+        {/* <div className='flex justify-center items-center w-full py-4'>
           <h2 className="text-xl mr-4">Category</h2>
           <select value={imgCategory} className='p-2 rounded bg-slate-900 hover:bg-slate-500' onChange={handleChange}>
             {props.categories.map((item, index) => {
@@ -83,13 +88,19 @@ const Panel: React.FC<PanelProp> = (props) => {
               )
             })}
           </select>
-        </div>
+        </div> */}
         <div className='flex justify-center items-center w-full py-4'>
-          <h2 className="text-xl mr-4">Caption</h2>
-          <input type="text" placeholder="Something about this image" className='p-2 w-3/5 rounded bg-slate-900 hover:bg-slate-500' />
+          {/* <h2 className="text-xl mr-4">Caption</h2> */}
+          <textarea 
+            className='p-2 w-full h-auto rounded bg-slate-900 hover:bg-slate-500 resize-none' 
+            rows={3}
+            value={input} 
+            onChange={handleChange} 
+          />
         </div>
-        <div className='flex justify-center items-center w-full py-4'>
-          <button className="border border-2 rounded p-2 hover:bg-slate-500">Add New Image</button>
+        <div className='flex justify-around items-center w-full py-4'>
+          <button className="border border-2 rounded p-2 hover:bg-slate-500" onClick={handleSubmit}>Save Changes</button>
+          <button className="border border-2 rounded p-2 hover:bg-slate-500" onClick={handleCancel}>Cancel</button>
         </div>
       </div>
   )
