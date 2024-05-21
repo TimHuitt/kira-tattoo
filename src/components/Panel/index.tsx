@@ -22,6 +22,8 @@ const Panel: React.FC<PanelProp> = (props) => {
     }
   })
 
+  const panelTitle = editData?.section === 'header' ? 'Updating' : 'Adding'
+
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     e.preventDefault()
     setInput(e.target.value)
@@ -65,10 +67,25 @@ const Panel: React.FC<PanelProp> = (props) => {
     setShowAdmin(false)
   }
 
+  const handleUpload = (
+    <label htmlFor="file-upload" className="flex flex-col items-center justify-center cursor-pointer">
+      <h1>Select an image to upload</h1>
+      <div className="h-20 flex justify-center m-4 rounded hover:bg-slate-500 cursor-pointer">
+        <Image 
+          src='/images/image.svg'
+          height={100}
+          width={100}
+          alt={''} 
+        />
+      </div>
+      <input id="file-upload" type="file" style={{ display: 'none' }} onChange={handleFileSelect} />
+    </label>
+  )
+
   return (
     <div className='w-5/6 md:w-2/3 lg:w-1/2 xl:w-1/3 p-4 pt-2 mb-6 rounded border border-4 border-slate-700 bg-slate-800' onClick={handleClick}>
         <div className='w-full'>
-          <h2 className="text-base md:text-xl py-2">Updating {currentSelection}</h2>
+          <h2 className="text-base md:text-xl py-2">{panelTitle} {currentSelection}</h2>
           {/* <h4 className="text-xs md:text-base text-end pl-4">{props.description}</h4> */}
         </div>
         <div className="w-full flex justify-center my-4">
@@ -76,18 +93,7 @@ const Panel: React.FC<PanelProp> = (props) => {
         </div>
         { isImage && (
           <div className="w-full flex flex-col items-center justify-center">
-            <label htmlFor="file-upload" className="flex flex-col items-center justify-center cursor-pointer">
-              <h1>Select an image to upload</h1>
-              <div className="h-20 flex justify-center m-4 rounded hover:bg-slate-500 cursor-pointer">
-                <Image 
-                  src='/images/image.svg'
-                  height={100}
-                  width={100}
-                  alt={''} 
-                />
-              </div>
-              <input id="file-upload" type="file" style={{ display: 'none' }} onChange={handleFileSelect} />
-            </label>
+            {handleUpload}
           </div>
         )}
         { editData?.section === 'header' && editData?.area !== 'photo' && (
@@ -102,8 +108,14 @@ const Panel: React.FC<PanelProp> = (props) => {
           </div>
         )}
         { editData?.area === 'post' && (
-          <div>
-            
+          <div className='flex flex-col items-center justify-center'>
+            <label htmlFor="title">Title</label>
+            <input id="title" type="text" className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
+            <label htmlFor="header">Header</label>
+            <input id="header" type="text" className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
+            <label htmlFor="content">Content</label>
+            <input id="content" type="text" className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
+            {handleUpload}
           </div>
         )}
 
