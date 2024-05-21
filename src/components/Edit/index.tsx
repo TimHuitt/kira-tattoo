@@ -6,19 +6,13 @@ import Image from 'next/image'
 
 import { getSession } from "next-auth/react"
 
-interface HeaderData {
-  header: string
-  statement: string
-  photo: string
-  images: string
-}
-
 interface EditProps {
   element: string
   data?: string | null
   type?: string | null
   isLeft?: boolean
   isBottom?: boolean
+  image?: boolean
   size?: number
 }
 
@@ -29,11 +23,17 @@ const Edit: React.FC<EditProps> = (
     type = 'edit', 
     isLeft = false, 
     isBottom = false, 
+    image = false,
     size = 20,
   }
 ) => {
   const [ isAdmin, setIsAdmin ] = useState<boolean>(false)
-  const { setEditData, setCurrentSelection, setShowAdmin } = useAdminContext()
+  const { setEditData, setCurrentSelection, setShowAdmin, setIsImage } = useAdminContext()
+
+  //! fix
+  useEffect(() => {
+    setIsImage(image)
+  },[image, setIsImage])
 
   useEffect(() => {
     const currentSession = async () => {

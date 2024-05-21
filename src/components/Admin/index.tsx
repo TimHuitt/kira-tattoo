@@ -7,7 +7,6 @@ interface AdminProps {
 }
 
 const Admin: React.FC<AdminProps> = ({ setShowAdmin }) => {
-  
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     
     setShowAdmin(false)
@@ -18,7 +17,6 @@ const Admin: React.FC<AdminProps> = ({ setShowAdmin }) => {
       <Panel
         header={'text'}
         description={'Create a new post'}
-        image={false}
         categories={[
           'updates', 
           'events'

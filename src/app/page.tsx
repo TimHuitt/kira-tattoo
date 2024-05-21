@@ -43,7 +43,6 @@ const Home = () => {
   const { showModal, currentImage, showPage, currentPage } = useModalContext()
   const { scrollRef, updatesRef, portfolioRef, bookingRef, contactRef, selected, setSelected } = useScrollContext()
   const [ headerData, setHeaderData ] = useState<HeaderData | null>(null)
-  const [ profile, setProfile ] = useState<CloudinaryImage>()
 
   useEffect(() => {
     const getHeader = async () => {
@@ -130,17 +129,8 @@ const Home = () => {
                   alt={'profile-image'}
                   plugins={[lazyload({threshold: 1})]}
                 />
-              {/* <Image
-                src="/images/1.webp"
-                alt="Profile Image"
-                style={{
-                  objectFit: 'contain',
-                }}
-                width={100}
-                height={100}
-              /> */}
             </div>
-            <Edit element={'header/photo'} data={headerData?.photo} isLeft={true} />
+            <Edit element={'header/photo'} data={headerData?.photo} isLeft={true} isImage={true} />
             <div className='inline-flex relative'>
               <h1 className="text-4xl text-start pe-10">{headerData?.header}</h1>
               <Edit element={'header/header'} data={headerData?.header} />
@@ -179,7 +169,7 @@ const Home = () => {
           <Page folder={`main-images/${currentPage}-featured`}/>
         }
         { showAdmin && (
-          <Admin setShowAdmin={setShowAdmin}/>
+          <Admin setShowAdmin={setShowAdmin} />
         )}
       </div>
     </div>

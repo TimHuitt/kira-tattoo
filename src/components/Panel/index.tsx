@@ -7,13 +7,12 @@ import { useAdminContext } from '@/context/AdminContext'
 type PanelProp = {
   header: string,
   description: string,
-  image: boolean,
   categories: string[],
   inputType: string,
 }
 
 const Panel: React.FC<PanelProp> = (props) => {
-  const { currentSelection, setShowAdmin, editData, setProcessed } = useAdminContext()
+  const { currentSelection, setShowAdmin, editData, setProcessed, isImage } = useAdminContext()
   const [ input, setInput ] = useState(editData?.currentData)
 
   // const cld = new Cloudinary({
@@ -21,6 +20,10 @@ const Panel: React.FC<PanelProp> = (props) => {
   //     cloudName: "dqty1eboa"
   //   }
   // })
+
+  useEffect(() => {
+    console.log(isImage)
+  },[isImage])
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     e.preventDefault()
@@ -66,9 +69,10 @@ const Panel: React.FC<PanelProp> = (props) => {
         <div className="w-full flex justify-center my-4">
           <div className="w-5/6 h-1 rounded border border-1 border-slate-500" />
         </div>
-          { props.image && (
+          { isImage && (
             <div className="w-full flex flex-col items-center justify-center">
               <label htmlFor="file-upload" className="flex flex-col items-center justify-center cursor-pointer">
+                <h1>Select an image to upload</h1>
                 <div className="h-20 flex justify-center m-4 rounded hover:bg-slate-500 cursor-pointer">
                   <Image 
                     src='/images/image.svg'
