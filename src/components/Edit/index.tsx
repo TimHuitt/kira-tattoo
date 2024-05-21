@@ -30,11 +30,6 @@ const Edit: React.FC<EditProps> = (
   const [ isAdmin, setIsAdmin ] = useState<boolean>(false)
   const { setEditData, setCurrentSelection, setShowAdmin, setIsImage } = useAdminContext()
 
-  //! fix
-  useEffect(() => {
-    setIsImage(image)
-  },[image, setIsImage])
-
   useEffect(() => {
     const currentSession = async () => {
       const current: any = await getSession()
@@ -56,6 +51,7 @@ const Edit: React.FC<EditProps> = (
         currentData: data || '',
       })
       
+      setIsImage(image)
       setCurrentSelection(area.charAt(0).toUpperCase() + area.split('/')[0].slice(1))
       setShowAdmin(prev => !prev)
   }

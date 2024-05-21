@@ -130,7 +130,7 @@ const Home = () => {
                   plugins={[lazyload({threshold: 1})]}
                 />
             </div>
-            <Edit element={'header/photo'} data={headerData?.photo} isLeft={true} isImage={true} />
+            <Edit element={'header/photo'} data={headerData?.photo} isLeft={true} image={true} />
             <div className='inline-flex relative'>
               <h1 className="text-4xl text-start pe-10">{headerData?.header}</h1>
               <Edit element={'header/header'} data={headerData?.header} />
