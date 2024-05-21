@@ -4,6 +4,7 @@
 - add gallery loading indicator
 - move all db data (including existing header data) to context
 - clicking links should close any open windows (images/portfolio view)
+- fix double loading indicator in featured images
 
 ## Admin
 - add 'add/edit' buttons for each section
@@ -42,26 +43,3 @@
 
 ## Booking
   - link
-
-```sql
-  CREATE TABLE Header (
-    header VARCHAR(255),
-    statement VARCHAR(255),
-    photo VARCHAR(255),
-    images VARCHAR(255)
-  );
-  CREATE TABLE Updates (
-    header VARCHAR(255),
-    description VARCHAR(255),
-    content VARCHAR(255),
-    images VARCHAR(255),
-    date DATE
-  );
-  CREATE TABLE Portfolio (
-    header VARCHAR(255),
-    images VARCHAR(255)
-  );
-  CREATE TABLE Booking (
-    link VARCHAR(255)
-  );
-```
