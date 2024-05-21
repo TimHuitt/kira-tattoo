@@ -29,6 +29,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function PUT(req: NextRequest, res: NextResponse) {
+  const folder = ''
   const url = `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image/upload?prefix=${folder}`
  
   try {
