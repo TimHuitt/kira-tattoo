@@ -34,14 +34,14 @@ export default function Portfolio() {
           id={'painting'}
           header={'Paintings'}
           description={'Collection of acrylic and oil paintings'}
-          folder='main-images/painting'
+          folder='main-images/painting-featured'
           swipeDelay={1700}
         />
         <Section 
           id={'other'}
           header={'Other'}
           description={'Everything else including sculpts, crafts, and MECHS!'}
-          folder='main-images/other'
+          folder='main-images/other-featured'
           swipeDelay={1900}
         />
       </div>

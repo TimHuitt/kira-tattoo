@@ -19,8 +19,6 @@ export async function GET(req: NextRequest) {
 
     const data = await resData.json()
 
-    console.log(data)
-
     const resource = data.resources
     return new NextResponse(JSON.stringify({ data: resource }), { status: 200 });
     

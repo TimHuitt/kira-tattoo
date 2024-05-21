@@ -55,7 +55,11 @@ const Home = () => {
   useEffect(() => {
     async function fetchImages() {      
       try {
-        const res = await fetch('/api/cloudinary')
+
+        const folderPath = new URLSearchParams({path: 'main-images/tattoo-featured' || 'main-images'}).toString()
+        
+
+        const res = await fetch(`/api/cloudinary?${folderPath}`)
         const data = await res.json()
         if (data) {
           const imagesList = data.data.map((resource: { public_id: string }) => resource.public_id)
@@ -67,7 +71,7 @@ const Home = () => {
     }
     async function fetchProfileImage() {
       try {
-        
+
       } catch (err) {
         console.error("Error fetching profile image:", err)
       }
