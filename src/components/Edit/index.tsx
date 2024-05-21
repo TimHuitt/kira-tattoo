@@ -19,7 +19,7 @@ interface EditProps {
 const Edit: React.FC<EditProps> = (
   { 
     element, 
-    data, 
+    data = null, 
     type = 'edit', 
     isLeft = false, 
     isBottom = false, 

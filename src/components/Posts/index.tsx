@@ -4,14 +4,14 @@ import Edit from '@/components/Edit'
 
 interface Post {
   date: string
-  title: String
-  header: String
-  content: String
+  title: string
+  header: string
+  content: string
 }
 
 const Posts = () => {
   const [ posts, setPosts ] = useState<Record<string, Post>>({})
-  const [ isVisible, setIsVisible ] = useState([0])
+  const [ isVisible, setIsVisible ] = useState<number[]>([0])
 
   useEffect(() => {
     setPosts(postsData)
@@ -44,7 +44,7 @@ const Posts = () => {
             </div>
             <p className='text-xs md:text-base'>{posts[post].content}</p>
 
-            <Edit element={'add-post'} type={'remove'} isLeft={true} />
+            <Edit element={'add/post'} type={'remove'} isLeft={true} />
           </div>
         ))
       ) : (

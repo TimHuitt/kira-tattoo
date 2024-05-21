@@ -74,32 +74,41 @@ const Panel: React.FC<PanelProp> = (props) => {
         <div className="w-full flex justify-center my-4">
           <div className="w-5/6 h-1 rounded border border-1 border-slate-500" />
         </div>
-          { isImage ? (
-            <div className="w-full flex flex-col items-center justify-center">
-              <label htmlFor="file-upload" className="flex flex-col items-center justify-center cursor-pointer">
-                <h1>Select an image to upload</h1>
-                <div className="h-20 flex justify-center m-4 rounded hover:bg-slate-500 cursor-pointer">
-                  <Image 
-                    src='/images/image.svg'
-                    height={100}
-                    width={100}
-                    alt={''} 
-                  />
-                </div>
-                <input id="file-upload" type="file" style={{ display: 'none' }} onChange={handleFileSelect} />
-              </label>
-            </div>
-          ) : (
+        { isImage && (
+          <div className="w-full flex flex-col items-center justify-center">
+            <label htmlFor="file-upload" className="flex flex-col items-center justify-center cursor-pointer">
+              <h1>Select an image to upload</h1>
+              <div className="h-20 flex justify-center m-4 rounded hover:bg-slate-500 cursor-pointer">
+                <Image 
+                  src='/images/image.svg'
+                  height={100}
+                  width={100}
+                  alt={''} 
+                />
+              </div>
+              <input id="file-upload" type="file" style={{ display: 'none' }} onChange={handleFileSelect} />
+            </label>
+          </div>
+        )}
+        { editData?.section === 'header' && editData?.area !== 'photo' && (
             <div className='flex justify-center items-center w-full py-4'>
-              {/* <h2 className="text-xl mr-4">Caption</h2> */}
-              <textarea 
-                className='p-2 w-full h-auto rounded bg-slate-900 hover:bg-slate-500 resize-none' 
-                rows={3}
-                value={input} 
-                onChange={handleChange} 
-              />
-            </div>
-          )}
+            {/* <h2 className="text-xl mr-4">Caption</h2> */}
+            <textarea 
+              className='p-2 w-full h-auto rounded bg-slate-900 hover:bg-slate-500 resize-none' 
+              rows={3}
+              value={input} 
+              onChange={handleChange} 
+            />
+          </div>
+        )}
+        { editData?.area === 'post' && (
+          <div>
+            
+          </div>
+        )}
+
+           
+          
         {/* <div className='flex justify-center items-center w-full py-4'>
           <h2 className="text-xl mr-4">Category</h2>
           <select value={imgCategory} className='p-2 rounded bg-slate-900 hover:bg-slate-500' onChange={handleChange}>

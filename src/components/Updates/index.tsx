@@ -8,8 +8,7 @@ const Updates: React.FC = () => {
       <div>
         <h1 className="text-4xl text-center p-4 moto">Updates</h1>
       </div>
-
-      <Edit element={'add-post'} type={'add'} size={30} />
+      <Edit element={'add/post'} type={'add'} size={30} />
       <Posts />
     </div>
   )

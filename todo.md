@@ -5,6 +5,9 @@
 - move all db data (including existing header data) to context
 - clicking links should close any open windows (images/portfolio view)
 - fix double loading indicator in featured images
+- scroll to top of updates when minimizing posts
+- center portfolio featured images
+- add image fetching to section
 
 ## Admin
 - add 'add/edit' buttons for each section
@@ -20,26 +23,3 @@
 
 ## Performance
 - handle resize in context (instead of gallery)
-
-## Routes
-
-### Header Info
-  - user photo
-  - intro header
-  - intro statement
-  - featured images
-
-## Updates
-  - post
-    - header
-    - description
-    - content
-    - images
-    - date
-
-## Portfolio
-  - header text
-  - images
-
-## Booking
-  - link
