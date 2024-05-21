@@ -61,11 +61,20 @@ const Home = () => {
           const imagesList = data.data.map((resource: { public_id: string }) => resource.public_id)
           setImages(imagesList);
         }
-      } catch (e) {
-        console.error("Fetch Error:", e)
+      } catch (err) {
+        console.error("Error fetching featured images:", err)
       }
     }
+    async function fetchProfileImage() {
+      try {
+        
+      } catch (err) {
+        console.error("Error fetching profile image:", err)
+      }
+    }
+
     fetchImages()
+
   },[])
 
   const handleScroll = useCallback(() => {

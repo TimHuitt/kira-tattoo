@@ -15,6 +15,7 @@
 ## Backend
 - create routes
 - add cloudinary upload/delete
+- add JWT authentication for all CMS actions
 
 ## Performance
 - handle resize in context (instead of gallery)
