@@ -5,7 +5,7 @@ import { useModalContext } from '@/context/ModalContext'
 import { useScrollContext } from '@/context/ScrollContext'
 import { useScreenContext } from '@/context/ScreenContext'
 import { useAdminContext } from '@/context/AdminContext'
-import { Cloudinary, CloudinaryImage } from '@cloudinary/url-gen/index'
+import { Cloudinary } from '@cloudinary/url-gen/index'
 import axios from 'axios'
 
 import Login from '@/components/Login'

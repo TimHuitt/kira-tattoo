@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
+import { Cloudinary } from '@cloudinary/url-gen/index'
 import Image from 'next/image'
 import axios from 'axios'
-// import { Cloudinary } from '@cloudinary/url-gen/index'
+
 import { useAdminContext } from '@/context/AdminContext'
 
 type PanelProp = {
@@ -15,11 +16,11 @@ const Panel: React.FC<PanelProp> = (props) => {
   const { currentSelection, setShowAdmin, editData, setProcessed, isImage, setIsImage } = useAdminContext()
   const [ input, setInput ] = useState(editData?.currentData)
 
-  // const cld = new Cloudinary({
-  //   cloud: {
-  //     cloudName: "dqty1eboa"
-  //   }
-  // })
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: "dqty1eboa"
+    }
+  })
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     e.preventDefault()
@@ -30,7 +31,15 @@ const Panel: React.FC<PanelProp> = (props) => {
     e.stopPropagation()
     const file: File | null = e.target.files && e.target.files[0]
     const reader = new FileReader()    
-    file && reader.readAsDataURL(file)
+    
+  }
+
+  const uploadImage = async (baseData: string) => {
+    try {
+
+    } catch (err) {
+      console.error("Upload Error:", err)
+    }
   }
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
