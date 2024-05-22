@@ -8,6 +8,7 @@
 - scroll to top of updates when minimizing posts
 - center portfolio featured images
 - add image fetching to section
+- fix empty image when clicking between portfolio name and image
 
 ## Admin
 - add 'add/edit' buttons for each section
