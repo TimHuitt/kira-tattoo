@@ -71,18 +71,19 @@ const Panel: React.FC<PanelProp> = (props) => {
     setShowAdmin(false)
   }
 
-  const handleUpload = (
-    <div className="flex flex-col items-center justify-center cursor-pointer">
-      
-      <div className="h-10 flex justify-center m-4 rounded hover:bg-slate-500 cursor-pointer">
-        <Image 
-          src='/images/image.svg'
-          height={50}
-          width={50}
-          alt={''} 
-        />
-      </div>
-      <input id="file-upload" type="file" style={{ display: 'none' }} onChange={handleFileSelect} />
+  const renderUpload = (
+    <div className="flex flex-col items-center justify-center">
+      <label htmlFor="file-upload" className="flex flex-col items-center justify-center">
+        <div className="h-10 flex justify-center m-4 rounded hover:bg-slate-500 cursor-pointer">
+          <Image 
+            src='/images/image.svg'
+            height={50}
+            width={50}
+            alt={''} 
+          />
+        </div>
+        <input id="file-upload" type="file" style={{ display: 'none' }} onChange={handleFileSelect} />
+      </label>
     </div>
   )
 
@@ -98,13 +99,13 @@ const Panel: React.FC<PanelProp> = (props) => {
         { currentSelection === 'Photo' && (
           <div className="w-full flex flex-col items-center justify-center">
             <h1>Select a new profile image</h1>
-            {handleUpload}
+            {renderUpload}
           </div>
         )}
         { currentSelection === 'Images' && (
           <div className="w-full flex flex-col items-center justify-center">
             <h1>Select images for upload</h1>
-            {handleUpload}
+            {renderUpload}
           </div>
         )}
         { editData?.section === 'header' && editData?.area !== 'photo' && editData?.area !== 'images' && (
@@ -129,7 +130,7 @@ const Panel: React.FC<PanelProp> = (props) => {
             <label htmlFor="content">Content</label>
             <textarea id="content" rows={3} className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
             <h1>Select images for upload</h1>
-            {handleUpload}
+            {renderUpload}
           </div>
         )}
 
