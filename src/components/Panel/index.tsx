@@ -23,8 +23,9 @@ const Panel: React.FC<PanelProp> = (props) => {
   })
 
   const panelTitle = editData?.section === 'header' ? 'Updating' : 'Adding'
+  const saveType = editData?.area === 'post' ? 'New Post' : 'Changes'
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
     setInput(e.target.value)
   }
@@ -49,18 +50,21 @@ const Panel: React.FC<PanelProp> = (props) => {
   }
 
   const handleSubmit = () => {
-    const tempData = {...editData, input}
 
-    axios.put(`api/header`, tempData)
-    .then(res => {
-      if (res.data.message === "Data processed") {
-        setProcessed(true)
-        setShowAdmin(false)
-      }
-    })
-    .catch(err => {
-      console.error('Error', err)
-    })
+    if (editData?.section === 'header') {
+      setShowAdmin(false)
+      const tempData = {...editData, input}
+
+      axios.put(`api/header`, tempData)
+      .then(res => {
+        if (res.data.message === "Data processed") {
+          setProcessed(true)
+        }
+      })
+      .catch(err => {
+        console.error('Error', err)
+      })
+    }
   }
 
   const handleCancel = () => {
@@ -68,18 +72,18 @@ const Panel: React.FC<PanelProp> = (props) => {
   }
 
   const handleUpload = (
-    <label htmlFor="file-upload" className="flex flex-col items-center justify-center cursor-pointer">
-      <h1>Select an image to upload</h1>
-      <div className="h-20 flex justify-center m-4 rounded hover:bg-slate-500 cursor-pointer">
+    <div className="flex flex-col items-center justify-center cursor-pointer">
+      
+      <div className="h-10 flex justify-center m-4 rounded hover:bg-slate-500 cursor-pointer">
         <Image 
           src='/images/image.svg'
-          height={100}
-          width={100}
+          height={50}
+          width={50}
           alt={''} 
         />
       </div>
       <input id="file-upload" type="file" style={{ display: 'none' }} onChange={handleFileSelect} />
-    </label>
+    </div>
   )
 
   return (
@@ -91,19 +95,28 @@ const Panel: React.FC<PanelProp> = (props) => {
         <div className="w-full flex justify-center my-4">
           <div className="w-5/6 h-1 rounded border border-1 border-slate-500" />
         </div>
-        { isImage && (
+        { currentSelection === 'Photo' && (
           <div className="w-full flex flex-col items-center justify-center">
+            <h1>Select a new profile image</h1>
             {handleUpload}
           </div>
         )}
-        { editData?.section === 'header' && editData?.area !== 'photo' && (
+        { currentSelection === 'Images' && (
+          <div className="w-full flex flex-col items-center justify-center">
+            <h1>Select images for upload</h1>
+            {handleUpload}
+          </div>
+        )}
+        { editData?.section === 'header' && editData?.area !== 'photo' && editData?.area !== 'images' && (
             <div className='flex justify-center items-center w-full py-4'>
             {/* <h2 className="text-xl mr-4">Caption</h2> */}
-            <textarea 
+            <input 
               className='p-2 w-full h-auto rounded bg-slate-900 hover:bg-slate-500 resize-none' 
-              rows={3}
               value={input} 
-              onChange={handleChange} 
+              onChange={handleChange}
+              onKeyDown={(e) => {
+                e.code === 'Enter' && handleSubmit()
+              }}
             />
           </div>
         )}
@@ -114,7 +127,8 @@ const Panel: React.FC<PanelProp> = (props) => {
             <label htmlFor="header">Header</label>
             <input id="header" type="text" className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
             <label htmlFor="content">Content</label>
-            <input id="content" type="text" className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
+            <textarea id="content" rows={3} className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
+            <h1>Select images for upload</h1>
             {handleUpload}
           </div>
         )}
@@ -134,7 +148,7 @@ const Panel: React.FC<PanelProp> = (props) => {
         </div> */}
         
         <div className='flex justify-around items-center w-full py-4'>
-          <button className="border border-2 rounded p-2 hover:bg-slate-500" onClick={handleSubmit}>Save Changes</button>
+          <button className="border border-2 rounded p-2 hover:bg-slate-500" onClick={handleSubmit}>Save {saveType}</button>
           <button className="border border-2 rounded p-2 hover:bg-slate-500" onClick={handleCancel}>Cancel</button>
         </div>
       </div>
