@@ -40,9 +40,9 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const body = await req.json()
-    const result = await cloudinary.uploader.upload("data:image/png;base64," + body.image, {upload_preset: 'profile'})
+    const result = await cloudinary.uploader.upload(body.image, {upload_preset: 'profile', public_id: 'profile-image'})
     
-    return new NextResponse(JSON.stringify({ data: result }), { status: 200 });
+    return new NextResponse(JSON.stringify({ data: 'result' }), { status: 200 });
   } catch (err: any) {
     console.error("Fetch Error:", err)
     return new NextResponse(JSON.stringify({ error: 'Error', message: err.message }), { status: 500 });

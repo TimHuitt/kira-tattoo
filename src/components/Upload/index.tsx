@@ -7,12 +7,10 @@ const Upload: React.FC<{isMultiple?: boolean | undefined}> = ({ isMultiple }) =>
     e.preventDefault()
     const files: any = e.target.files ? e.target.files[0] : undefined
     const reader = new FileReader()
-    let base64 = ''
 
     reader.onloadend = async() => {
       const baseData = reader.result as string
-      base64 = baseData.replace("data:", "").replace(/^.+,/, "")
-      uploadImage(base64)
+      uploadImage(baseData)
     }
     reader.readAsDataURL(files)
   }
@@ -39,6 +37,7 @@ const Upload: React.FC<{isMultiple?: boolean | undefined}> = ({ isMultiple }) =>
         <input 
           id="file-upload" 
           type="file" 
+          accept="image/*"
           style={{ display: 'none' }}
           multiple={isMultiple ? true : false}
           onChange={handleFileSelect} 

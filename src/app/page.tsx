@@ -78,7 +78,7 @@ const Home = () => {
 
   },[])
 
-  const profileImage = cld.image(`main-images/profile/${headerData?.photo}`)
+  const profileImage = cld.image(`main-images/profile/profile-image`)
 
   const handleScroll = useCallback(() => {
     if (!scrollRef.current) return
