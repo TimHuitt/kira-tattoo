@@ -39,7 +39,7 @@ const cld = new Cloudinary({
 const Home = () => { 
   const [ images, setImages ] = useState<string[]>(([]))
   const { width } = useScreenContext()
-  const { showAdmin, setShowAdmin, processed, setProcessed } = useAdminContext()
+  const { showAdmin, setShowAdmin, processed, setProcessed, imageKey } = useAdminContext()
   const { showModal, currentImage, showPage, currentPage } = useModalContext()
   const { scrollRef, updatesRef, portfolioRef, bookingRef, contactRef, selected, setSelected } = useScrollContext()
   const [ headerData, setHeaderData ] = useState<HeaderData | null>(null)
@@ -120,7 +120,7 @@ const Home = () => {
     const profileImage = cld.image(`main-images/profile/profile-image`)
     profileImage.setVersion(Date.now().toString())
     setImageUrl(profileImage)
-  },[])
+  },[imageKey])
   
   return (
     <div ref={scrollRef} className="relative w-full h-full mt-20 overflow-y-auto">
@@ -131,6 +131,7 @@ const Home = () => {
             <div className='w-[100px] h-[100px] mb-6 rounded-full overflow-hidden'>
                 { imageUrl !== undefined && (
                   <AdvancedImage
+                    key={imageKey}
                     className="block w-auto h-full max-w-full my-0 rounded mx-auto"
                     cldImg={imageUrl}
                     alt={'profile-image'}

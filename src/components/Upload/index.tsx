@@ -1,7 +1,12 @@
+'use client'
+
 import axios from "axios"
 import Image from "next/image"
 
+import { useAdminContext } from "@/context/AdminContext"
+
 const Upload: React.FC<{isMultiple?: boolean | undefined}> = ({ isMultiple }) => {
+  const { setImageKey } = useAdminContext()
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -15,8 +20,6 @@ const Upload: React.FC<{isMultiple?: boolean | undefined}> = ({ isMultiple }) =>
       newFile = files
     }
 
-
-
     reader.onloadend = async() => {
       const baseData = reader.result as string
       uploadImage(baseData)
@@ -26,7 +29,9 @@ const Upload: React.FC<{isMultiple?: boolean | undefined}> = ({ isMultiple }) =>
 
   const uploadImage = (base64: string) => {
     axios.post('/api/cloudinary', {image: base64})
-      .then(res => console.log(res.data))
+      .then(res => {
+        setImageKey(Date.now().toString())
+      })
       .catch(err => console.error('Error uploading image', err))
   }
 
