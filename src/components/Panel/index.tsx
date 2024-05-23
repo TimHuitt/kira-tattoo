@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Cloudinary } from '@cloudinary/url-gen/index'
 import Image from 'next/image'
 import axios from 'axios'
 
 import { useAdminContext } from '@/context/AdminContext'
+import Upload from '@/components/Upload'
 
 type PanelProp = {
   header: string,
@@ -45,9 +46,6 @@ const Panel: React.FC<PanelProp> = (props) => {
     }
   }
 
-  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    e.stopPropagation()
-  }
 
   const handleSubmit = () => {
 
@@ -65,6 +63,9 @@ const Panel: React.FC<PanelProp> = (props) => {
         console.error('Error', err)
       })
     }
+  }
+  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation()
   }
 
   const handleCancel = () => {
@@ -99,13 +100,13 @@ const Panel: React.FC<PanelProp> = (props) => {
         { currentSelection === 'Photo' && (
           <div className="w-full flex flex-col items-center justify-center">
             <h1>Select a new profile image</h1>
-            {renderUpload}
+            <Upload />
           </div>
         )}
         { currentSelection === 'Images' && (
           <div className="w-full flex flex-col items-center justify-center">
             <h1>Select images for upload</h1>
-            {renderUpload}
+            <Upload isMultiple={true} />
           </div>
         )}
         { editData?.section === 'header' && editData?.area !== 'photo' && editData?.area !== 'images' && (

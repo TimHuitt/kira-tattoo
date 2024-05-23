@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+var cloudinary = require('cloudinary').v2
 
 export async function GET(req: NextRequest) {
   const maxResults = 10
@@ -33,6 +34,17 @@ export async function PUT(req: NextRequest, res: NextResponse) {
   const url = `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image/upload?prefix=${folder}`
  
   try {
+
+    cloudinary.v2.api
+    .create_upload_preset(
+      { name: "my_preset", 
+        unsigned: true, 
+        categorization: "google_tagging,google_video_tagging",
+        auto_tagging: 0.75,
+        background_removal: "cloudinary_ai",  
+        folder: "new-products" })
+      .then(result=>console.log(result));
+      
     
     return new NextResponse(JSON.stringify({ data: 'success' }), { status: 200 });
   } catch (err: any) {
