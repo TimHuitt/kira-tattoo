@@ -1,3 +1,4 @@
+'use client'
 
 import React, { useMemo, useState, useEffect, useRef } from 'react'
 import { useModalContext } from '../../context/ModalContext'

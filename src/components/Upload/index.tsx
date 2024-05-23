@@ -7,6 +7,15 @@ const Upload: React.FC<{isMultiple?: boolean | undefined}> = ({ isMultiple }) =>
     e.preventDefault()
     const files: any = e.target.files ? e.target.files[0] : undefined
     const reader = new FileReader()
+    let newFile = null
+
+    if (!isMultiple) {
+      newFile = new File([files], 'profile-image')
+    } else {
+      newFile = files
+    }
+
+
 
     reader.onloadend = async() => {
       const baseData = reader.result as string

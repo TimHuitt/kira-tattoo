@@ -5,7 +5,7 @@ import { useModalContext } from '@/context/ModalContext'
 import { useScrollContext } from '@/context/ScrollContext'
 import { useScreenContext } from '@/context/ScreenContext'
 import { useAdminContext } from '@/context/AdminContext'
-import { Cloudinary } from '@cloudinary/url-gen/index'
+import { Cloudinary, CloudinaryImage } from '@cloudinary/url-gen/index'
 import axios from 'axios'
 
 import Login from '@/components/Login'
@@ -43,6 +43,7 @@ const Home = () => {
   const { showModal, currentImage, showPage, currentPage } = useModalContext()
   const { scrollRef, updatesRef, portfolioRef, bookingRef, contactRef, selected, setSelected } = useScrollContext()
   const [ headerData, setHeaderData ] = useState<HeaderData | null>(null)
+  const [imageUrl, setImageUrl] = useState<CloudinaryImage>()
 
   useEffect(() => {
     const getHeader = async () => {
@@ -78,7 +79,6 @@ const Home = () => {
 
   },[])
 
-  const profileImage = cld.image(`main-images/profile/profile-image`)
 
   const handleScroll = useCallback(() => {
     if (!scrollRef.current) return
@@ -116,6 +116,12 @@ const Home = () => {
     }
   },[handleScroll, scrollRef])
 
+  useEffect(() => {
+    const profileImage = cld.image(`main-images/profile/profile-image`)
+    profileImage.setVersion(Date.now().toString())
+    setImageUrl(profileImage)
+  },[])
+  
   return (
     <div ref={scrollRef} className="relative w-full h-full mt-20 overflow-y-auto">
       <div className='h-auto w-[90%] max-w-5xl text-white mx-auto  p-4 pt-10 md:p-6 lg:p-8 rounded bg-slate-800 shadow-xl shadow-slate-900 overflow-x-hidden'>
@@ -123,12 +129,14 @@ const Home = () => {
           <Login />
           <div className='relative max-h-60 min-h-20 pt-0 md:pt-6 md:min-h-40 md:min-h-56'>
             <div className='w-[100px] h-[100px] mb-6 rounded-full overflow-hidden'>
-                <AdvancedImage
-                  className="block w-auto h-full max-w-full my-0 rounded mx-auto"
-                  cldImg={profileImage}
-                  alt={'profile-image'}
-                  plugins={[lazyload({threshold: 1})]}
-                />
+                { imageUrl !== undefined && (
+                  <AdvancedImage
+                    className="block w-auto h-full max-w-full my-0 rounded mx-auto"
+                    cldImg={imageUrl}
+                    alt={'profile-image'}
+                    plugins={[lazyload({threshold: 1})]}
+                  />
+                )}
             </div>
             <Edit element={'header/photo'} data={headerData?.photo} isLeft={true} image={true} />
             <div className='inline-flex relative'>
