@@ -29,23 +29,12 @@ export async function GET(req: NextRequest) {
   }
 }
 
-export async function PUT(req: NextRequest, res: NextResponse) {
-  const folder = ''
-  const url = `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image/upload?prefix=${folder}`
- 
+export async function POST(req: NextRequest, res: NextResponse) {
   try {
+    const body = await req.json()
 
-    cloudinary.v2.api
-    .create_upload_preset(
-      { name: "my_preset", 
-        unsigned: true, 
-        categorization: "google_tagging,google_video_tagging",
-        auto_tagging: 0.75,
-        background_removal: "cloudinary_ai",  
-        folder: "new-products" })
-      .then(result=>console.log(result));
-      
     
+
     return new NextResponse(JSON.stringify({ data: 'success' }), { status: 200 });
   } catch (err: any) {
     console.error("Fetch Error:", err)

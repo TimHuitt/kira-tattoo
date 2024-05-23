@@ -1,17 +1,28 @@
+import axios from "axios"
 import Image from "next/image"
 
 const Upload: React.FC<{isMultiple?: boolean | undefined}> = ({ isMultiple }) => {
 
-  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
-    const files = e.target.files ? e.target.files[0] : null
+    const files: any = e.target.files ? e.target.files[0] : undefined
     const reader = new FileReader()
-    reader.onloadend = () => {
-      const baseData = ''
-    }
-    console.log(files)
+    let base64 = ''
 
+    reader.onloadend = async() => {
+      const baseData = reader.result as string
+      base64 = baseData.replace("data:", "").replace(/^.+,/, "")
+      uploadImage(base64)
+    }
+    reader.readAsDataURL(files)
   }
+
+  const uploadImage = (base64: string) => {
+    axios.post('/api/cloudinary', {image: base64})
+      .then(res => console.log(res.data))
+      .catch(err => console.error('Error uploading image', err))
+  }
+
 
   return (
 
