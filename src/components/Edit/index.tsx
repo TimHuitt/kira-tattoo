@@ -5,6 +5,7 @@ import { useAdminContext } from '@/context/AdminContext'
 import Image from 'next/image'
 
 import { getSession } from "next-auth/react"
+import axios from 'axios'
 
 interface EditProps {
   element: string
@@ -28,7 +29,7 @@ const Edit: React.FC<EditProps> = (
   }
 ) => {
   const [ isAdmin, setIsAdmin ] = useState<boolean>(false)
-  const { setEditData, setCurrentSelection, setShowAdmin, setIsImage } = useAdminContext()
+  const { setEditData, setCurrentSelection, setShowAdmin, setIsImage, setUpdateFeatured } = useAdminContext()
 
   useEffect(() => {
     const currentSession = async () => {
@@ -51,9 +52,18 @@ const Edit: React.FC<EditProps> = (
         currentData: data || '',
       })
       
-      setIsImage(image)
-      setCurrentSelection(area.charAt(0).toUpperCase() + area.split('/')[0].slice(1))
-      setShowAdmin(prev => !prev)
+      
+      if (section !== 'remove') {
+        setIsImage(image)
+        setCurrentSelection(area.charAt(0).toUpperCase() + area.split('/')[0].slice(1))
+        setShowAdmin(prev => !prev)
+      } else {
+        axios.delete('/api/cloudinary', {params: {file: 'main-images/' + area + '/' + data}})
+          .then(res => {
+            setUpdateFeatured(prev => !prev)
+          })
+          .catch(err => console.error('Error deleting image', err))
+      }
   }
 
   return (

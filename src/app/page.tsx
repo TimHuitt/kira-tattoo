@@ -39,7 +39,7 @@ const cld = new Cloudinary({
 const Home = () => { 
   const [ images, setImages ] = useState<string[]>(([]))
   const { width } = useScreenContext()
-  const { showAdmin, setShowAdmin, processed, setProcessed, imageKey } = useAdminContext()
+  const { showAdmin, setShowAdmin, processed, setProcessed, imageKey, updateFeatured } = useAdminContext()
   const { showModal, currentImage, showPage, currentPage } = useModalContext()
   const { scrollRef, updatesRef, portfolioRef, bookingRef, contactRef, selected, setSelected } = useScrollContext()
   const [ headerData, setHeaderData ] = useState<HeaderData | null>(null)
@@ -77,7 +77,7 @@ const Home = () => {
     }
     fetchImages()
 
-  },[])
+  },[updateFeatured])
 
 
   const handleScroll = useCallback(() => {

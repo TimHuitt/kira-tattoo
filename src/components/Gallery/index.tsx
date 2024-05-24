@@ -107,7 +107,7 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
                 </div>
               </div>
               {/* <p className='text-center'>{ imageName }</p> */}
-              <Edit element={imageName} type={'remove'} />
+              <Edit element={'remove/featured'} data={imageName} type={'remove'} />
             </div>
           </SwiperSlide>
         )

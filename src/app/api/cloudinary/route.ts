@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server'
 var cloudinary = require('cloudinary').v2
 
 
@@ -23,17 +23,17 @@ export async function GET(req: NextRequest) {
     })
 
     if (!resData.ok) {
-      return new NextResponse(JSON.stringify({ error: 'Fetch Failure' }), { status: resData.status });
+      return new NextResponse(JSON.stringify({ error: 'Fetch Failure' }), { status: resData.status })
     }
 
     const data = await resData.json()
 
     const resource = data.resources
-    return new NextResponse(JSON.stringify({ data: resource }), { status: 200 });
+    return new NextResponse(JSON.stringify({ data: resource }), { status: 200 })
     
   } catch (err: any) {
     console.error("Fetch Error:", err)
-    return new NextResponse(JSON.stringify({ error: 'Error', message: err.message }), { status: 500 });
+    return new NextResponse(JSON.stringify({ error: 'Fetch Error', message: err.message }), { status: 500 })
   }
 }
 
@@ -42,9 +42,22 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const body = await req.json()
     const result = await cloudinary.uploader.upload(body.image, {upload_preset: 'profile', public_id: 'profile-image'})
     
-    return new NextResponse(JSON.stringify({ data: result }), { status: 200 });
+    return new NextResponse(JSON.stringify({ data: result }), { status: 200 })
   } catch (err: any) {
-    console.error("Fetch Error:", err)
-    return new NextResponse(JSON.stringify({ error: 'Error', message: err.message }), { status: 500 });
+    console.error("Post Error:", err)
+    return new NextResponse(JSON.stringify({ error: 'Post Error', message: err.message }), { status: 500 })
+  }
+}
+
+export async function DELETE(req: NextRequest, res: NextResponse) {
+  try {
+    const path = new URL(req.url)
+    const file = path.searchParams.get('file') 
+    const result = await cloudinary.uploader.destroy(file, {invalidate: true})
+    console.log(file, result)
+    return new NextResponse(JSON.stringify({ data: result }), { status: 200 })
+  } catch (err: any) {
+    console.error("Delete Error:", err)
+    return new NextResponse(JSON.stringify({ error: 'Delete Error', message: err.message }), { status: 500 })
   }
 }
