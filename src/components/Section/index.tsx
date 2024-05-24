@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { useModalContext } from '../../context/ModalContext'
 import Gallery from '../Gallery'
+import { useAdminContext } from '@/context/AdminContext'
 
 type SectionProps = {
   id: string,
@@ -15,13 +16,16 @@ type SectionProps = {
 
 const Section: React.FC<SectionProps> = (props) => {
   const { setShowPage, setCurrentPage } = useModalContext()
+  const { updatePortfolio } = useAdminContext()
   const [ images, setImages ] = useState<string[]>([])
+  const [ area, setArea ] = useState<string>('')
   
   useEffect(() => {
     async function fetchImages() {
       try {
         const folderPath = new URLSearchParams({path: props.folder || 'main-images'}).toString()
-        
+        setArea(folderPath.split('%2F')[1])
+
         const res = await fetch(`/api/cloudinary?${folderPath}`)
         const data = await res.json()
 
@@ -34,7 +38,7 @@ const Section: React.FC<SectionProps> = (props) => {
       }
     }
     fetchImages()
-  },[props.folder])
+  },[props.folder, updatePortfolio])
 
   const handleClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
     const target = e.target as HTMLDivElement
@@ -60,7 +64,7 @@ const Section: React.FC<SectionProps> = (props) => {
         {/* <small className='w-full md:w-3/5 opacity-50'>{props.description}</small> */}
       </div>
       <div className='max-w-full h-[320px] overflow-hidden'>
-          <Gallery images={ images } swipeDelay={props.swipeDelay}/>
+          <Gallery area={area} images={images} swipeDelay={props.swipeDelay}/>
         </div>
     </div>
   )

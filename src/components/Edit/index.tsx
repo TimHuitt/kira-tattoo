@@ -29,7 +29,7 @@ const Edit: React.FC<EditProps> = (
   }
 ) => {
   const [ isAdmin, setIsAdmin ] = useState<boolean>(false)
-  const { setEditData, setCurrentSelection, setShowAdmin, setIsImage, setUpdateFeatured } = useAdminContext()
+  const { setEditData, setCurrentSelection, setShowAdmin, setIsImage, setUpdateFeatured, setUpdatePortfolio } = useAdminContext()
 
   useEffect(() => {
     const currentSession = async () => {
@@ -60,7 +60,11 @@ const Edit: React.FC<EditProps> = (
       } else {
         axios.delete('/api/cloudinary', {params: {file: 'main-images/' + area + '/' + data}})
           .then(res => {
-            setUpdateFeatured(prev => !prev)
+            if (area === 'featured') {
+              setUpdateFeatured(prev => !prev)
+            } else {
+              setUpdatePortfolio(prev => !prev)
+            }
           })
           .catch(err => console.error('Error deleting image', err))
       }

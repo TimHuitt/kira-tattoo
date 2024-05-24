@@ -22,6 +22,7 @@ type ImageProps = {
   images: string[],
   autoplay?: boolean,
   swipeDelay?: number,
+  area: string,
 }
 
 interface MemoTypes {
@@ -50,7 +51,7 @@ const MemoizedImage: React.FC<MemoTypes> = React.memo(({ src, alt }) => {
 });
 MemoizedImage.displayName = 'MemoizedImage'
 
-const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
+const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay, area }) => {
   const { width } = useScreenContext()
   const { setShowModal, setCurrentImage } = useModalContext()
   swipeDelay = swipeDelay ? swipeDelay : 1500
@@ -107,7 +108,7 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay }) => {
                 </div>
               </div>
               {/* <p className='text-center'>{ imageName }</p> */}
-              <Edit element={'remove/featured'} data={imageName} type={'remove'} />
+              <Edit element={`remove/${area}`} data={imageName} type={'remove'} />
             </div>
           </SwiperSlide>
         )
