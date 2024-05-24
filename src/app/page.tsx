@@ -152,7 +152,7 @@ const Home = () => {
           </div>
           <div className='relative max-w-full h-[300px] flex items-center'>
             <Gallery images={ images } area={'featured'}/>
-            <Edit element={'header/images'} type={'add'} isBottom={true} size={30} />
+            <Edit element={'add/header'} type={'add'} image={true} isBottom={true} size={30} />
           </div>
           <Divider sectionRef={updatesRef}/>
           <Updates />

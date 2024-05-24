@@ -54,8 +54,10 @@ const Edit: React.FC<EditProps> = (
       
       
       if (section !== 'remove') {
+        const currentArea = area.charAt(0).toUpperCase() + area.split('/')[0].slice(1)
+        const selection = section === 'add' ? 'Featured Images' : currentArea
         setIsImage(image)
-        setCurrentSelection(area.charAt(0).toUpperCase() + area.split('/')[0].slice(1))
+        setCurrentSelection(selection)
         setShowAdmin(prev => !prev)
       } else {
         axios.delete('/api/cloudinary', {params: {file: 'main-images/' + area + '/' + data}})

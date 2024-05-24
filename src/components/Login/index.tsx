@@ -17,7 +17,7 @@ const Login = () => {
   if (session) {
     return (
       <>
-      <div className="fixed top-14 right-2 cursor-pointer z-50">
+      <div className="fixed top-14 right-6 cursor-pointer z-50">
         <div onClick={() => signOut()}>Sign Out</div>
       </div>
       </>

@@ -100,13 +100,13 @@ const Panel: React.FC<PanelProp> = (props) => {
         { currentSelection === 'Photo' && (
           <div className="w-full flex flex-col items-center justify-center">
             <h1>Select a new profile image</h1>
-            <Upload />
+            <Upload area={'profile'} />
           </div>
         )}
         { currentSelection === 'Images' && (
           <div className="w-full flex flex-col items-center justify-center">
             <h1>Select images for upload</h1>
-            <Upload isMultiple={true} />
+            <Upload area={'featured'} isMultiple={true} />
           </div>
         )}
         { editData?.section === 'header' && editData?.area !== 'photo' && editData?.area !== 'images' && (
@@ -131,7 +131,7 @@ const Panel: React.FC<PanelProp> = (props) => {
             <label htmlFor="content">Content</label>
             <textarea id="content" rows={3} className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
             <h1>Select images for upload</h1>
-            {renderUpload}
+            <Upload area={'post'} isMultiple={true} />
           </div>
         )}
 

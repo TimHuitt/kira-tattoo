@@ -5,26 +5,24 @@ import Image from "next/image"
 
 import { useAdminContext } from "@/context/AdminContext"
 
-const Upload: React.FC<{isMultiple?: boolean | undefined}> = ({ isMultiple }) => {
+interface UploadProps {
+  isMultiple?: boolean | undefined
+  area: string
+}
+const Upload: React.FC<UploadProps> = ({ isMultiple }) => {
   const { setImageKey } = useAdminContext()
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
     const files: any = e.target.files ? e.target.files[0] : undefined
     const reader = new FileReader()
-    let newFile = null
 
-    if (!isMultiple) {
-      newFile = new File([files], 'profile-image')
-    } else {
-      newFile = files
-    }
+    reader.readAsDataURL(files)
 
     reader.onloadend = async() => {
       const baseData = reader.result as string
       uploadImage(baseData)
     }
-    reader.readAsDataURL(files)
   }
 
   const uploadImage = (base64: string) => {
