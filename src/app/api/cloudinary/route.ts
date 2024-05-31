@@ -37,11 +37,14 @@ export async function GET(req: NextRequest) {
   }
 }
 
+// upload new image(s)
+// required 'preset'
+// optional 'id'
+
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const body = await req.json()
-    const result = await cloudinary.uploader.upload(body.image, {upload_preset: 'profile', public_id: 'profile-image'})
-    
+    const result = await cloudinary.uploader.upload(body.image, {upload_preset: body.preset, public_id: body.id})
     return new NextResponse(JSON.stringify({ data: result }), { status: 200 })
   } catch (err: any) {
     console.error("Post Error:", err)

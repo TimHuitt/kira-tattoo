@@ -48,7 +48,7 @@ const Home = () => {
   useEffect(() => {
     const getHeader = async () => {
       try {
-        const res = await axios.get('api/header')
+        const res = await axios.get('api/content')
         const resData = res.data.rowData
         setHeaderData(resData)
       } catch (err) {
@@ -152,7 +152,7 @@ const Home = () => {
           </div>
           <div className='relative max-w-full h-[300px] flex items-center'>
             <Gallery images={ images } area={'featured'}/>
-            <Edit element={'add/header'} type={'add'} image={true} isBottom={true} size={30} />
+            <Edit element={'add/featured'} type={'add'} image={true} isBottom={true} size={30} />
           </div>
           <Divider sectionRef={updatesRef}/>
           <Updates />

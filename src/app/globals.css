@@ -4,15 +4,16 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 31, 29, 34;
+  --background-start-rgb: 30, 41, 59;
   --background-end-rgb: 56, 52, 63;
   box-sizing: border-box;
+  color: rgb(30, 41, 59)
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 68, 64, 74;
+    --background-start-rgb: 30, 41, 59;
     --background-end-rgb: 70, 64, 79;
     box-sizing: border-box;
   }
@@ -26,7 +27,7 @@ body {
   background-size: 20%;
   background-position: top;
   background-repeat: repeat;
-  backdrop-filter: brightness(70%)
+  backdrop-filter: brightness(55%)
 }
 
 @font-face {

@@ -44,7 +44,7 @@ const Edit: React.FC<EditProps> = (
       e.stopPropagation()
       const section = element.split('/')[0]
       const area = element.split('/')[1]
-      
+
       setEditData({
         section,
         area,

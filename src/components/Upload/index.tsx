@@ -9,25 +9,48 @@ interface UploadProps {
   isMultiple?: boolean | undefined
   area: string
 }
-const Upload: React.FC<UploadProps> = ({ isMultiple }) => {
+const Upload: React.FC<UploadProps> = ({ isMultiple, area }) => {
   const { setImageKey } = useAdminContext()
+
+//   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     e.preventDefault()
+//     const files: any = e.target.files ? e.target.files[0] : undefined
+//     const reader = new FileReader()
+// 
+//     reader.readAsDataURL(files)
+// 
+//     reader.onloadend = async() => {
+//       const baseData = reader.result as string
+//       uploadImage(baseData)
+//     }
+//   }
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
-    const files: any = e.target.files ? e.target.files[0] : undefined
-    const reader = new FileReader()
+    const files: FileList | null = e.target.files
 
-    reader.readAsDataURL(files)
+    if (files) {
+      Array.from(files).forEach((file: File) => {
+        const reader = new FileReader()
 
-    reader.onloadend = async() => {
-      const baseData = reader.result as string
-      uploadImage(baseData)
+        reader.onloadend = async() => {
+          const baseData = reader.result as string
+          uploadImage(baseData, 'profile', 'profile-image')
+        }
+        
+        reader.onerror = (err) => {
+          console.error('Error reading file:', err);
+        }
+
+        reader.readAsDataURL(file)
+      })
     }
   }
 
-  const uploadImage = (base64: string) => {
-    axios.post('/api/cloudinary', {image: base64})
+  const uploadImage = (base64: string, preset: string, id: string) => {
+    axios.post('/api/cloudinary', {image: base64, preset: preset, id: id})
       .then(res => {
+        console.info(res)
         setImageKey(Date.now().toString())
       })
       .catch(err => console.error('Error uploading image', err))

@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import { Cloudinary } from '@cloudinary/url-gen/index'
-import Image from 'next/image'
 import axios from 'axios'
 
 import { useAdminContext } from '@/context/AdminContext'
@@ -17,12 +15,6 @@ const Panel: React.FC<PanelProp> = (props) => {
   const { currentSelection, setShowAdmin, editData, setProcessed, isImage, setIsImage } = useAdminContext()
   const [ input, setInput ] = useState(editData?.currentData)
 
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName: "dqty1eboa"
-    }
-  })
-
   const panelTitle = editData?.section === 'header' ? 'Updating' : 'Adding'
   const saveType = editData?.area === 'post' ? 'New Post' : 'Changes'
 
@@ -31,31 +23,14 @@ const Panel: React.FC<PanelProp> = (props) => {
     setInput(e.target.value)
   }
 
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.stopPropagation()
-    const file: File | null = e.target.files && e.target.files[0]
-    const reader = new FileReader()    
-    
-  }
-
-  const uploadImage = async (baseData: string) => {
-    try {
-
-    } catch (err) {
-      console.error("Upload Error:", err)
-    }
-  }
-
-
   const handleSubmit = () => {
-
     if (editData?.section === 'header') {
       setShowAdmin(false)
       const tempData = {...editData, input}
 
-      axios.put(`api/header`, tempData)
+      axios.put(`api/content`, tempData)
       .then(res => {
-        if (res.data.message === "Data processed") {
+        if (res.status === 200) {
           setProcessed(true)
         }
       })
@@ -64,6 +39,7 @@ const Panel: React.FC<PanelProp> = (props) => {
       })
     }
   }
+
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation()
   }
@@ -71,22 +47,6 @@ const Panel: React.FC<PanelProp> = (props) => {
   const handleCancel = () => {
     setShowAdmin(false)
   }
-
-  const renderUpload = (
-    <div className="flex flex-col items-center justify-center">
-      <label htmlFor="file-upload" className="flex flex-col items-center justify-center">
-        <div className="h-10 flex justify-center m-4 rounded hover:bg-slate-500 cursor-pointer">
-          <Image 
-            src='/images/image.svg'
-            height={50}
-            width={50}
-            alt={''} 
-          />
-        </div>
-        <input id="file-upload" type="file" style={{ display: 'none' }} onChange={handleFileSelect} />
-      </label>
-    </div>
-  )
 
   return (
     <div className='w-5/6 md:w-2/3 lg:w-1/2 xl:w-1/3 p-4 pt-2 mb-6 rounded border border-4 border-slate-700 bg-slate-800' onClick={handleClick}>
@@ -103,14 +63,14 @@ const Panel: React.FC<PanelProp> = (props) => {
             <Upload area={'profile'} />
           </div>
         )}
-        { currentSelection === 'Images' && (
+        { editData?.section === 'add' && editData?.area === 'featured' && (
           <div className="w-full flex flex-col items-center justify-center">
             <h1>Select images for upload</h1>
             <Upload area={'featured'} isMultiple={true} />
           </div>
         )}
         { editData?.section === 'header' && editData?.area !== 'photo' && editData?.area !== 'images' && (
-            <div className='flex justify-center items-center w-full py-4'>
+          <div className='flex justify-center items-center w-full py-4'>
             {/* <h2 className="text-xl mr-4">Caption</h2> */}
             <input 
               className='p-2 w-full h-auto rounded bg-slate-900 hover:bg-slate-500 resize-none' 
