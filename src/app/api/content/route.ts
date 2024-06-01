@@ -26,7 +26,7 @@ export async function PUT(req: NextRequest, res: NextResponse) {
 
 
     if (result.rowCount > 0) {
-      // return new NextResponse(JSON.stringify({ message: result }), { status: 200 })
+      return new NextResponse(JSON.stringify({ message: result }), { status: 200 })
     } else {
       throw new Error('Error Updating Database')
     }
