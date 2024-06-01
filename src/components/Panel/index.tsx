@@ -12,11 +12,31 @@ type PanelProp = {
 }
 
 const Panel: React.FC<PanelProp> = (props) => {
-  const { currentSelection, setShowAdmin, editData, setProcessed, isImage, setIsImage } = useAdminContext()
+  const { currentSelection, setShowAdmin, editData, setProcessed, setImageKey, setUpdateFeatured } = useAdminContext()
   const [ input, setInput ] = useState(editData?.currentData)
+  const [ uploadFiles, setUploadFiles ] = useState<File[]>([])
 
   const panelTitle = editData?.section === 'header' ? 'Updating' : 'Adding'
   const saveType = editData?.area === 'post' ? 'New Post' : 'Changes'
+
+
+  const uploadImage = (base64: string, preset: string) => {
+    axios.post('/api/cloudinary', {image: base64, preset: preset})
+      .then(res => {
+        if (res.status === 200) {
+          console.info('Upload Successful')
+        } else {
+          throw(res.status)
+        }
+
+        if (preset === 'profile') {
+          setImageKey(Date.now().toString())
+        } else if (preset === 'featured') {
+          setUpdateFeatured(prev => !prev)
+        }
+      })
+      .catch(err => console.error('Error uploading image', err))
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -60,13 +80,13 @@ const Panel: React.FC<PanelProp> = (props) => {
         { currentSelection === 'Photo' && (
           <div className="w-full flex flex-col items-center justify-center">
             <h1>Select a new profile image</h1>
-            <Upload preset={'profile'} />
+            <Upload preset={'profile'} uploadFiles={uploadFiles} setUploadFiles={setUploadFiles} />
           </div>
         )}
         { editData?.section === 'add' && editData?.area === 'featured' && (
           <div className="w-full flex flex-col items-center justify-center">
             <h1>Select images for upload</h1>
-            <Upload preset={'featured'} isMultiple={true} />
+            <Upload preset={'featured'} isMultiple={true} uploadFiles={uploadFiles} setUploadFiles={setUploadFiles}  />
           </div>
         )}
         { editData?.section === 'header' && editData?.area !== 'photo' && editData?.area !== 'images' && (
@@ -91,7 +111,7 @@ const Panel: React.FC<PanelProp> = (props) => {
             <label htmlFor="content">Content</label>
             <textarea id="content" rows={3} className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
             <h1>Select images for upload</h1>
-            <Upload preset={'post'} isMultiple={true} />
+            <Upload preset={'post'} isMultiple={true} uploadFiles={uploadFiles} setUploadFiles={setUploadFiles} />
           </div>
         )}
 

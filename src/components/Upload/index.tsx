@@ -3,63 +3,43 @@
 import axios from "axios"
 import Image from "next/image"
 
-import { useAdminContext } from "@/context/AdminContext"
+import { useState } from "react"
 
 interface UploadProps {
   isMultiple?: boolean | undefined
   preset: string
+  uploadFiles: any
+  setUploadFiles: any
 }
-const Upload: React.FC<UploadProps> = ({ isMultiple, preset }) => {
-  const { setImageKey, setUpdateFeatured } = useAdminContext()
 
-//   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     e.preventDefault()
-//     const files: any = e.target.files ? e.target.files[0] : undefined
-//     const reader = new FileReader()
-// 
-//     reader.readAsDataURL(files)
-// 
-//     reader.onloadend = async() => {
-//       const baseData = reader.result as string
-//       uploadImage(baseData)
-//     }
-//   }
+const Upload: React.FC<UploadProps> = ({ isMultiple, uploadFiles, setUploadFiles }) => {
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
     const files: FileList | null = e.target.files  
     
     if (files) {
-      Array.from(files).forEach((file: File) => {
-        const reader = new FileReader()
+      setUploadFiles(Array.from(files))
 
-        reader.onloadend = async() => {
-          const baseData = reader.result as string
-          uploadImage(baseData, preset)
-        }
-        
-        reader.onerror = (err) => {
-          console.error('Error reading file:', err);
-        }
+//       Array.from(files).forEach((file: File) => {
+//         const reader = new FileReader()
+//         const filesList: (string | ArrayBuffer | null)[] = []
+//         
+//         // reader.onloadend = async(e) => {
+//         //   const baseData = reader.result as string
+//         //   setUploadFiles(fileArray)
+//         //   // uploadImage(baseData, preset)
+//         // }
+//         
+//         reader.onerror = (err) => {
+//           console.error('Error reading file:', err);
+//         }
+// 
+//         reader.readAsDataURL(file)
+//       })
 
-        reader.readAsDataURL(file)
-      })
     }
   }
-
-  const uploadImage = (base64: string, preset: string) => {
-    axios.post('/api/cloudinary', {image: base64, preset: preset})
-      .then(res => {
-        console.info(res)
-        if (preset === 'profile') {
-          setImageKey(Date.now().toString())
-        } else if (preset === 'featured') {
-          setUpdateFeatured(prev => !prev)
-        }
-      })
-      .catch(err => console.error('Error uploading image', err))
-  }
-
 
   return (
 
@@ -72,6 +52,16 @@ const Upload: React.FC<UploadProps> = ({ isMultiple, preset }) => {
             width={50}
             alt={''} 
           />
+        </div>
+        <div className="grid gap-3 grid-cols-3">
+          { uploadFiles?.map((file: File, index: number) => (
+              <Image 
+                key={`file-${index}`} 
+                src={URL.createObjectURL(file)} 
+                width={100}
+                height={100}
+                alt={''} />
+          ))}
         </div>
         <input 
           id="file-upload" 
