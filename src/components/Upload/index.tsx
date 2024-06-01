@@ -7,10 +7,10 @@ import { useAdminContext } from "@/context/AdminContext"
 
 interface UploadProps {
   isMultiple?: boolean | undefined
-  area: string
+  preset: string
 }
-const Upload: React.FC<UploadProps> = ({ isMultiple, area }) => {
-  const { setImageKey } = useAdminContext()
+const Upload: React.FC<UploadProps> = ({ isMultiple, preset }) => {
+  const { setImageKey, setUpdateFeatured } = useAdminContext()
 
 //   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
 //     e.preventDefault()
@@ -27,15 +27,15 @@ const Upload: React.FC<UploadProps> = ({ isMultiple, area }) => {
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
-    const files: FileList | null = e.target.files
-
+    const files: FileList | null = e.target.files  
+    
     if (files) {
       Array.from(files).forEach((file: File) => {
         const reader = new FileReader()
 
         reader.onloadend = async() => {
           const baseData = reader.result as string
-          uploadImage(baseData, 'profile', 'profile-image')
+          uploadImage(baseData, preset)
         }
         
         reader.onerror = (err) => {
@@ -47,11 +47,15 @@ const Upload: React.FC<UploadProps> = ({ isMultiple, area }) => {
     }
   }
 
-  const uploadImage = (base64: string, preset: string, id: string) => {
-    axios.post('/api/cloudinary', {image: base64, preset: preset, id: id})
+  const uploadImage = (base64: string, preset: string) => {
+    axios.post('/api/cloudinary', {image: base64, preset: preset})
       .then(res => {
         console.info(res)
-        setImageKey(Date.now().toString())
+        if (preset === 'profile') {
+          setImageKey(Date.now().toString())
+        } else if (preset === 'featured') {
+          setUpdateFeatured(prev => !prev)
+        }
       })
       .catch(err => console.error('Error uploading image', err))
   }
