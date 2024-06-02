@@ -11,8 +11,15 @@ type PanelProp = {
   inputType: string,
 }
 
+interface PostTypes {
+  title: string
+  header: string
+  content: string
+}
+
 const Panel: React.FC<PanelProp> = (props) => {
   const { currentSelection, setShowAdmin, editData, setProcessed, setImageKey, setUpdateFeatured } = useAdminContext()
+  const [ postInput, setPostInput ] = useState<PostTypes>({title: '', header: '', content: ''})
   const [ input, setInput ] = useState<string>(editData?.currentData || '')
   const [ uploadFiles, setUploadFiles ] = useState<File[]>([])
   const [ preset, setPreset ] = useState<string>('')
@@ -81,10 +88,19 @@ const Panel: React.FC<PanelProp> = (props) => {
 
     if (editData?.section === 'add') {
       if (editData?.area === 'post') {
-        console.log('test')
+        console.log(postInput)
       }
     }
     setUploadFiles([])
+  }
+
+  const handleContent = (e: React.ChangeEvent<HTMLTextAreaElement> | React.ChangeEvent<HTMLInputElement>) => {
+    const field = e.target.id
+    const val = e.target.value
+    setPostInput(current => ({
+      ...current,
+      [field]: val
+    }))
   }
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -133,13 +149,13 @@ const Panel: React.FC<PanelProp> = (props) => {
           <div className='flex flex-col items-center justify-center'>
             
             <label htmlFor="title">Title</label>
-            <input id="title" type="text" className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
+            <input value={postInput.title} onChange={handleContent} id="title" type="text" className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
             
             <label htmlFor="header">Header</label>
-            <input id="header" type="text" className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
+            <input value={postInput.header} onChange={handleContent} id="header" type="text" className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
             
             <label htmlFor="content">Content</label>
-            <textarea id="content" rows={3} className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
+            <textarea value={postInput.content} onChange={handleContent} id="content" rows={3} className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
             
             <h1>Select images for upload</h1>
             <Upload setPreset={setPreset} preset={'post'} isMultiple={true} uploadFiles={uploadFiles} setUploadFiles={setUploadFiles} />
