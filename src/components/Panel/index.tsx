@@ -13,7 +13,7 @@ type PanelProp = {
 
 const Panel: React.FC<PanelProp> = (props) => {
   const { currentSelection, setShowAdmin, editData, setProcessed, setImageKey, setUpdateFeatured } = useAdminContext()
-  const [ input, setInput ] = useState(editData?.currentData)
+  const [ input, setInput ] = useState<string>(editData?.currentData || '')
   const [ uploadFiles, setUploadFiles ] = useState<File[]>([])
   const [ preset, setPreset ] = useState<string>('')
 
@@ -104,7 +104,7 @@ const Panel: React.FC<PanelProp> = (props) => {
         <div className="w-full flex justify-center my-4">
           <div className="w-5/6 h-1 rounded border border-1 border-slate-500" />
         </div>
-        { currentSelection === 'Photo' && (
+        { editData?.area === 'photo' && (
           <div className="w-full flex flex-col items-center justify-center">
             <h1>Select a new profile image</h1>
             <Upload setPreset={setPreset} preset={'profile'} uploadFiles={uploadFiles} setUploadFiles={setUploadFiles} />
@@ -131,12 +131,16 @@ const Panel: React.FC<PanelProp> = (props) => {
         )}
         { editData?.area === 'post' && (
           <div className='flex flex-col items-center justify-center'>
+            
             <label htmlFor="title">Title</label>
             <input id="title" type="text" className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
+            
             <label htmlFor="header">Header</label>
             <input id="header" type="text" className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
+            
             <label htmlFor="content">Content</label>
             <textarea id="content" rows={3} className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
+            
             <h1>Select images for upload</h1>
             <Upload setPreset={setPreset} preset={'post'} isMultiple={true} uploadFiles={uploadFiles} setUploadFiles={setUploadFiles} />
           </div>

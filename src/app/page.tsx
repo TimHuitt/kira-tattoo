@@ -144,13 +144,12 @@ const Home = () => {
               <h1 className="text-4xl text-start pe-10">{headerData?.header}</h1>
               <Edit element={'header/header'} data={headerData?.header} />
             </div>
-            <div></div>
-            <div className='inline-flex relative w-5/6 md:w-auto'>
-              <p className='text-sm md:text-base pb-20 md:pb-30 pe-10 opacity-60'>{headerData?.statement}</p>
+            <div className='flex relative w-5/6 md:w-auto h-auto'>
+              <p className='text-sm md:text-base pe-10 opacity-60'>{headerData?.statement}</p>
               <Edit element={'header/statement'} data={headerData?.statement} />
             </div>
           </div>
-          <div className='relative max-w-full h-[300px] flex items-center'>
+          <div className='relative max-w-full h-[300px] flex items-center mt-10'>
             <Gallery images={ images } area={'featured'}/>
             <Edit element={'add/featured'} type={'add'} image={true} isBottom={true} size={30} />
           </div>
