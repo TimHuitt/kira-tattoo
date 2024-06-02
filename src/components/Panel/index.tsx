@@ -15,6 +15,7 @@ const Panel: React.FC<PanelProp> = (props) => {
   const { currentSelection, setShowAdmin, editData, setProcessed, setImageKey, setUpdateFeatured } = useAdminContext()
   const [ input, setInput ] = useState(editData?.currentData)
   const [ uploadFiles, setUploadFiles ] = useState<File[]>([])
+  const [ preset, setPreset ] = useState<string>('')
 
   const panelTitle = editData?.section === 'header' ? 'Updating' : 'Adding'
   const saveType = editData?.area === 'post' ? 'New Post' : 'Changes'
@@ -34,6 +35,7 @@ const Panel: React.FC<PanelProp> = (props) => {
         } else if (preset === 'featured') {
           setUpdateFeatured(prev => !prev)
         }
+        
       })
       .catch(err => console.error('Error uploading image', err))
   }
@@ -44,7 +46,7 @@ const Panel: React.FC<PanelProp> = (props) => {
   }
 
   const handleSubmit = () => {
-    if (editData?.section === 'header') {
+    if (editData?.section === 'header' && editData?.area !== 'photo') {
       setShowAdmin(false)
       const tempData = {...editData, input}
 
@@ -57,7 +59,27 @@ const Panel: React.FC<PanelProp> = (props) => {
       .catch(err => {
         console.error('Error', err)
       })
+    } else if (editData?.section !== 'remove') {
+      if (uploadFiles) {
+        Array.from(uploadFiles).forEach((file: File) => {
+          const reader = new FileReader()
+          
+          reader.onloadend = async(e) => {
+            const baseData = reader.result as string
+            uploadImage(baseData, preset)
+          }
+          
+          reader.onerror = (err) => {
+            console.error('Error reading file:', err);
+          }
+
+          setUpdateFeatured(prev => !prev)
+          setShowAdmin(false)
+          reader.readAsDataURL(file)
+        })
+      }
     }
+
   }
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -80,13 +102,13 @@ const Panel: React.FC<PanelProp> = (props) => {
         { currentSelection === 'Photo' && (
           <div className="w-full flex flex-col items-center justify-center">
             <h1>Select a new profile image</h1>
-            <Upload preset={'profile'} uploadFiles={uploadFiles} setUploadFiles={setUploadFiles} />
+            <Upload setPreset={setPreset} preset={'profile'} uploadFiles={uploadFiles} setUploadFiles={setUploadFiles} />
           </div>
         )}
         { editData?.section === 'add' && editData?.area === 'featured' && (
           <div className="w-full flex flex-col items-center justify-center">
             <h1>Select images for upload</h1>
-            <Upload preset={'featured'} isMultiple={true} uploadFiles={uploadFiles} setUploadFiles={setUploadFiles}  />
+            <Upload setPreset={setPreset} preset={'featured'} isMultiple={true} uploadFiles={uploadFiles} setUploadFiles={setUploadFiles}  />
           </div>
         )}
         { editData?.section === 'header' && editData?.area !== 'photo' && editData?.area !== 'images' && (
@@ -111,7 +133,7 @@ const Panel: React.FC<PanelProp> = (props) => {
             <label htmlFor="content">Content</label>
             <textarea id="content" rows={3} className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
             <h1>Select images for upload</h1>
-            <Upload preset={'post'} isMultiple={true} uploadFiles={uploadFiles} setUploadFiles={setUploadFiles} />
+            <Upload setPreset={setPreset} preset={'post'} isMultiple={true} uploadFiles={uploadFiles} setUploadFiles={setUploadFiles} />
           </div>
         )}
 

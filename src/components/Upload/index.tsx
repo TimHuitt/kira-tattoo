@@ -3,41 +3,25 @@
 import axios from "axios"
 import Image from "next/image"
 
-import { useState } from "react"
+import { SetStateAction, useState } from "react"
 
 interface UploadProps {
   isMultiple?: boolean | undefined
   preset: string
+  setPreset: React.Dispatch<SetStateAction<string>>
   uploadFiles: any
   setUploadFiles: any
 }
 
-const Upload: React.FC<UploadProps> = ({ isMultiple, uploadFiles, setUploadFiles }) => {
+const Upload: React.FC<UploadProps> = ({ isMultiple, preset, setPreset, uploadFiles, setUploadFiles }) => {
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
     const files: FileList | null = e.target.files  
     
     if (files) {
+      setPreset(preset)
       setUploadFiles(Array.from(files))
-
-//       Array.from(files).forEach((file: File) => {
-//         const reader = new FileReader()
-//         const filesList: (string | ArrayBuffer | null)[] = []
-//         
-//         // reader.onloadend = async(e) => {
-//         //   const baseData = reader.result as string
-//         //   setUploadFiles(fileArray)
-//         //   // uploadImage(baseData, preset)
-//         // }
-//         
-//         reader.onerror = (err) => {
-//           console.error('Error reading file:', err);
-//         }
-// 
-//         reader.readAsDataURL(file)
-//       })
-
     }
   }
 
@@ -53,7 +37,15 @@ const Upload: React.FC<UploadProps> = ({ isMultiple, uploadFiles, setUploadFiles
             alt={''} 
           />
         </div>
-        <div className="grid gap-3 grid-cols-3">
+        <div 
+          className={`
+            ${uploadFiles.length > 2 
+              ? 'grid-cols-3' 
+              : uploadFiles.length > 1
+                ? 'grid-cols-2'
+                : 'grid-cols-1'}
+            grid gap-3 justify-center items-center
+          `}>
           { uploadFiles?.map((file: File, index: number) => (
               <Image 
                 key={`file-${index}`} 
