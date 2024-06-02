@@ -67,10 +67,14 @@ const Posts = () => {
         <h2>No Posts Yet. Check back soon!</h2>
         </div>
       )}
-      {Object.keys(posts).length > 0 && (
+      {Object.keys(posts).length > 1 && (
         <div className='w-full flex justify-center'>
-          <button className='form-button py-1' onClick={handleMore}>More...</button>
-          <button className='form-button py-1' onClick={handleLess}>Less</button>
+          {isVisible.length < Object.keys(posts).length && (
+            <button className='form-button py-1' onClick={handleMore}>More...</button>
+          )}
+          {Object.keys(posts).length > 2 && (
+            <button className='form-button py-1' onClick={handleLess}>Less</button>
+          )}
         </div>
       )}
     </>
