@@ -40,7 +40,7 @@ const Home = () => {
   const [ images, setImages ] = useState<string[]>(([]))
   const { width } = useScreenContext()
   const { showAdmin, setShowAdmin, processed, setProcessed, imageKey, updateFeatured } = useAdminContext()
-  const { showModal, currentImage, showPage, currentPage } = useModalContext()
+  const { showModal, currentImage, showImages, currentPage } = useModalContext()
   const { scrollRef, updatesRef, portfolioRef, bookingRef, contactRef, selected, setSelected } = useScrollContext()
   const [ headerData, setHeaderData ] = useState<HeaderData | null>(null)
   const [imageUrl, setImageUrl] = useState<CloudinaryImage>()
@@ -48,7 +48,7 @@ const Home = () => {
   useEffect(() => {
     const getHeader = async () => {
       try {
-        const res = await axios.get('api/content')
+        const res = await axios.get('api/content', {params: {table: 'header'}})
         const resData = res.data.rowData
         setHeaderData(resData)
       } catch (err) {
@@ -174,7 +174,7 @@ const Home = () => {
         { showModal &&
           <Modal src={currentImage}/>
         }
-        { showPage &&
+        { showImages &&
           <Page folder={`main-images/${currentPage}-featured`}/>
         }
         { showAdmin && (

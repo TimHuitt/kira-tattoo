@@ -10,7 +10,7 @@ cloudinary.config({
 
 
 export async function GET(req: NextRequest) {
-  const maxResults = 10
+  // const maxResults = 10
   const path = new URL(req.url)
   const folder = path.searchParams.get('path') || 'main-images'
   const url = `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image/upload?prefix=${folder}`

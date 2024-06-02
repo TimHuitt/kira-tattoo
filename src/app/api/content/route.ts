@@ -1,11 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const path = new URL(req.url)
+  const table = path.searchParams.get('table') || ''
+
   try {
-    const data = await sql`SELECT * FROM header`
-    const rowData = data.rows[0]
-    return NextResponse.json({ rowData })
+
+    if (table === 'header') {
+      const data = await sql`SELECT * FROM header`
+      const rowData = data.rows[0]
+      return NextResponse.json({ rowData })
+    } else if (table === 'posts') {
+      const data = await sql`SELECT * FROM posts`
+      return NextResponse.json(data.rows)
+    } else {
+      throw new Error('incorrect table')
+    }
+    
   } catch (err) {
     console.error('Fetching Error:', err)
     return new NextResponse(JSON.stringify({ error: 'Internal Fetching Error'}), { status: 500 })

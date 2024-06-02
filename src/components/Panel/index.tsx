@@ -20,7 +20,6 @@ const Panel: React.FC<PanelProp> = (props) => {
   const panelTitle = editData?.section === 'header' ? 'Updating' : 'Adding'
   const saveType = editData?.area === 'post' ? 'New Post' : 'Changes'
 
-
   const uploadImage = (base64: string, preset: string) => {
     axios.post('/api/cloudinary', {image: base64, preset: preset})
       .then(res => {
@@ -51,14 +50,14 @@ const Panel: React.FC<PanelProp> = (props) => {
       const tempData = {...editData, input}
 
       axios.put(`api/content`, tempData)
-      .then(res => {
-        if (res.status === 200) {
-          setProcessed(true)
-        }
-      })
-      .catch(err => {
-        console.error('Error', err)
-      })
+        .then(res => {
+          if (res.status === 200) {
+            setProcessed(true)
+          }
+        })
+        .catch(err => {
+          console.error('Error', err)
+        })
     } else if (editData?.section !== 'remove') {
       if (uploadFiles) {
         Array.from(uploadFiles).forEach((file: File) => {
@@ -80,6 +79,12 @@ const Panel: React.FC<PanelProp> = (props) => {
       }
     }
 
+    if (editData?.section === 'add') {
+      if (editData?.area === 'post') {
+        console.log('test')
+      }
+    }
+    setUploadFiles([])
   }
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {

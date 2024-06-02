@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import postsData from '@/assets/content/updates.json'
 import Edit from '@/components/Edit'
+import axios from 'axios'
 
 interface Post {
   date: string
@@ -16,6 +17,20 @@ const Posts = () => {
   useEffect(() => {
     setPosts(postsData)
   }, [])
+
+  useEffect(() => {
+    const getPosts = async () => {
+      try {
+        const res = await axios.get('api/content', {params: {table: 'posts'}})
+        setPosts(res.data)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+    getPosts()
+  },[])
+
+
 
   const handleMore = () => {
     const showPost = isVisible.length
@@ -44,7 +59,7 @@ const Posts = () => {
             </div>
             <p className='text-xs md:text-base'>{posts[post].content}</p>
 
-            <Edit element={'add/post'} type={'remove'} isLeft={true} />
+            <Edit element={'remove/post'} type={'remove'} isLeft={true} />
           </div>
         ))
       ) : (
