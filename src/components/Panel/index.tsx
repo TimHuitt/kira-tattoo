@@ -16,7 +16,7 @@ interface PostTypes {
   title?: string | ''
   header?: string | ''
   content?: string | ''
-  images?: string | ''
+  id?: string | ''
   date?: string | ''
 }
 
@@ -38,14 +38,13 @@ const Panel: React.FC<PanelProp> = (props) => {
     const year = today.getFullYear()
     const date = month + '-' + day + '-' + year
 
-    setPostInput(current => ({
-      ...current,
+    setPostInput({
       title: '',
       header: '',
       content: '',
-      images: uuidv4(),
+      id: uuidv4(),
       date: date
-    }))
+    })
   },[])
 
   const uploadImage = (base64: string, preset: string) => {
@@ -109,16 +108,15 @@ const Panel: React.FC<PanelProp> = (props) => {
 
     if (editData?.section === 'add') {
       if (editData?.area === 'post') {
-        console.log(postInput)
-        // axios.post(`api/content`, postInput)
-        // .then(res => {
-        //   if (res.status === 200) {
-        //     console.info('Post Added')
-        //   }
-        // })
-        // .catch(err => {
-        //   console.error('Error', err)
-        // })
+        axios.post(`api/content`, postInput)
+        .then(res => {
+          if (res.status === 200) {
+            console.info('Post Added')
+          }
+        })
+        .catch(err => {
+          console.error('Error', err)
+        })
       }
     }
 

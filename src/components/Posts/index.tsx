@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import postsData from '@/assets/content/updates.json'
 import Edit from '@/components/Edit'
 import axios from 'axios'
+import { useScrollContext } from '@/context/ScrollContext'
 
 interface Post {
   date: string
@@ -13,6 +14,8 @@ interface Post {
 const Posts = () => {
   const [ posts, setPosts ] = useState<Record<string, Post>>({})
   const [ isVisible, setIsVisible ] = useState<number[]>([0])
+
+  const { updatesRef, scrollRef } = useScrollContext()
 
   useEffect(() => {
     setPosts(postsData)
@@ -38,6 +41,12 @@ const Posts = () => {
   }
 
   const handleLess = () => {
+
+    if (updatesRef && updatesRef.current && scrollRef && scrollRef.current) {
+      const top = updatesRef.current.offsetTop + updatesRef.current.offsetHeight
+      scrollRef.current.scrollTo({top,behavior: "smooth"})
+    }
+
     setIsVisible([0])
   }
 
@@ -72,7 +81,7 @@ const Posts = () => {
           {isVisible.length < Object.keys(posts).length && (
             <button className='form-button py-1' onClick={handleMore}>More...</button>
           )}
-          {Object.keys(posts).length > 2 && (
+          {isVisible.length > 1 && (
             <button className='form-button py-1' onClick={handleLess}>Less</button>
           )}
         </div>

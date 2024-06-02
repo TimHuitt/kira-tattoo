@@ -53,8 +53,8 @@ export async function PUT(req: NextRequest, res: NextResponse) {
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const body = await req.json()
-    const query = `INSERT INTO posts (title, header, content, images, date) VALUES ($1, $2, $3, $4, $5)`
-    const values = [body.title, body.header, body.content, body.images, Date.now()]
+    const query = `INSERT INTO posts (title, header, content, id, date) VALUES ($1, $2, $3, $4, $5)`
+    const values = [body.title, body.header, body.content, body.id, body.date]
     const result = await sql.query(query, values)
 
     if (result.rowCount > 0) {
