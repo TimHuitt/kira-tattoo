@@ -1,6 +1,7 @@
-import { useState } from 'react'
 import axios from 'axios'
+import { v4 as uuidv4 } from 'uuid'
 
+import { useEffect, useState } from 'react'
 import { useAdminContext } from '@/context/AdminContext'
 import Upload from '@/components/Upload'
 
@@ -12,20 +13,40 @@ type PanelProp = {
 }
 
 interface PostTypes {
-  title: string
-  header: string
-  content: string
+  title?: string | ''
+  header?: string | ''
+  content?: string | ''
+  images?: string | ''
+  date?: string | ''
 }
 
 const Panel: React.FC<PanelProp> = (props) => {
   const { currentSelection, setShowAdmin, editData, setProcessed, setImageKey, setUpdateFeatured } = useAdminContext()
-  const [ postInput, setPostInput ] = useState<PostTypes>({title: '', header: '', content: ''})
+  const [ postInput, setPostInput ] = useState<PostTypes>()
   const [ input, setInput ] = useState<string>(editData?.currentData || '')
   const [ uploadFiles, setUploadFiles ] = useState<File[]>([])
+  const [ uniqueID ] = useState<string>(uuidv4())
   const [ preset, setPreset ] = useState<string>('')
 
   const panelTitle = editData?.section === 'header' ? 'Updating' : 'Adding'
   const saveType = editData?.area === 'post' ? 'New Post' : 'Changes'
+
+  useEffect(() => {
+    const today = new Date()
+    const day = today.getDate()
+    const month = today.getMonth() + 1
+    const year = today.getFullYear()
+    const date = month + '-' + day + '-' + year
+
+    setPostInput(current => ({
+      ...current,
+      title: '',
+      header: '',
+      content: '',
+      images: uuidv4(),
+      date: date
+    }))
+  },[])
 
   const uploadImage = (base64: string, preset: string) => {
     axios.post('/api/cloudinary', {image: base64, preset: preset})
@@ -89,8 +110,18 @@ const Panel: React.FC<PanelProp> = (props) => {
     if (editData?.section === 'add') {
       if (editData?.area === 'post') {
         console.log(postInput)
+        // axios.post(`api/content`, postInput)
+        // .then(res => {
+        //   if (res.status === 200) {
+        //     console.info('Post Added')
+        //   }
+        // })
+        // .catch(err => {
+        //   console.error('Error', err)
+        // })
       }
     }
+
     setUploadFiles([])
   }
 
@@ -149,13 +180,13 @@ const Panel: React.FC<PanelProp> = (props) => {
           <div className='flex flex-col items-center justify-center'>
             
             <label htmlFor="title">Title</label>
-            <input value={postInput.title} onChange={handleContent} id="title" type="text" className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
+            <input value={postInput?.title} onChange={handleContent} id="title" type="text" className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
             
             <label htmlFor="header">Header</label>
-            <input value={postInput.header} onChange={handleContent} id="header" type="text" className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
+            <input value={postInput?.header} onChange={handleContent} id="header" type="text" className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
             
             <label htmlFor="content">Content</label>
-            <textarea value={postInput.content} onChange={handleContent} id="content" rows={3} className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
+            <textarea value={postInput?.content} onChange={handleContent} id="content" rows={3} className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
             
             <h1>Select images for upload</h1>
             <Upload setPreset={setPreset} preset={'post'} isMultiple={true} uploadFiles={uploadFiles} setUploadFiles={setUploadFiles} />

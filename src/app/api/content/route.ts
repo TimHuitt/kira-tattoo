@@ -50,4 +50,21 @@ export async function PUT(req: NextRequest, res: NextResponse) {
   }
 }
 
+export async function POST(req: NextRequest, res: NextResponse) {
+  try {
+    const body = await req.json()
+    const query = `INSERT INTO posts (title, header, content, images, date) VALUES ($1, $2, $3, $4, $5)`
+    const values = [body.title, body.header, body.content, body.images, Date.now()]
+    const result = await sql.query(query, values)
+
+    if (result.rowCount > 0) {
+      return new NextResponse(JSON.stringify({ message: result }), { status: 200 })
+    } else {
+      throw new Error('Error Updating Database')
+    }
+  } catch (err) {
+    console.error('Error parsing JSON or processing data:', err);
+    return new NextResponse(JSON.stringify({ error: err }), { status: 500 });
+  }
+}
 // console.log(req.nextUrl.searchParams.get('test'))
