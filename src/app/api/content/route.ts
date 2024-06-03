@@ -67,4 +67,20 @@ export async function POST(req: NextRequest, res: NextResponse) {
     return new NextResponse(JSON.stringify({ error: err }), { status: 500 });
   }
 }
-// console.log(req.nextUrl.searchParams.get('test'))
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const body = await req.json()
+    const query = `DELETE FROM posts WHERE id = $1`
+    const result = await sql.query(query, [body.id])
+
+    if (result.rowCount > 0) {
+      return new NextResponse(JSON.stringify({ message: result }), { status: 200 })
+    } else {
+      throw new Error('Error Updating Database')
+    }
+  } catch (err) {
+    console.error('Error Deleting Post:', err);
+    return new NextResponse(JSON.stringify({ error: err }), { status: 500 });
+  }
+}

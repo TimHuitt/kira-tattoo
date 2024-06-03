@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
-import postsData from '@/assets/content/updates.json'
 import Edit from '@/components/Edit'
 import axios from 'axios'
 import { useScrollContext } from '@/context/ScrollContext'
 
 interface Post {
-  date: string
-  title: string
-  header: string
-  content: string
+  date?: string
+  title?: string
+  header?: string
+  content?: string
+  id?: string
 }
 
 const Posts = () => {
@@ -16,10 +16,6 @@ const Posts = () => {
   const [ isVisible, setIsVisible ] = useState<number[]>([0])
 
   const { updatesRef, scrollRef } = useScrollContext()
-
-  useEffect(() => {
-    setPosts(postsData)
-  }, [])
 
   useEffect(() => {
     const getPosts = async () => {
@@ -68,7 +64,7 @@ const Posts = () => {
             </div>
             <p className='text-xs md:text-base'>{posts[post].content}</p>
 
-            <Edit element={'remove/post'} type={'remove'} isLeft={true} />
+            <Edit element={'remove/post'} type={'remove'} data={posts[post].id} isLeft={true} />
           </div>
         ))
       ) : (

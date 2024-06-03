@@ -41,7 +41,24 @@ const Edit: React.FC<EditProps> = (
 
 
   const handleClick = async(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-      e.stopPropagation()
+    e.stopPropagation()
+
+    // handle post deletion
+    if (data?.split('-').length === 5) {
+      if (data) {
+        axios.delete(`api/content`, {data: {id: data}})
+        .then(res => {
+          if (res.status === 200) {
+            console.info('Post Deleted')
+          }
+        })
+        .catch(err => {
+          console.error('Error', err)
+        })
+      }
+
+    // handle other edit requests
+    } else {
       const section = element.split('/')[0]
       const area = element.split('/')[1]
 
@@ -52,13 +69,15 @@ const Edit: React.FC<EditProps> = (
         currentData: data || '',
       })
       
-      
+      // handle image additions
       if (section !== 'remove') {
         const currentArea = area.charAt(0).toUpperCase() + area.split('/')[0].slice(1)
         const selection = section === 'add' ? 'Featured Images' : currentArea
         setIsImage(image)
         setCurrentSelection(selection)
         setShowAdmin(prev => !prev)
+      
+      // handle image removal
       } else {
         axios.delete('/api/cloudinary', {params: {file: 'main-images/' + area + '/' + data}})
           .then(res => {
@@ -70,6 +89,7 @@ const Edit: React.FC<EditProps> = (
           })
           .catch(err => console.error('Error deleting image', err))
       }
+    }
   }
 
   return (
