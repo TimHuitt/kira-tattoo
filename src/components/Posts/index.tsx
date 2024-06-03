@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Edit from '@/components/Edit'
 import axios from 'axios'
 import { useScrollContext } from '@/context/ScrollContext'
+import { useAdminContext } from '@/context/AdminContext'
 
 interface Post {
   date?: string
@@ -12,22 +13,25 @@ interface Post {
 }
 
 const Posts = () => {
+  const { updatePosts } = useAdminContext()
+  const { updatesRef, scrollRef } = useScrollContext()
+
   const [ posts, setPosts ] = useState<Record<string, Post>>({})
   const [ isVisible, setIsVisible ] = useState<number[]>([0])
 
-  const { updatesRef, scrollRef } = useScrollContext()
 
   useEffect(() => {
     const getPosts = async () => {
       try {
         const res = await axios.get('api/content', {params: {table: 'posts'}})
-        setPosts(res.data)
+        setPosts(res.data.reverse())
       } catch (err) {
         console.error(err)
       }
     }
     getPosts()
-  },[])
+    setIsVisible([0])
+  },[updatePosts])
 
 
 

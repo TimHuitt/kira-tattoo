@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState, useMemo, ReactNode, SetStateAction, Dispatch } from 'react'
+import { createContext, useContext, useState, useMemo, ReactNode, SetStateAction, Dispatch, useEffect } from 'react'
 
 
 interface EditDataType {
@@ -27,6 +27,8 @@ interface AdminContextType {
   setUpdateFeatured: Dispatch<SetStateAction<boolean>>
   updatePortfolio: boolean
   setUpdatePortfolio: Dispatch<SetStateAction<boolean>>
+  updatePosts: boolean
+  setUpdatePosts: Dispatch<SetStateAction<boolean>>
 }
 
 
@@ -40,6 +42,7 @@ export const AdminProvider = ({ children }: {children: ReactNode}) => {
   const [ isImage, setIsImage ] = useState<boolean>(false)
   const [ imageKey, setImageKey ] = useState<string>(Date.now().toString())
   const [ updateFeatured, setUpdateFeatured ] = useState<boolean>(false)
+  const [ updatePosts, setUpdatePosts ] = useState<boolean>(false)
   const [ updatePortfolio, setUpdatePortfolio ] = useState<boolean>(false)
 
   const values = useMemo(() => ({
@@ -59,8 +62,14 @@ export const AdminProvider = ({ children }: {children: ReactNode}) => {
     setUpdateFeatured,
     updatePortfolio,
     setUpdatePortfolio,
-  }), [showAdmin, currentSelection, editData, processed, isImage, imageKey, updateFeatured, updatePortfolio])
+    updatePosts, 
+    setUpdatePosts
+  }), [showAdmin, currentSelection, editData, processed, isImage, imageKey, updateFeatured, updatePortfolio, updatePosts])
   
+  useEffect(() => {
+    setShowAdmin(false)
+  },[updateFeatured, updatePortfolio, updatePosts])
+
   return (
     <AdminContext.Provider value={values}>
       {children}

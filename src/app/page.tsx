@@ -144,7 +144,8 @@ const Home = () => {
               <h1 className="text-4xl text-start pe-10">{headerData?.header}</h1>
               <Edit element={'header/header'} data={headerData?.header} />
             </div>
-            <div className='flex relative w-5/6 md:w-auto h-auto'>
+            <div></div>
+            <div className='inline-flex relative w-5/6 w-auto h-auto'>
               <p className='text-sm md:text-base pe-10 opacity-60'>{headerData?.statement}</p>
               <Edit element={'header/statement'} data={headerData?.statement} />
             </div>

@@ -21,7 +21,7 @@ interface PostTypes {
 }
 
 const Panel: React.FC<PanelProp> = (props) => {
-  const { currentSelection, setShowAdmin, editData, setProcessed, setImageKey, setUpdateFeatured } = useAdminContext()
+  const { currentSelection, setShowAdmin, editData, setProcessed, setImageKey, setUpdateFeatured, setUpdatePosts } = useAdminContext()
   const [ postInput, setPostInput ] = useState<PostTypes>()
   const [ input, setInput ] = useState<string>(editData?.currentData || '')
   const [ uploadFiles, setUploadFiles ] = useState<File[]>([])
@@ -72,6 +72,8 @@ const Panel: React.FC<PanelProp> = (props) => {
   }
 
   const handleSubmit = () => {
+
+    // edit header items
     if (editData?.section === 'header' && editData?.area !== 'photo') {
       setShowAdmin(false)
       const tempData = {...editData, input}
@@ -85,6 +87,8 @@ const Panel: React.FC<PanelProp> = (props) => {
         .catch(err => {
           console.error('Error', err)
         })
+
+    // add images
     } else if (editData?.section !== 'remove') {
       if (uploadFiles) {
         Array.from(uploadFiles).forEach((file: File) => {
@@ -105,12 +109,14 @@ const Panel: React.FC<PanelProp> = (props) => {
         })
       }
     }
-
+    
     if (editData?.section === 'add') {
+      // add posts
       if (editData?.area === 'post') {
         axios.post(`api/content`, postInput)
         .then(res => {
           if (res.status === 200) {
+            setUpdatePosts(prev => !prev)
             console.info('Post Added')
           }
         })

@@ -29,7 +29,7 @@ const Edit: React.FC<EditProps> = (
   }
 ) => {
   const [ isAdmin, setIsAdmin ] = useState<boolean>(false)
-  const { setEditData, setCurrentSelection, setShowAdmin, setIsImage, setUpdateFeatured, setUpdatePortfolio } = useAdminContext()
+  const { setEditData, setCurrentSelection, setShowAdmin, setIsImage, setUpdateFeatured, setUpdatePortfolio, setUpdatePosts } = useAdminContext()
 
   useEffect(() => {
     const currentSession = async () => {
@@ -49,6 +49,7 @@ const Edit: React.FC<EditProps> = (
         axios.delete(`api/content`, {data: {id: data}})
         .then(res => {
           if (res.status === 200) {
+            setUpdatePosts(prev => !prev)
             console.info('Post Deleted')
           }
         })
