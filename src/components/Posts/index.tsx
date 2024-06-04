@@ -1,8 +1,14 @@
-import { useState, useEffect } from 'react'
 import Edit from '@/components/Edit'
 import axios from 'axios'
+
+import { useState, useEffect } from 'react'
 import { useScrollContext } from '@/context/ScrollContext'
 import { useAdminContext } from '@/context/AdminContext'
+
+import { Cloudinary, CloudinaryImage } from '@cloudinary/url-gen/index'
+import { AdvancedImage, lazyload } from '@cloudinary/react'
+import { fill } from '@cloudinary/url-gen/actions/resize'
+import CircleLoader from 'react-spinners/CircleLoader'
 
 interface Post {
   date?: string
@@ -12,13 +18,19 @@ interface Post {
   id?: string
 }
 
+const cld = new Cloudinary({
+  cloud: {
+    cloudName: "dqty1eboa"
+  }
+})
+
 const Posts = () => {
   const { updatePosts } = useAdminContext()
   const { updatesRef, scrollRef } = useScrollContext()
 
   const [ posts, setPosts ] = useState<Record<string, Post>>({})
   const [ isVisible, setIsVisible ] = useState<number[]>([0])
-
+  const [ postImages, setPostImages ] = useState<string[]>([])
 
   useEffect(() => {
     const getPosts = async () => {
@@ -33,7 +45,19 @@ const Posts = () => {
     setIsVisible([0])
   },[updatePosts])
 
-
+  useEffect(() => {
+    async function fetchImages() {
+      axios.get('/api/cloudinary',{params: {path: 'main-images/posts'}})
+        .then(res => {
+          const imagesList = res.data.data.map((resource: { public_id: string }) => resource.public_id)
+          setPostImages(imagesList);
+        })
+        .catch(err => {
+          console.error('Error Fetching Images', err)
+        })
+    }
+    fetchImages()
+  },[])
 
   const handleMore = () => {
     const showPost = isVisible.length
@@ -41,12 +65,10 @@ const Posts = () => {
   }
 
   const handleLess = () => {
-
     if (updatesRef && updatesRef.current && scrollRef && scrollRef.current) {
       const top = updatesRef.current.offsetTop + updatesRef.current.offsetHeight
       scrollRef.current.scrollTo({top,behavior: "smooth"})
     }
-
     setIsVisible([0])
   }
 
@@ -62,9 +84,21 @@ const Posts = () => {
               <div className="w-5/6 h-1 rounded border border-1 border-slate-500" />
             </div>
             <div className='w-full flex justify-center gap-5 my-4'>
-              <div className='w-[100px] h-[100px] bg-slate-900'></div>
-              <div className='w-[100px] h-[100px] bg-slate-900'></div>
-              <div className='w-[100px] h-[100px] bg-slate-900'></div>
+              {postImages?.map((image, index) => {
+                const currentImg = cld.image(image)
+                currentImg.resize(fill().width(250).height(250))
+                const imageName = image.split('/').pop() || 'image'
+                return (
+                  <div className='w-[100px] h-[100px] bg-slate-900' key={`post-${imageName}-${index}`}>
+                    <AdvancedImage
+                      className="block w-auto h-full max-w-full my-0 rounded mx-auto"
+                      cldImg={currentImg}
+                      alt={image}
+                      plugins={[lazyload({threshold: 1})]}
+                    />
+                  </div>
+                )
+              })}
             </div>
             <p className='text-xs md:text-base'>{posts[post].content}</p>
 

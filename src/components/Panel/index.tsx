@@ -72,7 +72,6 @@ const Panel: React.FC<PanelProp> = (props) => {
   }
 
   const handleSubmit = () => {
-
     // edit header items
     if (editData?.section === 'header' && editData?.area !== 'photo') {
       setShowAdmin(false)

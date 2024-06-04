@@ -62,11 +62,10 @@ const Home = () => {
   useEffect(() => {
     async function fetchImages() {      
       try {
-
         const folderPath = new URLSearchParams({path: 'main-images/featured' || 'main-images'}).toString()
-        
         const res = await fetch(`/api/cloudinary?${folderPath}`)
         const data = await res.json()
+        
         if (data) {
           const imagesList = data.data.map((resource: { public_id: string }) => resource.public_id)
           setImages(imagesList);
@@ -76,7 +75,6 @@ const Home = () => {
       }
     }
     fetchImages()
-
   },[updateFeatured])
 
 
