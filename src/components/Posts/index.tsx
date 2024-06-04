@@ -30,7 +30,7 @@ const Posts = () => {
 
   const [ posts, setPosts ] = useState<Record<string, Post>>({})
   const [ isVisible, setIsVisible ] = useState<number[]>([0])
-  const [ postImages, setPostImages ] = useState<{[key: string]: string}>({})
+  const [ postImages, setPostImages ] = useState<string[]>([])
 
   useEffect(() => {
     const getPosts = async () => {
@@ -49,15 +49,7 @@ const Posts = () => {
     async function fetchImages() {
       axios.get('/api/cloudinary',{params: {path: 'main-images/posts'}})
         .then(res => {
-          // let imagesList = res.data.data.map((resource: { public_id: string }) => resource.public_id)
-
-          let imagesList: {[key: string]: string} = {}
-
-          res.data.data.forEach((path: string) => {
-            const id = path.split('/')[2]
-            imagesList[id] = path
-          })
-
+          let imagesList = res.data.data.map((resource: { public_id: string }) => resource.public_id)
           setPostImages(imagesList);
         })
         .catch(err => {
@@ -67,9 +59,6 @@ const Posts = () => {
     fetchImages()
   },[])
 
-  useEffect(() => {
-    console.log(postImages)
-  },[postImages])
 
   // const fetchImages = (id: string) => {
   //   axios.get('/api/cloudinary',{params: {path: 'main-images/posts'}})
@@ -107,20 +96,20 @@ const Posts = () => {
               <div className="w-5/6 h-1 rounded border border-1 border-slate-500" />
             </div>
             <div className='w-full flex justify-center gap-5 my-4'>
-              {Object.keys(postImages).map((image, index) => {
+              {postImages?.map((image, index) => {
                 const currentImg = cld.image(image)
                 currentImg.resize(fill().width(250).height(250))
                 const imageName = image.split('/').pop() || 'image'
-                return (
+                if (image.split('/')[2] === posts[post].id) { return (
                   <div className='w-[100px] h-[100px] bg-slate-900' key={`post-${imageName}-${index}`}>
                     <AdvancedImage
-                      className="block w-auto h-full max-w-full my-0 mx-auto rounded"
+                      className="block w-auto h-full max-w-full my-0 rounded mx-auto"
                       cldImg={currentImg}
                       alt={image}
                       plugins={[lazyload({threshold: 1})]}
                     />
                   </div>
-                )
+                )}
               })}
             </div>
             <p className='text-xs md:text-base'>{posts[post].content}</p>

@@ -16,8 +16,8 @@ const comfortaa = Comfortaa({
 });
 
 export const metadata: Metadata = {
-  title: "Kira Lahman",
-  description: "Artwork by Kira Lahman, including Tattoos, Illustrations, Paintings, and much more",
+  title: "Kira Art and Tattoo",
+  description: "Artwork by Kira, including Tattoos, Illustrations, Paintings, and much more",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
