@@ -27,7 +27,6 @@ export async function GET(req: NextRequest) {
     }
 
     const data = await resData.json()
-
     const resource = data.resources
     return new NextResponse(JSON.stringify({ data: resource }), { status: 200 })
     
@@ -50,6 +49,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     interface DataTypes {
       upload_preset: string
       public_id?: string | undefined
+      folder?: string | undefined
     }
 
     const data: DataTypes = {
@@ -60,9 +60,22 @@ export async function POST(req: NextRequest, res: NextResponse) {
       data.public_id = 'profile-image'
     }
 
-    result = await cloudinary.uploader.upload(body.image, data)
+    if (body.preset === 'posts') {
+      data.folder = `main-images/posts/${body.folder}`
+    }
 
-    return new NextResponse(JSON.stringify({ data: result }), { status: 200 })
+    // if body.folder !== '', then create a new folder using body.folder uid
+    if (body.folder === '') {
+      result = await cloudinary.uploader.upload(body.image, data)
+    } else {
+      const createResult = await cloudinary.api.create_folder(`main-images/posts/${body.folder}`)
+      if (createResult.success) {
+        result = await cloudinary.uploader.upload(body.image, data)
+      }
+    }
+
+
+    return new NextResponse(JSON.stringify({ data: 'result' }), { status: 200 })
   } catch (err: any) {
     console.error("Post Error:", err)
     return new NextResponse(JSON.stringify({ error: 'Post Error', message: err.message }), { status: 500 })

@@ -25,7 +25,6 @@ const Panel: React.FC<PanelProp> = (props) => {
   const [ postInput, setPostInput ] = useState<PostTypes>()
   const [ input, setInput ] = useState<string>(editData?.currentData || '')
   const [ uploadFiles, setUploadFiles ] = useState<File[]>([])
-  const [ uniqueID ] = useState<string>(uuidv4())
   const [ preset, setPreset ] = useState<string>('')
 
   const panelTitle = editData?.section === 'header' ? 'Updating' : 'Adding'
@@ -47,8 +46,8 @@ const Panel: React.FC<PanelProp> = (props) => {
     })
   },[])
 
-  const uploadImage = (base64: string, preset: string) => {
-    axios.post('/api/cloudinary', {image: base64, preset: preset})
+  const uploadImage = (base64: string, preset: string, folder: string = '') => {
+    axios.post('/api/cloudinary', {image: base64, preset, folder})
       .then(res => {
         if (res.status === 200) {
           console.info('Upload Successful')
@@ -92,10 +91,11 @@ const Panel: React.FC<PanelProp> = (props) => {
       if (uploadFiles) {
         Array.from(uploadFiles).forEach((file: File) => {
           const reader = new FileReader()
+          const folder = preset === 'posts' ? postInput?.id : ''
           
           reader.onloadend = async(e) => {
             const baseData = reader.result as string
-            uploadImage(baseData, preset)
+            uploadImage(baseData, preset, folder)
           }
           
           reader.onerror = (err) => {
@@ -192,7 +192,7 @@ const Panel: React.FC<PanelProp> = (props) => {
             <textarea value={postInput?.content} onChange={handleContent} id="content" rows={3} className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none' />
             
             <h1>Select images for upload</h1>
-            <Upload setPreset={setPreset} preset={'post'} isMultiple={true} uploadFiles={uploadFiles} setUploadFiles={setUploadFiles} />
+            <Upload setPreset={setPreset} preset={'posts'} isMultiple={true} uploadFiles={uploadFiles} setUploadFiles={setUploadFiles} />
           </div>
         )}
 
