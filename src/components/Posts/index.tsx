@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useScrollContext } from '@/context/ScrollContext'
 import { useAdminContext } from '@/context/AdminContext'
+import { useModalContext } from '../../context/ModalContext'
 
 import { Cloudinary, CloudinaryImage } from '@cloudinary/url-gen/index'
 import { AdvancedImage, lazyload } from '@cloudinary/react'
@@ -27,6 +28,7 @@ const cld = new Cloudinary({
 const Posts = () => {
   const { updatePosts } = useAdminContext()
   const { updatesRef, scrollRef } = useScrollContext()
+  const { setShowModal, setCurrentImage } = useModalContext()
 
   const [ posts, setPosts ] = useState<Record<string, Post>>({})
   const [ isVisible, setIsVisible ] = useState<number[]>([0])
@@ -84,11 +86,17 @@ const Posts = () => {
     setIsVisible([0])
   }
 
+  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const target = e.target as HTMLImageElement
+    setShowModal(true)
+    setCurrentImage('main-images/posts/' + target.id)
+  }
+
   return (
     <>
       {Object.keys(posts).length > 0 ? (
         Object.keys(posts).map((post) => (
-          <div key={post} className={`${isVisible.includes(parseInt(post)) ? '' : 'hidden'} relative text-sm md:text-lg p-4 mb-4 rounded bg-fuchsia-900 bg-opacity-20 border border-2 border-fuchsia-900 border-opacity-50`}>
+          <div key={posts[post].id} className={`${isVisible.includes(parseInt(post)) ? '' : 'hidden'} relative text-sm md:text-lg p-4 mb-4 rounded bg-fuchsia-900 bg-opacity-20 border border-2 border-fuchsia-900 border-opacity-50`}>
             <div className="absolute top-2 right-2 opacity-50">{posts[post].date}</div>
             <h1 className="text-xl md:text-2xl text-start pt-4">{posts[post].title}</h1>
             <p className='text-xs md:text-base pl-4 opacity-60'>{posts[post].header}</p>
@@ -99,13 +107,17 @@ const Posts = () => {
               {postImages?.map((image, index) => {
                 const currentImg = cld.image(image)
                 currentImg.resize(fill().width(250).height(250))
-                const imageName = image.split('/').pop() || 'image'
+                const imageName = image.split('/').pop()
                 if (image.split('/')[2] === posts[post].id) { return (
-                  <div className='w-[100px] h-[100px] bg-slate-900' key={`post-${imageName}-${index}`}>
+                  <div 
+                    className='w-[100px] h-[100px] bg-slate-900 cursor-pointer' 
+                    key={`post-${imageName}-${index}`}
+                    onClick={handleClick}
+                  >
                     <AdvancedImage
                       className="block w-auto h-full max-w-full my-0 rounded mx-auto"
                       cldImg={currentImg}
-                      alt={image}
+                      id={`${posts[post].id}/${imageName}`}
                       plugins={[lazyload({threshold: 1})]}
                     />
                   </div>
