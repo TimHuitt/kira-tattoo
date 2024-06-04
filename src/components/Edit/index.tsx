@@ -46,16 +46,23 @@ const Edit: React.FC<EditProps> = (
     // handle post deletion
     if (data?.split('-').length === 5) {
       if (data) {
+        axios.delete(`api/cloudinary`, {params: {folder: data}})
+          .then(res => {
+            console.info('Images Folder Removed')
+          })
+          .catch(err => {
+            console.error('Error Removing Images Folder', err)
+          })
         axios.delete(`api/content`, {data: {id: data}})
-        .then(res => {
-          if (res.status === 200) {
-            setUpdatePosts(prev => !prev)
-            console.info('Post Deleted')
-          }
-        })
-        .catch(err => {
-          console.error('Error', err)
-        })
+          .then(res => {
+            if (res.status === 200) {
+              setUpdatePosts(prev => !prev)
+              console.info('Post Deleted')
+            }
+          })
+          .catch(err => {
+            console.error('Error Removing Post', err)
+          })
       }
 
     // handle other edit requests

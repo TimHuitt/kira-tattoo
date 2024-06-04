@@ -85,9 +85,17 @@ export async function POST(req: NextRequest, res: NextResponse) {
 export async function DELETE(req: NextRequest, res: NextResponse) {
   try {
     const path = new URL(req.url)
-    const file = path.searchParams.get('file') 
-    const result = await cloudinary.uploader.destroy(file, {invalidate: true})
-    console.log(file, result)
+    const file = path.searchParams.get('file')
+    const folder = path.searchParams.get('folder')
+    let result
+
+    if (folder) {
+      result = await cloudinary.api.delete_resources_by_prefix(`main-images/posts/${folder}`)
+      result = await cloudinary.api.delete_folder(`main-images/posts/${folder}`)
+    } else {
+      result = await cloudinary.uploader.destroy(file, {invalidate: true})
+    }
+
     return new NextResponse(JSON.stringify({ data: result }), { status: 200 })
   } catch (err: any) {
     console.error("Delete Error:", err)
