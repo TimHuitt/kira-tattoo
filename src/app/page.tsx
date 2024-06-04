@@ -12,7 +12,7 @@ import Login from '@/components/Login'
 import Gallery from '@/components/Gallery'
 import Divider from '@/components/Divider'
 import Modal from '@/components/Modal'
-import Page from '@/components/Page'
+import Images from '@/components/Images'
 import Updates from '@/components/Updates'
 import Portfolio from '@/components/Portfolio'
 import Booking from '@/components/Booking'
@@ -173,7 +173,7 @@ const Home = () => {
           <Modal src={currentImage}/>
         }
         { showImages &&
-          <Page folder={`main-images/${currentPage}-featured`}/>
+          <Images folder={`main-images/${currentPage}-featured`}/>
         }
         { showAdmin && (
           <Admin setShowAdmin={setShowAdmin} />

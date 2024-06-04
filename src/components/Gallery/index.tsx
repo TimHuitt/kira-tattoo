@@ -54,7 +54,25 @@ MemoizedImage.displayName = 'MemoizedImage'
 const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay, area }) => {
   const { width } = useScreenContext()
   const { setShowModal, setCurrentImage } = useModalContext()
+  const [ viewConfig, setViewConfig] = useState<number>(1)
   swipeDelay = swipeDelay ? swipeDelay : 1500
+
+  useEffect(() => {
+    console.log(images.length)
+    let slides
+    if (images.length === 2) {
+        slides = 2
+    } else if (images.length === 1) {
+        slides = 1
+    } else if (width > 900) {
+        slides = 3
+    } else if (width > 768) {
+        slides = 2
+    } else {
+        slides = 1
+    }
+    setViewConfig(slides)
+  },[images, width])
 
   const handleClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
     const target = e.target as HTMLImageElement
@@ -70,7 +88,7 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay, area }) => {
           '--swiper-navigation-color': '#A21CAF',
         } as any }
         spaceBetween={10}
-        slidesPerView={width > 900 ? 3 : width > 768 ? 2 : 1}
+        slidesPerView={viewConfig}
         loop={true}
         autoplay={{
           delay: swipeDelay,
@@ -90,22 +108,22 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay, area }) => {
 
         return (
           <SwiperSlide key={`${imageName}-${index}`}>
-            <div className="swiper-slide flex justify-center py-5 cursor-pointer" onClick={handleClick}>
+            <div className="swiper-slide py-5 cursor-pointer" onClick={handleClick}>
               
-              <div className='h-[90%] flex justify-center items-center'>
+              <div className='h-[90%]'>
                 <AdvancedImage
                   className="block w-auto h-full max-w-full my-0 rounded mx-auto"
                   cldImg={currentImg}
                   alt={image}
                   plugins={[lazyload({threshold: 1})]}
                 />
-                <div className="swiper-lazy-preloader">
+                {/* <div className="swiper-lazy-preloader">
                   <CircleLoader
                     // color={color}
                     // cssOverride={override}
                     size={75}
                   />
-                </div>
+                </div> */}
               </div>
               {/* <p className='text-center'>{ imageName }</p> */}
               <Edit element={`remove/${area}`} data={imageName} type={'remove'} />

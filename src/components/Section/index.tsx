@@ -15,7 +15,7 @@ type SectionProps = {
 }
 
 const Section: React.FC<SectionProps> = (props) => {
-  const { setShowPage, setCurrentPage } = useModalContext()
+  const { setShowImages, setCurrentPage } = useModalContext()
   const { updatePortfolio } = useAdminContext()
   const [ images, setImages ] = useState<string[]>([])
   const [ area, setArea ] = useState<string>('')
@@ -42,7 +42,7 @@ const Section: React.FC<SectionProps> = (props) => {
 
   const handleClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
     const target = e.target as HTMLDivElement
-    setShowPage(true)
+    setShowImages(true)
     setCurrentPage(target.id)
   }
 

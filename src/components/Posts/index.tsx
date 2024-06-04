@@ -30,7 +30,7 @@ const Posts = () => {
 
   const [ posts, setPosts ] = useState<Record<string, Post>>({})
   const [ isVisible, setIsVisible ] = useState<number[]>([0])
-  const [ postImages, setPostImages ] = useState<string[]>([])
+  const [ postImages, setPostImages ] = useState<{[key: string]: string}>({})
 
   useEffect(() => {
     const getPosts = async () => {
@@ -49,7 +49,15 @@ const Posts = () => {
     async function fetchImages() {
       axios.get('/api/cloudinary',{params: {path: 'main-images/posts'}})
         .then(res => {
-          const imagesList = res.data.data.map((resource: { public_id: string }) => resource.public_id)
+          // let imagesList = res.data.data.map((resource: { public_id: string }) => resource.public_id)
+
+          let imagesList: {[key: string]: string} = {}
+
+          res.data.data.forEach((path: string) => {
+            const id = path.split('/')[2]
+            imagesList[id] = path
+          })
+
           setPostImages(imagesList);
         })
         .catch(err => {
@@ -58,6 +66,21 @@ const Posts = () => {
     }
     fetchImages()
   },[])
+
+  useEffect(() => {
+    console.log(postImages)
+  },[postImages])
+
+  // const fetchImages = (id: string) => {
+  //   axios.get('/api/cloudinary',{params: {path: 'main-images/posts'}})
+  //     .then(res => {
+  //       const imagesList = res.data.data.map((resource: { public_id: string }) => resource.public_id)
+  //       setPostImages(imagesList);
+  //     })
+  //     .catch(err => {
+  //       console.error('Error Fetching Images', err)
+  //     })
+  // }
 
   const handleMore = () => {
     const showPost = isVisible.length
@@ -84,14 +107,14 @@ const Posts = () => {
               <div className="w-5/6 h-1 rounded border border-1 border-slate-500" />
             </div>
             <div className='w-full flex justify-center gap-5 my-4'>
-              {postImages?.map((image, index) => {
+              {Object.keys(postImages).map((image, index) => {
                 const currentImg = cld.image(image)
                 currentImg.resize(fill().width(250).height(250))
                 const imageName = image.split('/').pop() || 'image'
                 return (
                   <div className='w-[100px] h-[100px] bg-slate-900' key={`post-${imageName}-${index}`}>
                     <AdvancedImage
-                      className="block w-auto h-full max-w-full my-0 rounded mx-auto"
+                      className="block w-auto h-full max-w-full my-0 mx-auto rounded"
                       cldImg={currentImg}
                       alt={image}
                       plugins={[lazyload({threshold: 1})]}

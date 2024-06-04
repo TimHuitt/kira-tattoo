@@ -7,12 +7,12 @@ import { Cloudinary } from '@cloudinary/url-gen/index'
 import { useModalContext } from '../../context/ModalContext'
 import RingLoader from 'react-spinners/RingLoader'
 
-type PageProp = {
+type ImagesProp = {
   folder: string
 }
 
-const Page: React.FC<PageProp> = ({ folder }) => {
-  const { setShowPage } = useModalContext()
+const Images: React.FC<ImagesProp> = ({ folder }) => {
+  const { setShowImages } = useModalContext()
   const [ images, setImages ] = useState<string[]>([])
   const folderRef = useRef<string>(folder)
   const [ loading, setLoading ] = useState(true)
@@ -42,7 +42,7 @@ const Page: React.FC<PageProp> = ({ folder }) => {
 
 
   const handleClick = () => {
-    setShowPage(false)
+    setShowImages(false)
   }  
 
   const handleLoading = () => {
@@ -100,4 +100,4 @@ const Page: React.FC<PageProp> = ({ folder }) => {
   
 }
 
-export default Page
+export default Images
