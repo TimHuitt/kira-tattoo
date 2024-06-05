@@ -21,6 +21,7 @@ import Edit from '@/components/Edit'
 import Admin from '@/components/Admin'
 import Image from 'next/image'
 import { AdvancedImage, lazyload } from '@cloudinary/react'
+import Loading from '@/components/Loading'
 
 interface HeaderData {
   header: string
@@ -44,6 +45,7 @@ const Home = () => {
   const { scrollRef, updatesRef, portfolioRef, bookingRef, contactRef, selected, setSelected } = useScrollContext()
   const [ headerData, setHeaderData ] = useState<HeaderData | null>(null)
   const [imageUrl, setImageUrl] = useState<CloudinaryImage>()
+  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
     const getHeader = async () => {
@@ -65,6 +67,7 @@ const Home = () => {
         const folderPath = new URLSearchParams({path: 'main-images/featured' || 'main-images'}).toString()
         const res = await fetch(`/api/cloudinary?${folderPath}`)
         const data = await res.json()
+        setLoading(false)
         
         if (data) {
           const imagesList = data.data.map((resource: { public_id: string }) => resource.public_id)
@@ -177,6 +180,9 @@ const Home = () => {
         }
         { showAdmin && (
           <Admin setShowAdmin={setShowAdmin} />
+        )}
+        { loading && (
+          <Loading />
         )}
       </div>
     </div>

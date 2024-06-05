@@ -12,9 +12,10 @@ This project is a portfolio website built using Next.js and TypeScript, PostgreS
 
 ## Technologies Used
 
-- **Next.js**: React framework for building server-rendered and static web applications.
-- **TypeScript**: Adds static type definitions to JavaScript, enhancing code quality and developer experience.
-- **Node.js**: JavaScript runtime for building scalable server-side applications.
-- **Axios**: Promise-based HTTP client for making requests to the server.
-- **Cloudinary**: Cloud-based service for image and video management.
-- **PostgreSQL**: Powerful, open-source object-relational database system.
+- **Next.js**
+- **TypeScript**
+- **Node.js**`
+- **Axios**
+- **Cloudinary**
+- **PostgreSQL**
+

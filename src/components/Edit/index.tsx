@@ -80,7 +80,18 @@ const Edit: React.FC<EditProps> = (
       // handle image additions
       if (section !== 'remove') {
         const currentArea = area.charAt(0).toUpperCase() + area.split('/')[0].slice(1)
-        const selection = section === 'add' ? 'Featured Images' : currentArea
+        let selection: string
+        
+        if (section === 'add') {
+          if (area === 'header') {
+            selection = 'Featured Images'
+          } else if (area === 'post') {
+            selection = 'New Post'
+          }
+        } else {
+          selection = currentArea
+        }
+
         setIsImage(image)
         setCurrentSelection(selection)
         setShowAdmin(prev => !prev)

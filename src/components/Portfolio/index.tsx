@@ -13,9 +13,6 @@ export default function Portfolio() {
     <>
       <div className="relative z-30">
         <h1 className="text-4xl text-center pb-10 moto">Portfolio</h1>
-        <p>
-        Sapien, pulvinar nostra integer sociosqu dignissim ultrices tincidunt ad penatibus sed! Mus porttitor felis et.
-        </p>
         <Section 
           id={'tattoo'}
           header={'Tattoos'}

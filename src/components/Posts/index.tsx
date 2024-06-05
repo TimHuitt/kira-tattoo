@@ -36,33 +36,29 @@ const Posts = () => {
 
   useEffect(() => {
     const getPosts = async () => {
-      try {
-        const res = await axios.get('api/content', {params: {table: 'posts'}})
-        setPosts(res.data.reverse())
-      } catch (err) {
-        console.error(err)
-      }
+      axios.get('api/content', {params: {table: 'posts'}})
+        .then(res => {
+          setPosts(res.data.reverse())
+        })
+        .catch(err => {
+          console.error(err)
+        })
+    }
+    const fetchImages = async() => {
+      axios.get('/api/cloudinary',{params: {path: 'main-images/posts'}})
+        .then(res => {
+          let imagesList = res.data.data.map((resource: { public_id: string }) => resource.public_id)
+          setPostImages(imagesList);
+        })
+        .catch(err => {
+          console.error('Error Fetching Images', err)
+        })
     }
     fetchImages()
     getPosts()
     setIsVisible([0])
   },[updatePosts])
 
-  useEffect(() => {
-    fetchImages()
-  },[])
-
-
-  const fetchImages = async() => {
-    axios.get('/api/cloudinary',{params: {path: 'main-images/posts'}})
-      .then(res => {
-        let imagesList = res.data.data.map((resource: { public_id: string }) => resource.public_id)
-        setPostImages(imagesList);
-      })
-      .catch(err => {
-        console.error('Error Fetching Images', err)
-      })
-  }
 
 
   // const fetchImages = (id: string) => {
@@ -109,6 +105,7 @@ const Posts = () => {
             <div className='w-full flex justify-center gap-5 my-4'>
               {postImages?.map((image, index) => {
                 const currentImg = cld.image(image)
+                currentImg.resize(fill().width(250).height(250))
                 const imageName = image.split('/').pop()
                 if (image.split('/')[2] === posts[post].id) { return (
                   <div 
