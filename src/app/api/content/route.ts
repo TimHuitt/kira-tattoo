@@ -26,7 +26,6 @@ export async function GET(req: NextRequest) {
 
 
 export async function PUT(req: NextRequest, res: NextResponse) {
-
   try {
     const body = await req.json()
     const section = body.section
