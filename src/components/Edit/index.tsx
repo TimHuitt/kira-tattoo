@@ -79,8 +79,8 @@ const Edit: React.FC<EditProps> = (
       
       // handle image additions
       if (section !== 'remove') {
-        const currentArea = area.charAt(0).toUpperCase() + area.split('/')[0].slice(1)
         let selection: string
+        const currentArea = area.charAt(0).toUpperCase() + area.split('/')[0].slice(1)
         
         if (section === 'add') {
           if (area === 'header') {
