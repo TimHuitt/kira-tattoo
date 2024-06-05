@@ -58,7 +58,6 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay, area }) => {
   swipeDelay = swipeDelay ? swipeDelay : 1500
 
   useEffect(() => {
-    console.log(images.length)
     let slides
     if (images.length === 2 && width > 900) {
         slides = 2
@@ -76,7 +75,6 @@ const ImageGallery: React.FC<ImageProps> = ({ images, swipeDelay, area }) => {
 
   const handleClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
     const target = e.target as HTMLImageElement
-    console.log(target.alt)
     setShowModal(true)
     setCurrentImage(target.alt)
   }
