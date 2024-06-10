@@ -87,9 +87,9 @@ const Edit: React.FC<EditProps> = (
             selection = 'Featured Images'
           } else if (area === 'post') {
             selection = 'New Post'
-          } else if (area === 'section') {
-            selection = 'Portfolio Images'
           }
+        } else if (area === 'section') {
+          selection = 'Portfolio Images'
         } else {
           selection = currentArea
         }

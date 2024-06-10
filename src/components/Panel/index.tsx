@@ -26,7 +26,7 @@ const Panel: React.FC<PanelProp> = (props) => {
   const [ input, setInput ] = useState<string>(editData?.currentData || '')
   const [ uploadFiles, setUploadFiles ] = useState<File[]>([])
   const [ preset, setPreset ] = useState<string>('')
-  const [ portfolioType, setPortfolioType ] = useState<string>('featured')
+  const [ isFeatured, setIsFeatured ] = useState<boolean>(false)
 
   const panelTitle = editData?.section === 'header' ? 'Updating' : 'Adding'
   const saveType = editData?.area === 'post' ? 'New Post' : 'Changes'
@@ -148,13 +148,13 @@ const Panel: React.FC<PanelProp> = (props) => {
     setShowAdmin(false)
   }
 
-  const handleType = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setPortfolioType(e.target.value)
+  const handleFeatured = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    setIsFeatured(prev => !prev)
   }
 
   useEffect(() => {
-    console.log(portfolioType)
-  },[portfolioType])
+    console.log(isFeatured)
+  },[isFeatured])
 
   return (
     <div className='w-5/6 md:w-2/3 lg:w-1/2 xl:w-1/3 p-4 pt-2 mb-6 rounded border border-4 border-slate-700 bg-slate-800' onClick={handleClick}>
@@ -208,14 +208,16 @@ const Panel: React.FC<PanelProp> = (props) => {
         )}
         { editData?.area === 'section' && (
           <div className='flex flex-col items-center justify-center'>
-            <label htmlFor="content">Display As</label>
-            <select defaultValue={portfolioType} onChange={handleType} className='w-full h-auto mb-4 p-2 rounded bg-slate-900 hover:bg-slate-500 resize-none'>
-              <option value={'featured'}>Featured</option>
-              <option value={'main'}>Main</option>
-              <option value={'main'}>Both</option>
-            </select>
-
-            
+            <div className='flex items-center'>
+              <p>Featured</p>
+              <div 
+                id="featured"
+                onClick={handleFeatured} 
+                className='w-10 h-10 flex items-center justify-center m-8 rounded bg-slate-900 hover:bg-slate-500'
+              > 
+                <p className='text-xl'>{ isFeatured ? 'X' : ''}</p>
+              </div>
+            </div>
             <h1>Select images for upload</h1>
             <Upload setPreset={setPreset} preset={'portfolio'} isMultiple={true} uploadFiles={uploadFiles} setUploadFiles={setUploadFiles} />
           </div>
