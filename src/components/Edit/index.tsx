@@ -40,7 +40,7 @@ const Edit: React.FC<EditProps> = (
   },[])
 
 
-  const handleClick = async(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleClick = async(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation()
 
     // handle post deletion
@@ -87,6 +87,8 @@ const Edit: React.FC<EditProps> = (
             selection = 'Featured Images'
           } else if (area === 'post') {
             selection = 'New Post'
+          } else if (area === 'section') {
+            selection = 'Portfolio Images'
           }
         } else {
           selection = currentArea
@@ -115,20 +117,20 @@ const Edit: React.FC<EditProps> = (
     <>
       { isAdmin && (
         <>
-          <div 
+          <button 
             className={`absolute ${isBottom ? 'bottom-0' : 'top-0'} ${isLeft ? 'left-0' : 'right-0'} m-1 cursor-pointer z-40`}
             onClick={handleClick}
           >
             <Image
               src={type === 'remove' ? "/remove.svg" : type === 'add' ? "/add.svg" : "/edit.svg"}
-              alt="Profile Image"
+              alt={type === 'remove' ? "Edit Button - Remove" : type === 'add' ? "Edit Button - Add" : "Edit Button - Update"}
               style={{
                 objectFit: 'contain',
               }}
               width={size}
               height={size}
             />
-          </div>
+          </button>
         </>
       )}      
     </>

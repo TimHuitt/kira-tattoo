@@ -25,7 +25,7 @@ const Menu: React.FC<MenuProps> = ({ selected, toggleMenu, scrollToLoc }) => {
           <div onClick={() => scrollToLoc(portfolioRef)}>
             <button className={`${selected === 'portfolio' ? 'btn-selected' : ''} py-4`}>Portfolio</button>
           </div>
-          <div onClick={() => scrollToLoc(updatesRef)}>
+          {/* <div onClick={() => scrollToLoc(updatesRef)}>
             <button className="py-2 text-lg opacity-60">Tattoo</button>
           </div>
           <div onClick={() => scrollToLoc(updatesRef)}>
@@ -36,7 +36,7 @@ const Menu: React.FC<MenuProps> = ({ selected, toggleMenu, scrollToLoc }) => {
           </div>
           <div onClick={() => scrollToLoc(updatesRef)}>
             <button className="py-2 text-lg opacity-60">Other</button>
-          </div>
+          </div> */}
           <div onClick={() => scrollToLoc(bookingRef)}>
             <button className={`${selected === 'booking' ? 'btn-selected' : ''} py-4`}>Contact</button>
           </div>

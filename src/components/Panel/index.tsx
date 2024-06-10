@@ -122,6 +122,8 @@ const Panel: React.FC<PanelProp> = (props) => {
         .catch(err => {
           console.error('Error', err)
         })
+      } else if (editData?.area === 'section') {
+        console.log('test')
       }
     }
 

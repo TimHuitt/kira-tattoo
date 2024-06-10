@@ -68,7 +68,7 @@ const Home = () => {
         const res = await fetch(`/api/cloudinary?${folderPath}`)
         const data = await res.json()
         setLoading(false)
-        
+
         if (data) {
           const imagesList = data.data.map((resource: { public_id: string }) => resource.public_id)
           setImages(imagesList);
@@ -186,7 +186,7 @@ const Home = () => {
         )}
       </div>
     </div>
-  );
+  )
 }
 
 export default Home

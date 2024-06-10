@@ -1,4 +1,3 @@
-import Edit from '@/components/Edit'
 import axios from 'axios'
 
 import { useState, useEffect } from 'react'
@@ -10,6 +9,7 @@ import { Cloudinary, CloudinaryImage } from '@cloudinary/url-gen/index'
 import { AdvancedImage, lazyload } from '@cloudinary/react'
 import { fill } from '@cloudinary/url-gen/actions/resize'
 import CircleLoader from 'react-spinners/CircleLoader'
+import Edit from '@/components/Edit'
 
 interface Post {
   date?: string

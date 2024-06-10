@@ -1,10 +1,11 @@
 'use client'
 
-import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { useModalContext } from '../../context/ModalContext'
-import Gallery from '../Gallery'
 import { useAdminContext } from '@/context/AdminContext'
+import Image from 'next/image'
+import Gallery from '../Gallery'
+import Edit from '@/components/Edit'
 
 type SectionProps = {
   id: string,
@@ -47,7 +48,7 @@ const Section: React.FC<SectionProps> = (props) => {
   }
 
   return (
-    <div className='flex flex-col w-full mt-10 p-4 rounded bg-pink-500 bg-opacity-20 border border-2 border-fuchsia-900'>
+    <div className='relative flex flex-col w-full mt-10 p-4 rounded bg-pink-500 bg-opacity-20 border border-2 border-fuchsia-900'>
       <div className='flex flex-col items-start w-full p-2 hover:bg-slate-800 hover:text-lime-300 border border-2 border-fuchsia-800 border-opacity-50 rounded cursor-pointer' onClick={handleClick}>
         <div className='flex justify-between w-full md:full' id={props.id}>
           <h1 className="text-xl md:text-3xl text-start moto">{props.header}</h1>
@@ -64,8 +65,9 @@ const Section: React.FC<SectionProps> = (props) => {
         {/* <small className='w-full md:w-3/5 opacity-50'>{props.description}</small> */}
       </div>
       <div className='max-w-full h-[320px] overflow-hidden'>
-          <Gallery area={area} images={images} swipeDelay={props.swipeDelay}/>
-        </div>
+        <Gallery area={area} images={images} swipeDelay={props.swipeDelay} />
+      </div>
+      <Edit element={'add/section'} type={'add'} isBottom={true} size={30} />
     </div>
   )
 }
