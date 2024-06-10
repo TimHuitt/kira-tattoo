@@ -67,7 +67,7 @@ const Section: React.FC<SectionProps> = (props) => {
       <div className='max-w-full h-[320px] overflow-hidden'>
         <Gallery area={area} images={images} swipeDelay={props.swipeDelay} />
       </div>
-      <Edit element={'add/section'} type={'add'} isBottom={true} size={30} />
+      <Edit element={`${props.header}/section`} type={'add'} isBottom={true} size={30} />
     </div>
   )
 }
