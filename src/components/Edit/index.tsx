@@ -1,3 +1,6 @@
+// Adds edit button to relative container
+// 
+
 
 import { useState, useEffect } from 'react'
 import { useAdminContext } from '@/context/AdminContext'
@@ -67,28 +70,28 @@ const Edit: React.FC<EditProps> = (
 
     // handle other edit requests
     } else {
-      const section = element.split('/')[0]
-      const area = element.split('/')[1]
+      const editType = element.split('/')[0]
+      const editArea = element.split('/')[1]
 
       setEditData({
-        section,
-        area,
+        editType,
+        editArea,
         input: '',
         currentData: data || '',
       })
       
       // handle image additions
-      if (section !== 'remove') {
+      if (editType !== 'remove') {
         let selection: string = ''
-        const currentArea = area.charAt(0).toUpperCase() + area.split('/')[0].slice(1)
+        const currentArea = editArea.charAt(0).toUpperCase() + editArea.split('/')[0].slice(1)
         
-        if (section === 'add') {
-          if (area === 'header') {
+        if (editType === 'add') {
+          if (editArea === 'header') {
             selection = 'Featured Images'
-          } else if (area === 'post') {
+          } else if (editArea === 'post') {
             selection = 'New Post'
           }
-        } else if (area === 'section') {
+        } else if (editArea === 'section') {
           selection = 'Portfolio Images'
         } else {
           selection = currentArea
@@ -100,9 +103,9 @@ const Edit: React.FC<EditProps> = (
       
       // handle image removal
       } else {
-        axios.delete('/api/cloudinary', {params: {file: 'main-images/' + area + '/' + data}})
+        axios.delete('/api/cloudinary', {params: {file: 'main-images/' + editArea + '/' + data}})
           .then(res => {
-            if (area === 'featured') {
+            if (editArea === 'featured') {
               setUpdateFeatured(prev => !prev)
             } else {
               setUpdatePortfolio(prev => !prev)
