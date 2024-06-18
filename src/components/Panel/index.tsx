@@ -28,8 +28,8 @@ const Panel: React.FC<PanelProp> = (props) => {
   const [ preset, setPreset ] = useState<string>('')
   const [ isFeatured, setIsFeatured ] = useState<boolean>(false)
 
-  const panelTitle = editData?.section === 'header' ? 'Updating' : 'Adding'
-  const saveType = editData?.area === 'post' ? 'New Post' : 'Changes'
+  const panelTitle = editData?.editType === 'header' ? 'Updating' : 'Adding'
+  const saveType = editData?.editArea === 'post' ? 'New Post' : 'Changes'
 
   useEffect(() => {
     const today = new Date()
@@ -73,7 +73,7 @@ const Panel: React.FC<PanelProp> = (props) => {
 
   const handleSubmit = () => {
     // edit header items
-    if (editData?.section === 'header' && editData?.area !== 'photo') {
+    if (editData?.editType === 'header' && editData?.editArea !== 'photo') {
       setShowAdmin(false)
       const tempData = {...editData, input}
 
@@ -88,7 +88,7 @@ const Panel: React.FC<PanelProp> = (props) => {
         })
 
     // add images
-    } else if (editData?.section !== 'remove') {
+    } else if (editData?.editType !== 'remove') {
       if (uploadFiles) {
         Array.from(uploadFiles).forEach((file: File) => {
           const reader = new FileReader()
@@ -110,9 +110,9 @@ const Panel: React.FC<PanelProp> = (props) => {
       }
     }
     
-    if (editData?.section === 'add') {
+    if (editData?.editType === 'add') {
       // add posts
-      if (editData?.area === 'post') {
+      if (editData?.editArea === 'post') {
         axios.post(`api/content`, postInput)
         .then(res => {
           if (res.status === 200) {
@@ -123,7 +123,7 @@ const Panel: React.FC<PanelProp> = (props) => {
         .catch(err => {
           console.error('Error', err)
         })
-      } else if (editData?.area === 'section') {
+      } else if (editData?.editArea === 'section') {
         console.log('test')
       }
     }
@@ -152,10 +152,6 @@ const Panel: React.FC<PanelProp> = (props) => {
     setIsFeatured(prev => !prev)
   }
 
-  useEffect(() => {
-    console.log(isFeatured)
-  },[isFeatured])
-
   return (
     <div className='w-5/6 md:w-2/3 lg:w-1/2 xl:w-1/3 p-4 pt-2 mb-6 rounded border border-4 border-slate-700 bg-slate-800' onClick={handleClick}>
         <div className='w-full'>
@@ -165,19 +161,19 @@ const Panel: React.FC<PanelProp> = (props) => {
         <div className="w-full flex justify-center my-4">
           <div className="w-5/6 h-1 rounded border border-1 border-slate-500" />
         </div>
-        { editData?.area === 'photo' && (
+        { editData?.editArea === 'photo' && (
           <div className="w-full flex flex-col items-center justify-center">
             <h1>Select a new profile image</h1>
             <Upload setPreset={setPreset} preset={'profile'} uploadFiles={uploadFiles} setUploadFiles={setUploadFiles} />
           </div>
         )}
-        { editData?.section === 'add' && editData?.area === 'featured' && (
+        { editData?.editType === 'add' && editData?.editArea === 'featured' && (
           <div className="w-full flex flex-col items-center justify-center">
             <h1>Select images for upload</h1>
             <Upload setPreset={setPreset} preset={'featured'} isMultiple={true} uploadFiles={uploadFiles} setUploadFiles={setUploadFiles}  />
           </div>
         )}
-        { editData?.section === 'header' && editData?.area !== 'photo' && editData?.area !== 'images' && (
+        { editData?.editType === 'header' && editData?.editArea !== 'photo' && editData?.editArea !== 'images' && (
           <div className='flex justify-center items-center w-full py-4'>
             {/* <h2 className="text-xl mr-4">Caption</h2> */}
             <input 
@@ -190,7 +186,7 @@ const Panel: React.FC<PanelProp> = (props) => {
             />
           </div>
         )}
-        { editData?.area === 'post' && (
+        { editData?.editArea === 'post' && (
           <div className='flex flex-col items-center justify-center'>
             
             <label htmlFor="title">Title</label>
@@ -206,7 +202,7 @@ const Panel: React.FC<PanelProp> = (props) => {
             <Upload setPreset={setPreset} preset={'posts'} isMultiple={true} uploadFiles={uploadFiles} setUploadFiles={setUploadFiles} />
           </div>
         )}
-        { editData?.area === 'section' && (
+        { editData?.editArea === 'section' && (
           <div className='flex flex-col items-center justify-center'>
             <div className='flex items-center'>
               <p>Featured</p>
