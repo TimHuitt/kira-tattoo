@@ -18,6 +18,7 @@ import Portfolio from '@/components/Portfolio'
 import Booking from '@/components/Booking'
 import Contact from '@/components/Contact'
 import Edit from '@/components/Edit'
+import Notify from '@/components/Notify'
 import Admin from '@/components/Admin'
 import Image from 'next/image'
 import { AdvancedImage, lazyload } from '@cloudinary/react'
@@ -184,6 +185,9 @@ const Home = () => {
         { loading && (
           <Loading />
         )}
+
+        <Notify />
+
       </div>
     </div>
   )
