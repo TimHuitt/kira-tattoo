@@ -186,7 +186,7 @@ const Home = () => {
           <Loading />
         )}
 
-        <Notify message={'testing'} status={'123'} />
+        <Notify message={'Message Sent!'} status={'failure'} />
 
       </div>
     </div>

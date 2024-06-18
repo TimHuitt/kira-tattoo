@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import Image from 'next/image'
 
 interface NotifyTypes {
   message: string
@@ -7,14 +8,21 @@ interface NotifyTypes {
 
 const Notify: React.FC<NotifyTypes> = ({ message, status }) => {
 
-  useEffect(() => {
-    console.log(message, status)
-  },[message, status])
-
+  const Status = () => (
+    <div className="">
+      <Image
+        src={`${status}.svg`}
+        alt={`${status} icon`}
+        width={25}
+        height={25}
+      />
+    </div>  
+  )
 
   return (
-    <div className='fixed bottom-4 left-1/2 -translate-x-1/2 py-2 px-4 bg-slate-900 border-4 border-lime-400 rounded-xl z-[100]'>
-      <p>{message} {status}</p>
+    <div className='fixed flex gap-2 items-center bottom-4 left-1/2 -translate-x-1/2 py-2 px-4 bg-slate-900 border-4 border-lime-400 rounded-xl z-[100]'>
+      <div>{<Status />}</div>
+      <div>{message}</div>
     </div>
   )
 }
