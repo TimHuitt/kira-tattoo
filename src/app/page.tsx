@@ -185,7 +185,7 @@ const Home = () => {
           <Admin setShowAdmin={setShowAdmin} />
         )}
         { showNotify && (
-          <Notify message={'Message Sent!'} status={'success'} timer={2000} />
+          <Notify message={'Message Sent!'} status={'success'} />
         )}
         { loading && (
           <Loading />

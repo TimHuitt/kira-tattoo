@@ -1,22 +1,11 @@
-import { useEffect, useState } from "react"
 import Image from 'next/image'
-
-import { useNotifyContext } from '@/context/NotifyContext'
 
 interface NotifyTypes {
   message: string
   status: string
-  timer: number
 }
 
-const Notify: React.FC<NotifyTypes> = ({ message, status, timer }) => {
-  const { setShowNotify } = useNotifyContext()
-
-  useEffect(() => {
-    setTimeout(() => {
-      setShowNotify(false)
-    }, timer)
-  },[setShowNotify, timer])
+const Notify: React.FC<NotifyTypes> = ({ message, status }) => {
 
   const Status = () => (
     <div className="">
