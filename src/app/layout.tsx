@@ -4,8 +4,9 @@ import { ScreenProvider } from '@/context/ScreenContext';
 import { ModalProvider } from '@/context/ModalContext';
 import { ScrollProvider } from '@/context/ScrollContext'
 import { AdminProvider } from "@/context/AdminContext";
-import Header from '../components/Header'
+import { NotifyProvider } from "@/context/NotifyContext";
 
+import Header from '../components/Header'
 import "./globals.css";
 import 'react-tooltip/dist/react-tooltip.css'
 
@@ -26,17 +27,18 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" className="overflow-hidden">
       <body className={`${comfortaa.className} overflow-hidden`}>
         <ScrollProvider>
+        <NotifyProvider>
         <ModalProvider>
         <ScreenProvider>
         <AdminProvider>
           <Header />
           <main className="fixed w-full h-full flex items-center mx-auto overflow-hidden z-10">
             {children}
-            <div className='h-10 ' />
           </main>
         </AdminProvider>
         </ScreenProvider>
         </ModalProvider>
+        </NotifyProvider>
         </ScrollProvider>
       </body>
     </html>

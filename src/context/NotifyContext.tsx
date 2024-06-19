@@ -3,24 +3,27 @@
 import { createContext, useContext, useState, useRef, useMemo, Dispatch, SetStateAction } from 'react'
 
 interface NotifyContextType {
-  showNotify: string
-  setNotify: Dispatch<SetStateAction<string>>
+  showNotify: boolean
+  setShowNotify: Dispatch<SetStateAction<boolean>>
   messageRef: React.RefObject<HTMLDivElement>
   statusRef: React.RefObject<HTMLDivElement>
+  timerRef: React.RefObject<HTMLDivElement>
 }
  
 export const NotifyContext = createContext<NotifyContextType | null>(null)
  
-export const ScrollProvider = ({ children }: { children: React.ReactNode }) => {
-  const [ showNotify, setNotify ] = useState<string>('')
+export const NotifyProvider = ({ children }: { children: React.ReactNode }) => {
+  const [ showNotify, setShowNotify ] = useState<boolean>(false)
   const messageRef = useRef<HTMLDivElement>(null)
   const statusRef = useRef<HTMLDivElement>(null)
+  const timerRef = useRef<HTMLDivElement>(null)
 
   const value = useMemo(() => ({
     showNotify,
-    setNotify,
+    setShowNotify,
     messageRef,
-    statusRef
+    statusRef,
+    timerRef
   }),[showNotify])
 
   return <NotifyContext.Provider value={value}>{children}</NotifyContext.Provider>

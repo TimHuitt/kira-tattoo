@@ -5,6 +5,7 @@ import { useModalContext } from '@/context/ModalContext'
 import { useScrollContext } from '@/context/ScrollContext'
 import { useScreenContext } from '@/context/ScreenContext'
 import { useAdminContext } from '@/context/AdminContext'
+import { useNotifyContext } from '@/context/NotifyContext'
 import { Cloudinary, CloudinaryImage } from '@cloudinary/url-gen/index'
 import axios from 'axios'
 
@@ -43,6 +44,7 @@ const Home = () => {
   const { width } = useScreenContext()
   const { showAdmin, setShowAdmin, processed, setProcessed, imageKey, updateFeatured } = useAdminContext()
   const { showModal, currentImage, showImages, currentPage } = useModalContext()
+  const { showNotify } = useNotifyContext()
   const { scrollRef, updatesRef, portfolioRef, bookingRef, contactRef, selected, setSelected } = useScrollContext()
   const [ headerData, setHeaderData ] = useState<HeaderData | null>(null)
   const [imageUrl, setImageUrl] = useState<CloudinaryImage>()
@@ -182,11 +184,12 @@ const Home = () => {
         { showAdmin && (
           <Admin setShowAdmin={setShowAdmin} />
         )}
+        { showNotify && (
+          <Notify message={'Message Sent!'} status={'success'} timer={2000} />
+        )}
         { loading && (
           <Loading />
         )}
-
-        <Notify message={'Message Sent!'} status={'failure'} />
 
       </div>
     </div>
