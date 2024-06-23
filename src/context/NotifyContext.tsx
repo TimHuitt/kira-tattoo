@@ -5,23 +5,32 @@ import { createContext, useContext, useState, useRef, useMemo, Dispatch, SetStat
 interface NotifyContextType {
   showNotify: boolean
   setShowNotify: Dispatch<SetStateAction<boolean>>
-  messageRef: React.RefObject<HTMLDivElement>
-  statusRef: React.RefObject<HTMLDivElement>
+  message: string
+  setMessage: Dispatch<SetStateAction<string>>
+  status: boolean
+  setStatus: Dispatch<SetStateAction<boolean>>
 }
  
 export const NotifyContext = createContext<NotifyContextType | null>(null)
  
 export const NotifyProvider = ({ children }: { children: React.ReactNode }) => {
   const [ showNotify, setShowNotify ] = useState<boolean>(false)
-  const messageRef = useRef<HTMLDivElement>(null)
-  const statusRef = useRef<HTMLDivElement>(null)
+  const [ message, setMessage ] = useState<string>('')
+  const [ status, setStatus ] = useState<boolean>(false)
+  
+  const activateNotify = (message: string, status: string) => {
+    console.log(message, status)
+  }
 
   const value = useMemo(() => ({
     showNotify,
     setShowNotify,
-    messageRef,
-    statusRef,
-  }),[showNotify])
+    message,
+    setMessage,
+    status,
+    setStatus,
+    activateNotify,
+  }),[message, showNotify, status])
 
   return <NotifyContext.Provider value={value}>{children}</NotifyContext.Provider>
 }
