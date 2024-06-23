@@ -44,7 +44,7 @@ const Home = () => {
   const { width } = useScreenContext()
   const { showAdmin, setShowAdmin, processed, setProcessed, imageKey, updateFeatured } = useAdminContext()
   const { showModal, currentImage, showImages, currentPage } = useModalContext()
-  const { showNotify, messageRef, statusRef } = useNotifyContext()
+  const { showNotify, message, status } = useNotifyContext()
   const { scrollRef, updatesRef, portfolioRef, bookingRef, contactRef, selected, setSelected } = useScrollContext()
   const [ headerData, setHeaderData ] = useState<HeaderData | null>(null)
   const [imageUrl, setImageUrl] = useState<CloudinaryImage>()
@@ -185,7 +185,7 @@ const Home = () => {
           <Admin setShowAdmin={setShowAdmin} />
         )}
         { showNotify && (
-          <Notify message={messageRef.current || ''} status={statusRef.current || ''} />
+          <Notify message={message} status={status} />
         )}
         { loading && (
           <Loading />

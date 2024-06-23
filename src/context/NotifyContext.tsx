@@ -1,6 +1,6 @@
 'use client'
  
-import { createContext, useContext, useState, useRef, useMemo, Dispatch, SetStateAction } from 'react'
+import { createContext, useContext, useState, useRef, useMemo, Dispatch, SetStateAction, useEffect } from 'react'
 
 interface NotifyContextType {
   showNotify: boolean
@@ -9,6 +9,7 @@ interface NotifyContextType {
   setMessage: Dispatch<SetStateAction<string>>
   status: boolean
   setStatus: Dispatch<SetStateAction<boolean>>
+  activateNotify: any
 }
  
 export const NotifyContext = createContext<NotifyContextType | null>(null)
@@ -17,10 +18,26 @@ export const NotifyProvider = ({ children }: { children: React.ReactNode }) => {
   const [ showNotify, setShowNotify ] = useState<boolean>(false)
   const [ message, setMessage ] = useState<string>('')
   const [ status, setStatus ] = useState<boolean>(false)
+  const [ timer, setTimer ] = useState<number>(0)
   
-  const activateNotify = (message: string, status: string) => {
+  const activateNotify = (message: string, status: boolean, timer?: number) => {
     console.log(message, status)
+    setMessage(message)
+    setStatus(status)
+
+    if (timer) {
+      setTimer(timer)
+    } else {
+      setTimer(3000)
+    }
+    
+    setShowNotify(true)
   }
+  useEffect(() => {
+    setTimeout(() => {
+      setShowNotify(false)
+    },timer > 100 ? timer : 3000)
+  },[timer])
 
   const value = useMemo(() => ({
     showNotify,

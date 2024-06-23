@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { useEffect, useState } from 'react'
 import { useAdminContext } from '@/context/AdminContext'
 import Upload from '@/components/Upload'
+import { useNotifyContext } from '@/context/NotifyContext'
 
 type PanelProp = {
   header: string,
@@ -22,6 +23,7 @@ interface PostTypes {
 
 const Panel: React.FC<PanelProp> = (props) => {
   const { currentSelection, setShowAdmin, editData, setProcessed, setImageKey, setUpdateFeatured, setUpdatePosts } = useAdminContext()
+  const { activateNotify } = useNotifyContext()
   const [ postInput, setPostInput ] = useState<PostTypes>()
   const [ input, setInput ] = useState<string>(editData?.currentData || '')
   const [ uploadFiles, setUploadFiles ] = useState<File[]>([])
@@ -118,10 +120,12 @@ const Panel: React.FC<PanelProp> = (props) => {
           if (res.status === 200) {
             setUpdatePosts(prev => !prev)
             console.info('Post Added')
+            activateNotify('Post Added!', true)
           }
         })
         .catch(err => {
           console.error('Error', err)
+          activateNotify('Failed to add post...', false)
         })
       } else if (editData?.editArea === 'section') {
         console.log('test')

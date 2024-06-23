@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 import {  signIn, signOut } from "next-auth/react"
 import { getSession } from "next-auth/react";
-import { useNotifyContext } from '@/context/NotifyContext'
 
 const Login = () => {
   const [ session, setSession ] = useState(null)
-  const { setShowNotify } = useNotifyContext()
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -18,7 +16,6 @@ const Login = () => {
 
   const handleSignOut = () => {
     signOut()
-    setShowNotify(true)
   }
   
 

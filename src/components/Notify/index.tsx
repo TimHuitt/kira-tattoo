@@ -2,16 +2,18 @@ import Image from 'next/image'
 
 interface NotifyTypes {
   message: string
-  status: string
+  status: boolean
 }
 
+// status: 'success'/'failure'
 const Notify: React.FC<NotifyTypes> = ({ message, status }) => {
+  const image = status ? 'success' : 'failure'
 
   const Status = () => (
     <div className="">
       <Image
-        src={`${status}.svg`}
-        alt={`${status} icon`}
+        src={`${image}.svg`}
+        alt={`${image} icon`}
         width={25}
         height={25}
       />
